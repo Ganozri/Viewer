@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Peleng.Gorgona.Analyze1553B
+namespace Peleng.Medusa.Analyze1553B
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

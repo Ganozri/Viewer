@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Peleng.Gorgona.Analyze1553B.Common.Tests
+namespace Peleng.Medusa.Analyze1553B.Common.Tests
 {
     [TestClass]
     public class WordsTest

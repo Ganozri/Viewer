@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Peleng.Gorgona.Analyze1553B.Properties
+namespace Peleng.Medusa.Analyze1553B.Properties
 {
 
 

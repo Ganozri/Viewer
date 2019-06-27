@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Peleng.Gorgona.Analyze1553B.Common</RootNamespace>
+    <RootNamespace>Peleng.Medusa.Analyze1553B.Common</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

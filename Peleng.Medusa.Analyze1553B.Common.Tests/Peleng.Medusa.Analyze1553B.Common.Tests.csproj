@@ -8,8 +8,8 @@
     <ProjectGuid>{A2D92266-B35D-4F8C-A75A-0CAFAE824EBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Peleng.Gorgona.Analyze1553B.Common.Tests</RootNamespace>
-    <AssemblyName>Peleng.Gorgona.Analyze1553B.Common.Tests</AssemblyName>
+    <RootNamespace>Peleng.Medusa.Analyze1553B.Common.Tests</RootNamespace>
+    <AssemblyName>Peleng.Medusa.Analyze1553B.Common.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Peleng.Gorgona.Analyze1553B.Common\Peleng.Gorgona.Analyze1553B.Common.csproj">
+    <ProjectReference Include="..\Peleng.Medusa.Analyze1553B.Common\Peleng.Medusa.Analyze1553B.Common.csproj">
       <Project>{a714ab92-90c7-4b3e-8119-afc5fec927ab}</Project>
-      <Name>Peleng.Gorgona.Analyze1553B.Common</Name>
+      <Name>Peleng.Medusa.Analyze1553B.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

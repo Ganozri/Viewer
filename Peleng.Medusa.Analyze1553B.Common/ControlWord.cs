@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Peleng.Medusa.Common.Checkers;
 
-namespace Peleng.Gorgona.Analyze1553B.Common
+namespace Peleng.Medusa.Analyze1553B.Common
 {
     public struct ControlWord
     {

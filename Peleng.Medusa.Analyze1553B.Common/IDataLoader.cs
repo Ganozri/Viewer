@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Peleng.Gorgona.Analyze1553B.Common
+namespace Peleng.Medusa.Analyze1553B.Common
 {
     public interface IDataLoader
     {

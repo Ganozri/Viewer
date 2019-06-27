@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Peleng.Gorgona.Analyze1553B.Properties
+namespace Peleng.Medusa.Analyze1553B.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace Peleng.Gorgona.Analyze1553B.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Peleng.Gorgona.Analyze1553B.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Peleng.Medusa.Analyze1553B.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

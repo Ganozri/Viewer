@@ -1,7 +1,7 @@
-﻿<Application x:Class="Peleng.Gorgona.Analyze1553B.App"
+﻿<Application x:Class="Peleng.Medusa.Analyze1553B.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Peleng.Gorgona.Analyze1553B"
+             xmlns:local="clr-namespace:Peleng.Medusa.Analyze1553B"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

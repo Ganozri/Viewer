@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Peleng.Gorgona.Analyze1553B.Common
+namespace Peleng.Medusa.Analyze1553B.Common
 {
     [Flags]
     public enum Error

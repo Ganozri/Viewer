@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peleng.Gorgona.Analyze553B", "Peleng.Gorgona.Analyze1553B\Peleng.Gorgona.Analyze553B.csproj", "{9ADACDAB-1E2B-41EC-8D68-04BEB7FBC72A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peleng.Medusa.Analyze1553B", "Peleng.Medusa.Analyze1553B\Peleng.Medusa.Analyze1553B.csproj", "{9ADACDAB-1E2B-41EC-8D68-04BEB7FBC72A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peleng.Gorgona.Analyze1553B.Common", "Peleng.Gorgona.Analyze1553B.Common\Peleng.Gorgona.Analyze1553B.Common.csproj", "{A714AB92-90C7-4B3E-8119-AFC5FEC927AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peleng.Medusa.Analyze1553B.Common", "Peleng.Medusa.Analyze1553B.Common\Peleng.Medusa.Analyze1553B.Common.csproj", "{A714AB92-90C7-4B3E-8119-AFC5FEC927AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peleng.Gorgona.Analyze1553B.Common.Tests", "Peleng.Gorgona.Analyze1553B.Common.Tests\Peleng.Gorgona.Analyze1553B.Common.Tests.csproj", "{A2D92266-B35D-4F8C-A75A-0CAFAE824EBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peleng.Medusa.Analyze1553B.Common.Tests", "Peleng.Medusa.Analyze1553B.Common.Tests\Peleng.Medusa.Analyze1553B.Common.Tests.csproj", "{A2D92266-B35D-4F8C-A75A-0CAFAE824EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

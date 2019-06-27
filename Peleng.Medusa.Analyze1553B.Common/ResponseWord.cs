@@ -1,7 +1,7 @@
 ﻿using System;
 using Peleng.Medusa.Common.Checkers;
 
-namespace Peleng.Gorgona.Analyze1553B.Common
+namespace Peleng.Medusa.Analyze1553B.Common
 {
     public struct ResponseWord
     {

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9ADACDAB-1E2B-41EC-8D68-04BEB7FBC72A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Peleng.Gorgona.PP1553B</RootNamespace>
-    <AssemblyName>Peleng.Gorgona.PP1553B</AssemblyName>
+    <RootNamespace>Peleng.Medusa.Analyze1553B</RootNamespace>
+    <AssemblyName>Peleng.Medusa.Analyze1553B</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -95,9 +95,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Peleng.Gorgona.Analyze1553B.Common\Peleng.Gorgona.Analyze1553B.Common.csproj">
+    <ProjectReference Include="..\Peleng.Medusa.Analyze1553B.Common\Peleng.Medusa.Analyze1553B.Common.csproj">
       <Project>{a714ab92-90c7-4b3e-8119-afc5fec927ab}</Project>
-      <Name>Peleng.Gorgona.Analyze1553B.Common</Name>
+      <Name>Peleng.Medusa.Analyze1553B.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

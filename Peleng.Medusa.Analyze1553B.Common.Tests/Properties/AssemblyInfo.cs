@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Peleng.Gorgona.Analyze1553B.Common.Tests")]
+[assembly: AssemblyTitle("Peleng.Medusa.Analyze1553B.Common.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Peleng.Gorgona.Analyze1553B.Common.Tests")]
+[assembly: AssemblyProduct("Peleng.Medusa.Analyze1553B.Common.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
