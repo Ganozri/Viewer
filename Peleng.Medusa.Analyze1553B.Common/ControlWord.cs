@@ -41,10 +41,16 @@ namespace Peleng.Medusa.Analyze1553B.Common
             Value = BuildCommand(address, direction, subaddress, length == 32 ? 0 : 1).Value;
         }
 
-        public ControlWord(int address, DataDirection direction, int code, CommandSubaddress subaddress = CommandSubaddress.Ones)
+        public ControlWord(int address, DataDirection direction, CommandCode.Raw code, CommandSubaddress subaddress = CommandSubaddress.Ones)
         {
-            Value = BuildCommand(address, direction, (int)subaddress, code).Value;
+            Value = BuildCommand(address, direction, (int)subaddress, (int)code).Value;
         }
+
+        public ControlWord(int address, CommandCode.WithDirection codeWithDirection, CommandSubaddress subaddress = CommandSubaddress.Ones)
+        {
+            Value = BuildCommand(address, (int)subaddress, (int)codeWithDirection).Value;
+        }
+
 
         public static ControlWord BuildCommand(int address, DataDirection direction, int subaddress, int lengthOrCode)
         {
@@ -53,6 +59,16 @@ namespace Peleng.Medusa.Analyze1553B.Common
             lengthOrCode.CheckMask(0x1F, nameof(lengthOrCode));
 
             return new ControlWord((ushort) ((address << 11) | ((int) direction << 10) | (subaddress << 5) | lengthOrCode));
+        }
+
+
+        private static ControlWord BuildCommand(int address, int subaddress, int codeWithDirection)
+        {
+            address.CheckMask(0x1F, nameof(address));
+            subaddress.CheckList(nameof(subaddress), 0, 0x1F);
+            codeWithDirection.CheckMask(0x41F, nameof(codeWithDirection));
+
+            return new ControlWord((ushort)((address << 11) | (subaddress << 5) | codeWithDirection));
         }
     }
 

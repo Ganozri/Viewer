@@ -56,7 +56,13 @@ namespace Peleng.Medusa.Analyze1553B.Common.Tests
         [TestMethod]
         public void Commands()
         {
-            Assert.Fail("Not implemented");
+            var cw1 = new ControlWord(0b11111, DataDirection.RtReceives, CommandCode.Raw.SynchronizeWithDataWord, CommandSubaddress.Ones);
+            Assert.AreEqual(0b11111_0_11111_10001, cw1.Value);
+            Assert.AreEqual(CommandCode.Raw.SynchronizeWithDataWord, cw1.CommandCode);
+
+            var cw2 = new ControlWord(0b01010, CommandCode.WithDirection.TransmitBuiltInTestWord, CommandSubaddress.Zero);
+            Assert.AreEqual(0b01010_1_00000_10011, cw2.Value);
+            Assert.AreEqual(CommandCode.Raw.TransmitBuiltInTestWord, cw2.CommandCode);
         }
 
         [TestMethod]
