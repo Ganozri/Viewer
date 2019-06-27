@@ -20,6 +20,9 @@ PelengCI([
             mstest: [ target: ["Peleng.Medusa.Analyze1553B.Common.Tests.dll"] ],
         ]
     ],
+    documentation : [
+        doxygen : []
+    ],
     reports : [
         pvs : [],
     ],
