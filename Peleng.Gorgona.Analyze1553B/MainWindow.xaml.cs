@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Peleng.Gorgona.PP1553B
+namespace Peleng.Gorgona.Analyze1553B
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml

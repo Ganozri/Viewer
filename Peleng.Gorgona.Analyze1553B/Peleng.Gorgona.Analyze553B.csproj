@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Peleng.Gorgona.Analyze1553B.Common\Peleng.Gorgona.Analyze1553B.Common.csproj">
+      <Project>{a714ab92-90c7-4b3e-8119-afc5fec927ab}</Project>
+      <Name>Peleng.Gorgona.Analyze1553B.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
