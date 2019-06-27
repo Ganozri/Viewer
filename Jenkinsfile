@@ -1,32 +1,26 @@
 @Library('jp') _
 
+def projectName = 'Peleng.Medusa.Analyze1553B'
+def ssh_url = 'ssh://git@192.168.0.16/kpkv2/kpkv2-user/medusa-apps-analyze1553b.git'
+
 PelengCI([
-    name : "Peleng.Medusa.Common.Checkers",
+    name : projectName,
     repo : [
-        url : "ssh://git@192.168.0.16:2222/kpkv2/kpkv2-user/medusa-common-checkers.git",
+        url : ssh_url,
     ],
     tools : [
         msbuild : [
-            nuget: [
+            nuget : [
                 restore : true,
                 update : true
             ],
-            properties :[
+            properties : [
                 PlatformToolset : "v141"
             ],
-            mstest: [ target: ["Medusa.Common.Checkers.Tests-Core.dll"] ],
-         ]
-    ],
-    documentation : [
-        doxygen : []
+            mstest: [ target: ["Peleng.Medusa.Analyze1553B.Common.Tests.dll"] ],
+        ]
     ],
     reports : [
-	pvs : [
-            redmineURL : "kpkv2-user/repository/medusa-common-checkers"
-        ],
+        pvs : [],
     ],
-    artifacts : [
-        nuget : []
-    ]
 ])
-
