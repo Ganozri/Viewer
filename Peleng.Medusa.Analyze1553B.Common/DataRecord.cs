@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Peleng.Medusa.Common.Checkers;
 
 namespace Peleng.Medusa.Analyze1553B.Common
@@ -16,25 +14,25 @@ namespace Peleng.Medusa.Analyze1553B.Common
 
         public Error Error { get; internal set; }
 
-        public ControlWord CW1 { get; internal set; }
+        public ControlWord Cw1 { get; internal set; }
 
-        public ControlWord? CW2 { get; internal set; }
+        public ControlWord? Cw2 { get; internal set; }
 
-        public ResponseWord? RW1 { get; internal set; }
+        public ResponseWord? Rw1 { get; internal set; }
 
-        public ResponseWord? RW2 { get; internal set; }
+        public ResponseWord? Rw2 { get; internal set; }
 
         public ushort[] Data { get; internal set; }
 
         public ushort? WordAt(int pos)
         {
-            return (Data != null && Data.Length > pos) ? Data[pos] : default(ushort?);
+            return (Data != null && pos < Data.Length) ? Data[pos] : default(ushort?);
         }
     }
 
-    public sealed class DataRecordBuilder
+    public struct DataRecordBuilder
     { 
-        private readonly DataRecord record = new DataRecord();
+        private readonly DataRecord record;
 
         public DataRecordBuilder(
             long? index = null, 
@@ -48,6 +46,7 @@ namespace Peleng.Medusa.Analyze1553B.Common
             ushort[] data = null
             )
         {
+            record = new DataRecord();
 
             if (index != null) record.Index = index.Value;
 
@@ -57,13 +56,13 @@ namespace Peleng.Medusa.Analyze1553B.Common
 
             if (error != null) record.Error = error.Value;
 
-            if (cw1 != null) record.CW1 = cw1.Value;
+            if (cw1 != null) record.Cw1 = cw1.Value;
 
-            if (cw2 != null) record.CW2 = cw2.Value;
+            if (cw2 != null) record.Cw2 = cw2.Value;
 
-            if (rw1 != null) record.RW1 = rw1.Value;
+            if (rw1 != null) record.Rw1 = rw1.Value;
 
-            if (rw2 != null) record.RW2 = rw2.Value;
+            if (rw2 != null) record.Rw2 = rw2.Value;
 
             if (data != null)
             {
@@ -95,34 +94,41 @@ namespace Peleng.Medusa.Analyze1553B.Common
             return this;
         }
 
-        public DataRecordBuilder CW1(ControlWord cw1)
+        public DataRecordBuilder Cw1(ControlWord cw1)
         {
-            record.CW1 = cw1;
+            record.Cw1 = cw1;
             return this;
         }
 
-        public DataRecordBuilder CW2(ControlWord cw2)
+        public DataRecordBuilder Cw2(ControlWord cw2)
         {
-            record.CW2 = cw2;
+            record.Cw2 = cw2;
             return this;
         }
 
-        public DataRecordBuilder RW1(ResponseWord rw1)
+        public DataRecordBuilder Rw1(ResponseWord rw1)
         {
-            record.RW1 = rw1;
+            record.Rw1 = rw1;
             return this;
         }
 
-        public DataRecordBuilder RW2(ResponseWord rw2)
+        public DataRecordBuilder Rw2(ResponseWord rw2)
         {
-            record.RW2 = rw2;
+            record.Rw2 = rw2;
             return this;
         }
 
-        public DataRecordBuilder Data(ushort[] data)
+        public DataRecordBuilder Data(ushort dataWord)
         {
-            data.Length.CheckRange(1, 32, nameof(data));
-            record.Data = data.ToArray(); // make a copy
+            record.Data = new[] {dataWord};
+            return this;
+        }
+
+        public DataRecordBuilder Data(IEnumerable<ushort> data)
+        {
+            var temp = data.ToArray(); // make a copy
+            temp.Length.CheckRange(1, 32, nameof(data));
+            record.Data = temp;
             return this;
         }
 

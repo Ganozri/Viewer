@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace Peleng.Medusa.Analyze1553B.Common
@@ -10,6 +9,6 @@ namespace Peleng.Medusa.Analyze1553B.Common
 
         string Name { get; }
 
-        IReadOnlyList<string> FileExtensions { get; }
+        IDictionary<string, string> FileExtensions { get; }
     }
 }

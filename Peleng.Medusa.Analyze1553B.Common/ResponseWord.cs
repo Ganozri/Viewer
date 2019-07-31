@@ -1,5 +1,4 @@
-﻿using System;
-using Peleng.Medusa.Common.Checkers;
+﻿using Peleng.Medusa.Common.Checkers;
 
 namespace Peleng.Medusa.Analyze1553B.Common
 {

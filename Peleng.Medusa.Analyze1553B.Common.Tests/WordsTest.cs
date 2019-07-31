@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Peleng.Medusa.Analyze1553B.Common.Tests
 {
@@ -73,9 +74,15 @@ namespace Peleng.Medusa.Analyze1553B.Common.Tests
             Assert.AreEqual(1, rsp.Flags);
 
             var rsp2 = new ResponseWord(0b10011_10000000000);
-            Assert.AreEqual(0b10011, rsp.Address);
-            Assert.AreNotEqual(0, rsp.Flags);
+            Assert.AreEqual(0b10011, rsp2.Address);
+            Assert.AreNotEqual(0, rsp2.Flags);
+        }
 
+        [TestMethod]
+        public void CheckNotACommand()
+        {
+            var cw = new ControlWord(1, DataDirection.RtReceives, 1, 5);
+            Assert.ThrowsException<InvalidOperationException>(() => cw.CommandCode);
         }
     }
 }

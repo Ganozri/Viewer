@@ -18,11 +18,16 @@ namespace Peleng.Medusa.Analyze1553B
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        public MainWindow()
+        private readonly IMainWindowViewModel viewModel;
+
+        public MainWindow(IMainWindowViewModel viewModel)
         {
+            this.viewModel = viewModel;
             InitializeComponent();
+
+            this.DataContext = viewModel;
         }
     }
 }

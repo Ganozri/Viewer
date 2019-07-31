@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="medusa-common-bits" Version="1.0.15" />
+    <PackageReference Include="medusa-common-streams" Version="1.0.2" />
+    <PackageReference Include="medusa-common-translation" Version="1.0.53" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peleng.Medusa.Analyze1553B.Common\Peleng.Medusa.Analyze1553B.Common.csproj" />
+  </ItemGroup>
+
+</Project>

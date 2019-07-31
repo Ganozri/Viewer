@@ -20,9 +20,12 @@ namespace Peleng.Medusa.Analyze1553B.Common
 
         public CommandCode.Raw CommandCode => GetCommandCode();
 
+        public bool IsCommand => Subaddress == (int) CommandSubaddress.Zero 
+                                 || Subaddress == (int) CommandSubaddress.Ones;
+
         private CommandCode.Raw GetCommandCode()
         {
-            if (Subaddress == (int)CommandSubaddress.Zero || Subaddress == (int)CommandSubaddress.Ones)
+            if (IsCommand)
             {
                 return (CommandCode.Raw) (Value & 0x1F);
             }
@@ -106,6 +109,11 @@ namespace Peleng.Medusa.Analyze1553B.Common
             SynchronizeWithDataWord = 0x11,
             TransmitLastCommandWord = 0x12,
             TransmitBuiltInTestWord = 0x13,
+        }
+
+        public static bool HasDataWord(this Raw command)
+        {
+            return ((int)command & 0x10) != 0;
         }
 
         public static Raw ToRaw(this WithDirection command)
