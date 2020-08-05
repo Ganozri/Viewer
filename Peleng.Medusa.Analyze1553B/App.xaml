@@ -1,9 +1,0 @@
-﻿<Application x:Class="Peleng.Medusa.Analyze1553B.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Peleng.Medusa.Analyze1553B"
-             >
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>

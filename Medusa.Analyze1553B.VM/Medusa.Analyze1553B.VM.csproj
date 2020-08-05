@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiquidProjections" Version="3.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ReactiveUI" Version="11.4.1" />
+    <PackageReference Include="ReactiveUI.Fody" Version="11.4.1" />
+    <PackageReference Include="SqlStreamStore" Version="1.1.3" />
+    <PackageReference Include="structuremap" Version="4.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medusa.Analyze1553B.Loader.BMD\Medusa.Analyze1553B.Loader.BMD.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Medusa.Analyze1553B.UIServices.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.VMServices\Medusa.Analyze1553B.VMServices.csproj" />
+  </ItemGroup>
+
+</Project>

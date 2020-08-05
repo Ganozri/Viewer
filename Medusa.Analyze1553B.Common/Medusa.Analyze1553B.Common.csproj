@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Medusa.Analyze1553B.Common</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WarningsAsErrors>NU1605;CS1591</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="olympus-checkers" Version="1.0.14" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medusa.Analyze1553B.Loader.BMD\Medusa.Analyze1553B.Loader.BMD.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Medusa.Analyze1553B.UIServices.csproj" />
+  </ItemGroup>
+
+</Project>

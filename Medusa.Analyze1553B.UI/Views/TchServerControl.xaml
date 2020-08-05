@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Medusa.Analyze1553B.UI.Views.TcpServerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
+             xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
+             d:DataContext="{d:DesignInstance Type=vms:TcpServerViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="850" d:DesignWidth="600"
+             Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="outputScroll">
+            <TextBlock x:Name="output" Text="{Binding TextRow,NotifyOnTargetUpdated=True}"
+                       VirtualizingPanel.IsVirtualizing="True"
+                       TargetUpdated="output_TargetUpdated"/>
+        </ScrollViewer>
+
+        <Button Grid.Row="1"
+                Command="{Binding Commands.ConnectAsTcpClientCommand}"
+                CommandParameter="{Binding ElementName=output}"
+                Content="Start"
+                Width="200"/>
+    </Grid>
+</UserControl>

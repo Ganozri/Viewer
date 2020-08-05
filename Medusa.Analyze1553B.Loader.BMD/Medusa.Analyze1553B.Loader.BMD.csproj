@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="olympus-bits" Version="1.0.27" />
+    <PackageReference Include="olympus-streams" Version="1.0.5" />
+    <PackageReference Include="olympus-translation" Version="1.1.74" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medusa.Analyze1553B.Common\Medusa.Analyze1553B.Common.csproj" />
+  </ItemGroup>
+
+</Project>
