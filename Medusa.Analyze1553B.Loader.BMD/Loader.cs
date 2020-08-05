@@ -42,6 +42,12 @@ namespace Medusa.Analyze1553B.Loader.BMD
         {
             return new StreamReader(input).AsStrings().Select(ParseLine);
         }
+        //
+        public IEnumerable<DataRecord> ReadStream(string input)
+        {
+                return null;
+        }
+        //
 
         private DataRecord ParseLine(string line, int index)
         {

@@ -26,7 +26,6 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
         private readonly SynchronizationContext syncContext;
         //
         public string TextRow { get; set; }
-
         //
         public TcpServerViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
@@ -43,6 +42,13 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
                 currentRow = 0;
                 rowCount = dataRecordsList.Length - 1;
                 Data = dataService.Data(currentRow, dataRecordsList);
+            }
+            else
+            {
+                dataRecordsList = new object[] { };
+                currentRow = 0;
+                rowCount = 0;
+                Data = new object[] { };
             }
 
         }

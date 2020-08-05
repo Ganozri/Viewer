@@ -116,7 +116,13 @@ namespace Medusa.Analyze1553B.VM
                                 {
                                     var response = await reader.ReadLineAsync();
                                     if (response == null) { break; }
-                                    OutputWriteLine(obj,string.Format("[Client] Server response was '{0}'", response));
+                                    //
+                                    OutputWriteLine(obj, response);
+                                    //TODO
+                                    vmObject.SelectedViewModel.dataRecordsList = dataService.updateDataRerordsList(response);
+                                    vmObject.SelectedViewModel.currentRow = 0;
+                                    vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+                                    //TODO
                                 }
                                 //OutputWriteLine("[Client] Server disconnected");
                             }

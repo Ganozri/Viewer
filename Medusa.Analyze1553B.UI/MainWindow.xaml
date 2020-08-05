@@ -23,7 +23,6 @@
         
     </Window.Resources>
     <Grid>
-        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>

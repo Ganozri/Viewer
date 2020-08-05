@@ -50,19 +50,28 @@ namespace Medusa.Analyze1553B.VMServices
             return dataRecordsList;
         }
 
-        public object[] dataRecordsList()
+        public object[] updateDataRerordsList(string input)
         {
-            string path = @"D:\Data\20200314-173833 (norm).bmd";
+            using (var stream = GenerateStreamFromString(input))
+            {
+                IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
+                dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
+                object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
 
-            FileStream fstream = File.OpenRead(path);
-            IEnumerable<DataRecord> dataRecords = loader.ReadStream(fstream);
-            dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
-            object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
-
-            return dataRecordsList;
+                return dataRecordsList;
+            }
+            
+        }
+        private static Stream GenerateStreamFromString(string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
 
-       
 
     }
 }
