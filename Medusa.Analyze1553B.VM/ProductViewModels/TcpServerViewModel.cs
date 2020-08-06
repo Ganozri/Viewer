@@ -35,6 +35,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             //
             Name = "TcpServerViewModel";
             //
+            //string path = @"D:\Data\20200314-173833 (testTrash).bmd";
             string path = @"";
             if (File.Exists(path))
             {
