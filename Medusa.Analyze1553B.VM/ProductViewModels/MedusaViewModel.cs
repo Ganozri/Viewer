@@ -27,7 +27,8 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             this.Commands = Commands;
             //
             Name = "MedusaViewModel";
-            string path = @"D:\Data\20200314-173833 (norm).bmd";
+            //string path = @"D:\Data\20200314-173833 (norm).bmd";
+            string path = @"";
             if (File.Exists(path))
             {
                 dataRecordsList = dataService.dataRecordsList(path);
@@ -35,7 +36,14 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
                 rowCount = dataRecordsList.Length - 1;
                 Data = dataService.Data(currentRow, dataRecordsList);
             }
-            
+            else
+            {
+                dataRecordsList = new object[] { };
+                currentRow = 0;
+                rowCount = 0;
+                Data = new object[] { };
+            }
+
         }
 
        

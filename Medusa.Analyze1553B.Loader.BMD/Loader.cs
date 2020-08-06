@@ -40,44 +40,46 @@ namespace Medusa.Analyze1553B.Loader.BMD
 
         public IEnumerable<DataRecord> ReadStream(Stream input)
         {
-            return new StreamReader(input).AsStrings().Select(ParseLine);
+            return new StreamReader(input).AsStrings().Select(ParseLine).Where(p => p != null);
         }
-        //
-        public IEnumerable<DataRecord> ReadStream(string input)
-        {
-                return null;
-        }
-        //
 
         private DataRecord ParseLine(string line, int index)
         {
             var parts = line.Split(CommentDelimiter)[0].Split(TabDelimiter);
-
-            var cw1 = new ControlWord(Word(parts, Control1));
-            DataRecordBuilder builder = new DataRecordBuilder(
-                index: index,
-                monitorTime: BuildTime(int.Parse(parts[TimeLo]), int.Parse(parts[TimeHi])),
-                channel: (BusChannel) int.Parse(parts[BusChannel]),
-                error: StatusToError(Word(parts, Errors), Word(parts, Response1)),
-                cw1: cw1,
-                cw2: new ControlWord(Word(parts, Control2)),
-                rw1: new ResponseWord(Word(parts, Response1)),
-                rw2: new ResponseWord(Word(parts, Response2))
-            );
-
-            if (cw1.IsCommand)
+            if (parts.Length == 42)
             {
-                if (cw1.CommandCode.HasDataWord())
+                var cw1 = new ControlWord(Word(parts, Control1));
+                DataRecordBuilder builder = new DataRecordBuilder(
+                    index: index,
+                    monitorTime: BuildTime(int.Parse(parts[TimeLo]), int.Parse(parts[TimeHi])),
+                    channel: (BusChannel)int.Parse(parts[BusChannel]),
+                    error: StatusToError(Word(parts, Errors), Word(parts, Response1)),
+                    cw1: cw1,
+                    cw2: new ControlWord(Word(parts, Control2)),
+                    rw1: new ResponseWord(Word(parts, Response1)),
+                    rw2: new ResponseWord(Word(parts, Response2))
+                );
+
+                if (cw1.IsCommand)
                 {
-                    builder.Data(Word(parts,DataStart));
+                    if (cw1.CommandCode.HasDataWord())
+                    {
+                        builder.Data(Word(parts, DataStart));
+                    }
                 }
+                else
+                {
+                    builder.Data(Enumerable.Range(0, cw1.Length).Select(x => Word(parts, DataStart + x)));
+                }
+
+                return builder.GetRecord();
             }
             else
             {
-                builder.Data(Enumerable.Range(0, cw1.Length).Select(x => Word(parts, DataStart + x)));
+                return null;
             }
-
-            return builder.GetRecord();
+           
+            
         }
 
         private Error StatusToError(ushort status, ushort resp)
