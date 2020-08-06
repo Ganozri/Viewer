@@ -43,8 +43,8 @@ namespace Server
             //
             //string text = "";
             ObservableCollection<string> data = new ObservableCollection<string>();
-            string path = @"D:\Data\20200314-173833 (norm).bmd";
-            //string path = @"D:\Data\20200314-173833 (Nenorm).bmd";
+            //string path = @"D:\Data\20200314-173833 (norm).bmd";
+            string path = @"D:\Data\20200314-173833 (Nenorm).bmd";
             using (StreamReader fs = new StreamReader(path))
             {
                 while (true)

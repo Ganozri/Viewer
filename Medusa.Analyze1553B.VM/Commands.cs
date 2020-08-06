@@ -94,7 +94,7 @@ namespace Medusa.Analyze1553B.VM
         private async Task ConnectAsTcpClient(object obj, string ip, int port)
         {
             int x = Array.IndexOf(vmObject.ViewModels.ToArray(), vmObject.SelectedViewModel);
-           
+            int count = 0;
             for (; ; )
             {
                 try
@@ -123,11 +123,12 @@ namespace Medusa.Analyze1553B.VM
                                 {
                                     var response = await reader.ReadLineAsync();
                                     if (response == null) { break; }
-
+                                    OutputWriteLine(obj,count.ToString());
+                                    count++;
                                     //TODO
-                                     vmObject.ViewModels[x].dataRecordsList = dataService.updateDataRerordsList(vmObject.SelectedViewModel.dataRecordsList, response + "\n");
+                                     vmObject.ViewModels[x].dataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].dataRecordsList, response + "\n");
                                      vmObject.ViewModels[x].currentRow = 0;
-                                    vmObject.ViewModels[x].rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+                                     vmObject.ViewModels[x].rowCount = vmObject.ViewModels[x].dataRecordsList.Length - 1;
                                     //vmObject.SelectedViewModel.dataRecordsList = dataService.updateDataRerordsList(vmObject.SelectedViewModel.dataRecordsList, response + "\n");
                                     //vmObject.SelectedViewModel.currentRow = 0;
                                     //vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
