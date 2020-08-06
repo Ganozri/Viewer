@@ -25,7 +25,6 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-
         <ListView x:Name="myListView"
                   Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"
                   ItemsSource="{Binding dataRecordsList}"

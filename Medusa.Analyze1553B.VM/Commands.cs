@@ -93,6 +93,8 @@ namespace Medusa.Analyze1553B.VM
 
         private async Task ConnectAsTcpClient(object obj, string ip, int port)
         {
+            int x = Array.IndexOf(vmObject.ViewModels.ToArray(), vmObject.SelectedViewModel);
+           
             for (; ; )
             {
                 try
@@ -108,12 +110,12 @@ namespace Medusa.Analyze1553B.VM
                             throw new TimeoutException();
                         }
 
-                        //OutputWriteLine("[Client] Connected to server");
+                        OutputWriteLine(obj,"[Client] Connected to server");
                         using (var networkStream = tcpClient.GetStream())
                         using (var reader = new StreamReader(networkStream))
                         using (var writer = new StreamWriter(networkStream) { AutoFlush = true })
                         {
-                            //OutputWriteLine(string.Format("[Client] Writing request '{0}'", ClientRequestString));
+                            OutputWriteLine(obj, string.Format("[Client] Writing request '{0}'", ClientRequestString));
                             await writer.WriteLineAsync(ClientRequestString);
                             try
                             {
@@ -121,20 +123,21 @@ namespace Medusa.Analyze1553B.VM
                                 {
                                     var response = await reader.ReadLineAsync();
                                     if (response == null) { break; }
-                                    //
-                                    //OutputWriteLine(obj, response);
-                                    //vmObject.SelectedViewModel.dataRecordsList = dataService.updateDataRerordsList(response + "\n");
-                                    vmObject.SelectedViewModel.dataRecordsList = dataService.updateDataRerordsList(vmObject.SelectedViewModel.dataRecordsList, response + "\n");
-                                    vmObject.SelectedViewModel.currentRow = 0;
-                                    vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-                                    //dialogService.ScrollIntoView(obj, vmObject.SelectedViewModel.rowCount-1);
+
+                                    //TODO
+                                     vmObject.ViewModels[x].dataRecordsList = dataService.updateDataRerordsList(vmObject.SelectedViewModel.dataRecordsList, response + "\n");
+                                     vmObject.ViewModels[x].currentRow = 0;
+                                    vmObject.ViewModels[x].rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+                                    //vmObject.SelectedViewModel.dataRecordsList = dataService.updateDataRerordsList(vmObject.SelectedViewModel.dataRecordsList, response + "\n");
+                                    //vmObject.SelectedViewModel.currentRow = 0;
+                                    //vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
                                     //TODO
                                 }
-                                //OutputWriteLine("[Client] Server disconnected");
+                                OutputWriteLine(obj,"[Client] Server disconnected");
                             }
                             catch (IOException)
                             {
-                                //OutputWriteLine("[Client] Server disconnected");
+                                OutputWriteLine(obj,"[Client] Server disconnected");
                             }
                         }
                     }

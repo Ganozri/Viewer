@@ -44,6 +44,7 @@ namespace Server
             //string text = "";
             ObservableCollection<string> data = new ObservableCollection<string>();
             string path = @"D:\Data\20200314-173833 (norm).bmd";
+            //string path = @"D:\Data\20200314-173833 (Nenorm).bmd";
             using (StreamReader fs = new StreamReader(path))
             {
                 while (true)
@@ -61,10 +62,10 @@ namespace Server
             }
             //
             int count = 0;
+            Console.WriteLine("[Server] data.Count = " + data.Count.ToString());
             for (; ; )
             {
                 Console.WriteLine("[Server] waiting for clients...");
-
                 using (var tcpClient = await tcpListener.AcceptTcpClientAsync())
                 {
                     try
@@ -87,8 +88,8 @@ namespace Server
                             {
                                 await writer.WriteLineAsync(data[count]);
                                 count++;
-                                Console.WriteLine(data[count]);
-                                await Task.Delay(TimeSpan.FromMilliseconds(10));
+                                //Console.WriteLine(data[count]);
+                                await Task.Delay(TimeSpan.FromMilliseconds(1));
                             }
                             else
                             {
