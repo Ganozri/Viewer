@@ -7,13 +7,12 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:views="clr-namespace:Medusa.Analyze1553B.UI.Views"
         xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
-        xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
-        d:DataContext="{d:DesignInstance Type=vm:StartVmObject}"
+        xmlns:vm= "clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
+        d:DataContext="{d:DesignInstance d:Type=vm:StartVmObject}"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="650" Width="1200"
         WindowState="Maximized">
-
-
+    
     <Window.Resources>
         <Style TargetType="TabItem">
                     <Setter Property="Header" Value="{Binding Name}" />
@@ -45,7 +44,12 @@
         
         
     </Window.Resources>
+    
     <Grid>
+        <!--<Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding WindowScale,Mode=OneWay}" ScaleY="{Binding WindowScale,Mode=OneWay}" />
+        </Grid.LayoutTransform>-->
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
@@ -56,11 +60,17 @@
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-        
-        <Grid Grid.Row="0">
-            <Menu   x:Name="MainMenu" 
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            
+            <!--<StackPanel>
+                <Slider MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
+                <TextBlock Text="{Binding WindowScale,Mode=OneWay}"/>
+            </StackPanel>-->
+          
+            <Menu x:Name="MainMenu"
                     VerticalAlignment="Center">
-                <MenuItem Header="Menu ">
+                <MenuItem Header="Menu">
                     <MenuItem Header="AddTemplateRow" Command=""  
                               InputGestureText="Ctrl+T"/>
                     <MenuItem Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
@@ -73,10 +83,32 @@
                 <MenuItem Header="Help"  Command="{Binding  Commands.ShowHelpInformationCommand}" 
                           InputGestureText="Ctrl+H"/>
                 <MenuItem Header="AddVMCommand" Command="{Binding  Commands.AddVMCommand}" CommandParameter=""/>
-                <MenuItem Header="CheckButton"  Command="{Binding  Commands.ShowHelpInformationCommand}" />
+                <MenuItem Header="TestCommandbutton"  Command="{Binding  Commands.TestCommand}"
+                                                      CommandParameter=""/>
+
+                <!--<MenuItem Header="UI scale">
+                    <MenuItem >
+                        <MenuItem.Header>
+                            <StackPanel>
+                                <TextBlock Text="Details scale"/>
+                                <Slider MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
+                                <TextBlock Text="{Binding WindowScale,Mode=OneWay}"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem >
+                        <MenuItem.Header>
+                            <StackPanel>
+                                <TextBlock Text="Fonts scale"/>
+                                <Slider MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
+                                <TextBlock Text="{Binding WindowScale,Mode=OneWay}"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>-->
             </Menu>
 
-        </Grid>
+        </StackPanel>
 
 
         <TabControl Grid.Row="1" Grid.Column="0"
@@ -103,8 +135,6 @@
 
             </TabControl.Resources>
 
-            
-
         </TabControl>
 
         <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
@@ -114,11 +144,5 @@
 
 
     </Grid>
-   
-
-
-
-
-
 
 </Window>

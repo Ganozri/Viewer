@@ -16,9 +16,9 @@ namespace Medusa.Analyze1553B.UI
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, ISynchronizationContextProvider, IDialogService
+    public partial class MainWindow : ISynchronizationContextProvider, IDialogService
     {
-
+        public string test { get; set; } = "test";
         readonly Microsoft.Win32.OpenFileDialog openFileDlg;
         readonly Microsoft.Win32.SaveFileDialog saveFileDialog;
 
@@ -71,6 +71,7 @@ namespace Medusa.Analyze1553B.UI
                 return new MemoryStream();
             }
         }
+
         public void AddText(object arg, string text)
         {
             TextBlock textBlock = new TextBlock();
@@ -107,6 +108,18 @@ namespace Medusa.Analyze1553B.UI
                 
             }
             
+        }
+
+        public void UpdateView(object arg)
+        {
+            ListView myListView = new ListView();
+            if (Object.ReferenceEquals(arg.GetType(), myListView.GetType()))
+            {
+                myListView = (ListView)arg;
+
+                
+                //MessageBox.Show("UpdateView!");
+            }
         }
 
         public int CurrentPosition(object arg)

@@ -10,6 +10,7 @@ namespace Medusa.Analyze1553B.UIServices
 
         void CreateCustomWindow();
         void ScrollIntoView(object arg, int pos);
+        void UpdateView(object arg);
         void AddText(object arg, string text);
         int CurrentPosition(object arg);
     }

@@ -127,12 +127,21 @@
                     <Polygon Points="8,0 0,5, 8,10" Stroke="Black" Fill="Black" />
                 </Button>
 
-                <Button  Grid.Column="1" HorizontalAlignment="Center"  
+                <StackPanel Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Center">
+                    <Button  Grid.Column="1" HorizontalAlignment="Center"  
                          Command="{Binding Commands.ConnectAsTcpClientCommand}"
                                            CommandParameter="{Binding ElementName=output}"
                          Content="Start"
                          Width="200" Margin="84,0,0,0"/>
-
+                    
+                    <Button  Grid.Column="1" HorizontalAlignment="Center"  
+                             Content="Test"
+                             Width="200" Margin="84,0,0,0"
+                             Command="{Binding  Commands.TestCommand}"
+                                                CommandParameter="{Binding ElementName=myListView}"/>
+                  
+                </StackPanel>
+                
                 <Button    Grid.Column="1" HorizontalAlignment="Right"  
                            Command="{Binding Commands.NextCurrentRowCommand}"
                                              CommandParameter="{Binding ElementName=myListView}" >
@@ -174,21 +183,5 @@
         </Expander>
        
     </Grid>
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <ScrollViewer x:Name="outputScroll">
-            <TextBlock x:Name="output" Text="{Binding TextRow,NotifyOnTargetUpdated=True}"
-                       VirtualizingPanel.IsVirtualizing="True"
-                       TargetUpdated="output_TargetUpdated"/>
-        </ScrollViewer>
-
-        <Button Grid.Row="1"
-                Command="{Binding Commands.ConnectAsTcpClientCommand}"
-                CommandParameter="{Binding ElementName=output}"
-                Content="Start"
-                Width="200"/>
-    </Grid>-->
+  
 </UserControl>

@@ -41,5 +41,6 @@ namespace Medusa.Analyze1553B.VM
 
         }
 
+        //[Reactive] public double WindowScale { get; set; } = 1;
     }
 }

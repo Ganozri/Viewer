@@ -63,6 +63,9 @@ namespace Medusa.Analyze1553B.VMServices
             
         }
 
+
+
+
         public object[] updateDataRerordsList(object[] currentData, string input)
         {
             using (var stream = GenerateStreamFromString(input))
@@ -74,17 +77,13 @@ namespace Medusa.Analyze1553B.VMServices
                 int oldLength = currentData.Length;
                 int addedLength = dataRecordsList.Length;
 
-                object[] objs = InitializeArray<object>(oldLength + addedLength);
-                for (int i = 0; i < oldLength; i++)
-                {
-                    objs[i] = currentData[i];
-                }
+                Array.Resize<object>(ref currentData, oldLength + addedLength);
                 for (int i = oldLength; i < (oldLength + addedLength); i++)
                 {
-                    objs[i] = dataRecordsList[i - oldLength];
+                    currentData[i] = dataRecordsList[i - oldLength];
                 }
 
-                return objs;
+                return currentData;
             }
         }
 
@@ -95,14 +94,18 @@ namespace Medusa.Analyze1553B.VMServices
         //        IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
         //        dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
         //        object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
-        //        object[] objs = InitializeArray<object>(currentData.Length + dataRecordsList.Length);
-        //        for (int i = 0; i < currentData.Length; i++)
+
+        //        int oldLength = currentData.Length;
+        //        int addedLength = dataRecordsList.Length;
+
+        //        object[] objs = InitializeArray<object>(oldLength + addedLength);
+        //        for (int i = 0; i < oldLength; i++)
         //        {
         //            objs[i] = currentData[i];
         //        }
-        //        for (int i = currentData.Length; i < (currentData.Length + dataRecordsList.Length); i++)
+        //        for (int i = oldLength; i < (oldLength + addedLength); i++)
         //        {
-        //            objs[i] = dataRecordsList[i - currentData.Length];
+        //            objs[i] = dataRecordsList[i - oldLength];
         //        }
 
         //        return objs;

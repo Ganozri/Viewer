@@ -21,9 +21,6 @@ namespace Server
             //
             translationRepository = new TranslationRepository();
             loader = new Medusa.Analyze1553B.Loader.BMD.Loader(translationRepository);
-            //
-            
-            //
             try
             {
                 StartListener(1234).Wait();
@@ -43,8 +40,10 @@ namespace Server
             //
             //string text = "";
             ObservableCollection<string> data = new ObservableCollection<string>();
-            //string path = @"D:\Data\20200314-173833 (norm).bmd";
-            string path = @"D:\Data\20200314-173833 (Nenorm).bmd";
+            string path = @"D:\Data\20200314-173833 (norm).bmd";
+            //string path = @"D:\Data\20200314-173833 (Nenorm).bmd";
+            //string path = @"D:\Data\20200609-123143.bmd";
+           
             using (StreamReader fs = new StreamReader(path))
             {
                 while (true)
@@ -62,6 +61,9 @@ namespace Server
             }
             //
             int count = 0;
+            int missedMessagesCount = 10;
+            //int dataCount = 5 + missedMessagesCount;
+            int dataCount = data.Count;
             Console.WriteLine("[Server] data.Count = " + data.Count.ToString());
             for (; ; )
             {
@@ -75,7 +77,7 @@ namespace Server
                         using var reader = new StreamReader(networkStream);
                         using var writer = new StreamWriter(networkStream) { AutoFlush = true };
 
-                        for (int i = 0; i < 40; i++)
+                        for (int i = 0; i < missedMessagesCount; i++)
                         {
                             await writer.WriteLineAsync(data[count]);
                             count++;
@@ -84,7 +86,7 @@ namespace Server
                         while (true)
                         {
                             
-                            if (count < data.Count)
+                            if (count < dataCount )
                             {
                                 await writer.WriteLineAsync(data[count]);
                                 count++;
@@ -93,6 +95,8 @@ namespace Server
                             }
                             else
                             {
+                                string s = null;
+                                await writer.WriteLineAsync(s);
                                 Console.WriteLine("End!\n Press to do it again!");
                                 await Task.Delay(TimeSpan.FromMilliseconds(10));
                                 count = 0;
