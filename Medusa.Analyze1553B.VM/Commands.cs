@@ -77,16 +77,28 @@ namespace Medusa.Analyze1553B.VM
         //
         private void Test(object obj)
         {
-            long ellapledTicks = DateTime.Now.Second;
+            long ellapledTicks = DateTime.Now.Ticks;
 
             vmObject.SelectedViewModel.dataRecordsList[1] = vmObject.SelectedViewModel.dataRecordsList[0];
             object[] o = vmObject.SelectedViewModel.dataRecordsList;
-            Array.Resize<object>(ref o, o.Length + 1);
-            Array.Resize<object>(ref o, o.Length - 1);
+            int realLength = o.Length;
+            Array.Resize<object>(ref o, o.Length + 10000);
+            for (int i = 0; i < 100000; i++)
+            {
+                if (o.Length < i + 10000)
+                {
+                    Array.Resize<object>(ref o, o.Length + 10000);
+                }
+                object s = o[i];
+                o[realLength] = s;
+                realLength++;
+                //Array.Resize<object>(ref o, o.Length - 1);
+            }
+            Array.Resize<object>(ref o, realLength);
             vmObject.SelectedViewModel.dataRecordsList = o;
-
+            SelectedDataUpdate();
             //dialogService.UpdateView(obj);
-            ellapledTicks = DateTime.Now.Second - ellapledTicks;
+            ellapledTicks = DateTime.Now.Ticks - ellapledTicks;
             dialogService.ShowMessage(ellapledTicks.ToString());
         }
         private void OutputWriteLine(object obj,string text)
@@ -156,15 +168,10 @@ namespace Medusa.Analyze1553B.VM
                                     count++;
                                     //TODO
 
-                                    
-
                                     vmObject.ViewModels[x].dataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].dataRecordsList, response + "\n");
-
                                     vmObject.ViewModels[x].currentRow = vmObject.ViewModels[x].rowCount;
                                     vmObject.ViewModels[x].rowCount = vmObject.ViewModels[x].dataRecordsList.Length - 1;
-                                    //vmObject.SelectedViewModel.dataRecordsList = dataService.updateDataRerordsList(vmObject.SelectedViewModel.dataRecordsList, response + "\n");
-                                    //vmObject.SelectedViewModel.currentRow = 0;
-                                    //vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+
                                     //TODO
                                 }
                                 OutputWriteLine(obj,"[Client] Server disconnected");
@@ -243,10 +250,7 @@ namespace Medusa.Analyze1553B.VM
             if (File.Exists(path))
             {
                 //TODO
-                vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
-                vmObject.SelectedViewModel.currentRow = 0;
-                vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-                vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
+                SelectedDataUpdate(path);
                 //TODO
             }
 
@@ -256,13 +260,23 @@ namespace Medusa.Analyze1553B.VM
         {
             if (File.Exists(path))
             {
-                //TODO
-                vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
-                vmObject.SelectedViewModel.currentRow = 0;
-                vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-                vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
-                //TODO
+                SelectedDataUpdate(path);
             }
+        }
+
+        private void SelectedDataUpdate()
+        {
+            vmObject.SelectedViewModel.currentRow = 0;
+            vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+            vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
+        }
+
+        private void SelectedDataUpdate(string path)
+        {
+            vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
+            vmObject.SelectedViewModel.currentRow = 0;
+            vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+            vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
         }
 
         private void SaveXmlFromTable()

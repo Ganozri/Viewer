@@ -9,7 +9,7 @@
              xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
              d:DataContext="{d:DesignInstance Type=vms:TcpServerViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="850" d:DesignWidth="1200"
+             d:DesignHeight="850" d:DesignWidth="2000"
              Background="White">
     <Grid>
         <Grid.ColumnDefinitions>

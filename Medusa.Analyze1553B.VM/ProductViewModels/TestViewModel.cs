@@ -8,16 +8,10 @@ using System.IO;
 
 namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
-    public class TestViewModel : ReactiveObject, IPageViewModel
+    public class TestViewModel : SupportClass, IPageViewModel
     {
         public object VmObject { get; private set; }
         public Commands Commands { get; }
-        public string Name { get; set; }
-
-        [Reactive] public object[] dataRecordsList { get; set; }
-        [Reactive] public object[] Data { get; set; }
-        [Reactive] public int currentRow { get; set; }
-        [Reactive] public int rowCount { get; set; }
 
         private readonly SynchronizationContext syncContext;
         public TestViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService,Commands Commands)

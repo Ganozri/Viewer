@@ -12,6 +12,15 @@ namespace Medusa.Analyze1553B.VM
         object[] Data { get; set; }
         int currentRow { get; set; }
         int rowCount { get; set; }
+
+        States currentState { get; set; }
+
+        enum States
+        {
+            Red,
+            Yellow,
+            Green
+        }
         //
 
     }

@@ -12,16 +12,10 @@ using System.Threading;
 
 namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
-    public class TcpServerViewModel : ReactiveObject, IPageViewModel
+    public class TcpServerViewModel : SupportClass, IPageViewModel
     {
 
         public Commands Commands { get; }
-        public string Name { get; set; }
-
-        [Reactive] public object[] dataRecordsList { get; set; }
-        [Reactive] public object[] Data { get; set; }
-        [Reactive] public int currentRow { get; set; }
-        [Reactive] public int rowCount { get; set; }
 
         private readonly SynchronizationContext syncContext;
         //
@@ -51,6 +45,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
                 rowCount = 0;
                 Data = new object[] { };
             }
+            
 
         }
 
