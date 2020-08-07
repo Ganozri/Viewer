@@ -123,7 +123,6 @@ namespace Medusa.Analyze1553B.VM
         {
             int x = Array.IndexOf(vmObject.ViewModels.ToArray(), vmObject.SelectedViewModel);
             //
-            int count = 0;
             long ellapledTicks = DateTime.Now.Second;
             //
             for (; ; )
@@ -165,9 +164,8 @@ namespace Medusa.Analyze1553B.VM
                                     }
                                     //OutputWriteLine(obj,count.ToString());
                                     //OutputWriteLine(obj, response);
-                                    count++;
-                                    //TODO
 
+                                    //TODO
                                     vmObject.ViewModels[x].dataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].dataRecordsList, response + "\n");
                                     vmObject.ViewModels[x].currentRow = vmObject.ViewModels[x].rowCount;
                                     vmObject.ViewModels[x].rowCount = vmObject.ViewModels[x].dataRecordsList.Length - 1;

@@ -14,13 +14,9 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
     public class TcpServerViewModel : SupportClass, IPageViewModel
     {
-
         public Commands Commands { get; }
-
         private readonly SynchronizationContext syncContext;
-        //
-        public string TextRow { get; set; }
-        //
+
         public TcpServerViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
             this.syncContext = syncContext.SynchronizationContext;
