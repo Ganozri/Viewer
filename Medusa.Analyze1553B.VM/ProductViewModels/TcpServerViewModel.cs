@@ -23,30 +23,12 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
         //
         public TcpServerViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
-            //
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
-            //
-            Name = "TcpServerViewModel";
-            //
-            //string path = @"D:\Data\20200314-173833 (testTrash).bmd";
-            string path = @"";
-            if (File.Exists(path))
-            {
-                dataRecordsList = dataService.dataRecordsList(path);
-                currentRow = 0;
-                rowCount = dataRecordsList.Length - 1;
-                Data = dataService.Data(currentRow, dataRecordsList);
-            }
-            else
-            {
-                dataRecordsList = new object[] { };
-                currentRow = 0;
-                rowCount = 0;
-                Data = new object[] { };
-            }
-            
 
+            Name = "TcpServerViewModel";
+
+            FillData(dataService);
         }
 
 
