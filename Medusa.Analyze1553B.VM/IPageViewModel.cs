@@ -6,7 +6,7 @@ namespace Medusa.Analyze1553B.VM
 {
     public interface IPageViewModel 
     {
-        string Name { get; }
+        string Name { get; set; }
         //
         object[] dataRecordsList { get; set; }
         object[] Data { get; set; }

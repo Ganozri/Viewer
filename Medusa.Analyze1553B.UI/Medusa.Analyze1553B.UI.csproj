@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <None Remove="Icons\arrowRight.png" />
+    <None Remove="Icons\green.png" />
+    <None Remove="Icons\red.png" />
+    <None Remove="Icons\yellow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +33,15 @@
 
   <ItemGroup>
     <Resource Include="Icons\arrowRight.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\green.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\red.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\yellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

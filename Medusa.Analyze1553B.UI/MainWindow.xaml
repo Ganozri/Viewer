@@ -6,43 +6,60 @@
         xmlns:local="clr-namespace:Medusa.Analyze1553B.UI"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:views="clr-namespace:Medusa.Analyze1553B.UI.Views"
-        xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
-        xmlns:vm= "clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
+        xmlns:vms = "clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
+        xmlns:vm = "clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
+        xmlns:converters = "clr-namespace:Medusa.Analyze1553B.UI.Converters" 
         d:DataContext="{d:DesignInstance d:Type=vm:StartVmObject}"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="650" Width="1200"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        SizeChanged="Window_SizeChanged"> 
     
     <Window.Resources>
+
+        <converters:AcceptationStatusGlobalFlagToIconFilenameConverter x:Key="IconConverter"/>
+
         <Style TargetType="TabItem">
-                    <Setter Property="Header" Value="{Binding Name}" />
-                    <Setter Property="Template">
+
+            
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
-                        <Grid Name="Panel">
+                    <Grid Name="Panel">
                             <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="Panel" Property="Background" Value="White" />
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Panel" Property="Background" Value="#FFA2C5E4" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    ContentSource="Header"
+                                    Margin="10,2">
+                                <ContentPresenter.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}"/>
+
+                                        <Image Source="{Binding currentState, Converter={StaticResource IconConverter}}"/>
+                                    </StackPanel>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Panel" Property="Background" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Panel" Property="Background" Value="#FFA2C5E4" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
         </Style>
-        
-        
+
+       
+
     </Window.Resources>
     
     <Grid>

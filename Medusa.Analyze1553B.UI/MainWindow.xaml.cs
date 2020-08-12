@@ -137,5 +137,9 @@ namespace Medusa.Analyze1553B.UI
             
         }
 
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //MessageBox.Show("Window_SizeChanged");
+        }
     }
 }

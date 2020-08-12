@@ -10,8 +10,8 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
     public class MedusaViewModel : SupportClass, IPageViewModel
     {
-        public Commands Commands { get; }
-        private readonly SynchronizationContext syncContext;
+        //public Commands Commands { get; }
+        //private readonly SynchronizationContext syncContext;
 
         public MedusaViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {

@@ -77,29 +77,33 @@ namespace Medusa.Analyze1553B.VM
         //
         private void Test(object obj)
         {
-            long ellapledTicks = DateTime.Now.Ticks;
+            ////
+            //long ellapledTicks = DateTime.Now.Ticks;
 
-            vmObject.SelectedViewModel.dataRecordsList[1] = vmObject.SelectedViewModel.dataRecordsList[0];
-            object[] o = vmObject.SelectedViewModel.dataRecordsList;
-            int realLength = o.Length;
-            Array.Resize<object>(ref o, o.Length + 10000);
-            for (int i = 0; i < 100000; i++)
-            {
-                if (o.Length < i + 10000)
-                {
-                    Array.Resize<object>(ref o, o.Length + 10000);
-                }
-                object s = o[i];
-                o[realLength] = s;
-                realLength++;
-                //Array.Resize<object>(ref o, o.Length - 1);
-            }
-            Array.Resize<object>(ref o, realLength);
-            vmObject.SelectedViewModel.dataRecordsList = o;
-            SelectedDataUpdate();
-            //dialogService.UpdateView(obj);
-            ellapledTicks = DateTime.Now.Ticks - ellapledTicks;
-            dialogService.ShowMessage(ellapledTicks.ToString());
+            //vmObject.SelectedViewModel.dataRecordsList[1] = vmObject.SelectedViewModel.dataRecordsList[0];
+            //object[] o = vmObject.SelectedViewModel.dataRecordsList;
+            //int realLength = o.Length;
+            //Array.Resize<object>(ref o, o.Length + 10000);
+            //for (int i = 0; i < 100000; i++)
+            //{
+            //    if (o.Length < i + 10000)
+            //    {
+            //        Array.Resize<object>(ref o, o.Length + 10000);
+            //    }
+            //    object s = o[i];
+            //    o[realLength] = s;
+            //    realLength++;
+            //    //Array.Resize<object>(ref o, o.Length - 1);
+            //}
+            //Array.Resize<object>(ref o, realLength);
+            //vmObject.SelectedViewModel.dataRecordsList = o;
+            //SelectedDataUpdate();
+            ////dialogService.UpdateView(obj);
+            //ellapledTicks = DateTime.Now.Ticks - ellapledTicks;
+            //dialogService.ShowMessage(ellapledTicks.ToString());
+            ////
+            
+            dialogService.ShowMessage(Directory.GetCurrentDirectory());
         }
         private void OutputWriteLine(object obj,string text)
         {
@@ -123,13 +127,18 @@ namespace Medusa.Analyze1553B.VM
         {
             int x = Array.IndexOf(vmObject.ViewModels.ToArray(), vmObject.SelectedViewModel);
             //
-            long ellapledTicks = DateTime.Now.Second;
+            vmObject.ViewModels[x].currentState = IPageViewModel.States.Yellow;
+            OutputWriteLine(obj, "State  = " + vmObject.ViewModels[x].currentState.ToString());
             //
             for (; ; )
             {
                 try
                 {
                     await Task.Delay(millisecondsDelay: 1000);
+                    //
+                    long ellapledTicks = DateTime.Now.Second;
+                    
+                    //
                     using (var tcpClient = new TcpClient())
                     {
                         //OutputWriteLine(obj,"[Client] Attempting connection to server " + ip + ":" + port);
@@ -156,6 +165,11 @@ namespace Medusa.Analyze1553B.VM
                                     {
                                         ellapledTicks = DateTime.Now.Second - ellapledTicks;
                                         OutputWriteLine(obj, "ellapledTicks = " + ellapledTicks.ToString());
+                                        //
+
+                                        vmObject.ViewModels[x].currentState = IPageViewModel.States.Green;
+                                        OutputWriteLine(obj, "State  = " + vmObject.ViewModels[x].currentState.ToString());
+                                        //
                                         break;
                                     }
                                     if (response == null) 
@@ -169,6 +183,7 @@ namespace Medusa.Analyze1553B.VM
                                     vmObject.ViewModels[x].dataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].dataRecordsList, response + "\n");
                                     vmObject.ViewModels[x].currentRow = vmObject.ViewModels[x].rowCount;
                                     vmObject.ViewModels[x].rowCount = vmObject.ViewModels[x].dataRecordsList.Length - 1;
+                                    
 
                                     //TODO
                                 }
@@ -271,10 +286,17 @@ namespace Medusa.Analyze1553B.VM
 
         private void SelectedDataUpdate(string path)
         {
+            //
+            vmObject.SelectedViewModel.currentState = IPageViewModel.States.Yellow;
+            //
             vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
             vmObject.SelectedViewModel.currentRow = 0;
             vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
             vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
+            //
+            vmObject.SelectedViewModel.currentState = IPageViewModel.States.Green;
+            //
+            
         }
 
         private void SaveXmlFromTable()

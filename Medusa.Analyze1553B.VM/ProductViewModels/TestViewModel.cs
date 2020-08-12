@@ -10,15 +10,14 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
     public class TestViewModel : SupportClass, IPageViewModel
     {
-        public object VmObject { get; private set; }
-        public Commands Commands { get; }
+        //public Commands Commands { get; }
+        //private readonly SynchronizationContext syncContext;
 
-        private readonly SynchronizationContext syncContext;
         public TestViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
-
+            
             Name = "TestViewModel";
 
             FillData(dataService);

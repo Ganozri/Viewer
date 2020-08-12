@@ -14,12 +14,18 @@ namespace Medusa.Analyze1553B.VM
     public class SupportClass : ReactiveObject
     {
         public string Name { get; set; }
+
         [Reactive] public object[] dataRecordsList { get; set; }
         [Reactive] public object[] Data { get; set; }
         [Reactive] public int currentRow { get; set; }
         [Reactive] public int rowCount { get; set; }
 
-        public States currentState { get; set; }
+        [Reactive] public States currentState { get; set; }
+
+        //
+        public Commands Commands { get; set; }
+        public SynchronizationContext syncContext;
+        //
 
         public SupportClass()
         {
@@ -44,5 +50,7 @@ namespace Medusa.Analyze1553B.VM
                 Data = new object[] { };
             }
         }
+
+       
     }
 }

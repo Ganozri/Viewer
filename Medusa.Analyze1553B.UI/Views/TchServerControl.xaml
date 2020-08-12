@@ -10,7 +10,8 @@
              d:DataContext="{d:DesignInstance Type=vms:TcpServerViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="850" d:DesignWidth="2000"
-             Background="White">
+             Background="White"
+             >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
