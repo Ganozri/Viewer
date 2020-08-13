@@ -13,7 +13,12 @@
         mc:Ignorable="d"
         Title="{Binding Title}" Height="650" Width="1200"
         WindowState="Maximized"
-        SizeChanged="Window_SizeChanged"> 
+        SizeChanged="Window_SizeChanged"
+        >
+    
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Commands.OpenXmlForTableCreationCommand}" Key="N" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     
     <Window.Resources>
 
@@ -34,7 +39,6 @@
                                 <ContentPresenter.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Name}"/>
-
                                         <Image Source="{Binding currentState, Converter={StaticResource IconConverter}}"/>
                                     </StackPanel>
                                 </ContentPresenter.Content>
@@ -61,8 +65,11 @@
        
 
     </Window.Resources>
+
+    
     
     <Grid>
+        
         <!--<Grid.LayoutTransform>
             <ScaleTransform ScaleX="{Binding WindowScale,Mode=OneWay}" ScaleY="{Binding WindowScale,Mode=OneWay}" />
         </Grid.LayoutTransform>-->
@@ -154,9 +161,9 @@
 
         </TabControl>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+        <!--<StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
             <views:ChangeProductView DataContext="{Binding }"/>
-        </StackPanel>
+        </StackPanel>-->
 
 
 

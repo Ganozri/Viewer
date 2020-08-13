@@ -34,7 +34,11 @@ namespace Medusa.Analyze1553B.UI.Views
 
         private void output_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            outputScroll.ScrollToEnd();
+            //outputScroll.ScrollToEnd();
         }
+
+        
+        
+
     }
 }

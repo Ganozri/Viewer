@@ -11,10 +11,10 @@
              mc:Ignorable="d"
              d:DesignHeight="850" d:DesignWidth="2000"
              Background="White"
-             >
+             x:Name="UserControl">
+    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -22,19 +22,23 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition />
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <ListView x:Name="myListView"
-                  Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                  Grid.Row="1" Grid.Column="0"
+                  MaxWidth="{Binding ActualWidth,ElementName=UserControl,NotifyOnTargetUpdated=True}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Visible"  
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   ItemsSource="{Binding dataRecordsList}"
                   SelectedIndex="{Binding  currentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}"
                   VirtualizingStackPanel.IsVirtualizing="True">
+            
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                     <i:InvokeCommandAction  Command="{Binding Commands.UpdateCurrentRowCommand}"
@@ -107,6 +111,29 @@
                        TargetUpdated="output_TargetUpdated"/>
         </ScrollViewer>
 
+        <DockPanel  Grid.Row="1" Grid.Column="2" >
+            <!--<TextBox Text="{Binding ElementName=Update, Path=Value,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                            DockPanel.Dock="Right" TextAlignment="Right" Width="40" />-->
+            <Slider         x:Name="Update"
+                            Grid.Row="1" Grid.Column="1"
+                            Value="{Binding currentRow, UpdateSourceTrigger=PropertyChanged}"
+                            Minimum="0" Maximum="{Binding rowCount}" 
+                            SelectionStart="{Binding currentRow}" Width="25" 
+                            IsSelectionRangeEnabled="True" Orientation="Vertical"
+                            TickFrequency="500">
+                <Slider.LayoutTransform>
+                    <ScaleTransform ScaleY="-1"/>
+                </Slider.LayoutTransform>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseUp">
+                        <i:InvokeCommandAction  Command="{Binding Commands.UpdateCurrentRowCommand}"
+                                                        CommandParameter="{Binding ElementName=myListView}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Slider>
+        </DockPanel>
+
         <Expander  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
                    VerticalAlignment="Bottom" IsExpanded="True" >
             <Grid>
@@ -156,10 +183,10 @@
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             FontSize="32">
                 </TextBlock>
-                <DockPanel  Grid.Row="1" Grid.Column="1">
-                    <!--<TextBox Text="{Binding ElementName=Update, Path=Value,
+                <!--<DockPanel  Grid.Row="1" Grid.Column="1">
+                    --><!--<TextBox Text="{Binding ElementName=Update, Path=Value,
                                             UpdateSourceTrigger=PropertyChanged}"
-                                            DockPanel.Dock="Right" TextAlignment="Right" Width="40" />-->
+                                            DockPanel.Dock="Right" TextAlignment="Right" Width="40" />--><!--
                     <Slider x:Name="Update"
                             Grid.Row="1" Grid.Column="1"
                             Value="{Binding currentRow, UpdateSourceTrigger=PropertyChanged}"
@@ -174,7 +201,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Slider>
-                </DockPanel>
+                </DockPanel>-->
 
                 <TextBlock  Grid.Row="1" Grid.Column="2"
                             Text="{Binding rowCount}"
