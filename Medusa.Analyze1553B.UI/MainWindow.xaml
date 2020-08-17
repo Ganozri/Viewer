@@ -113,7 +113,7 @@
                                                 Content="X"
                                                 Margin="3,0,0,0"
                                                 Command="{Binding Commands.RemoveViewModelCommand}"
-                                                CommandParameter="{Binding SelectedIndex, ElementName = products, NotifyOnTargetUpdated = True}"/>
+                                                CommandParameter="{Binding SelectedIndex-1, ElementName = products, NotifyOnTargetUpdated = True}"/>
                                     </StackPanel>
                                 </ContentPresenter.Content>
                             </ContentPresenter>
