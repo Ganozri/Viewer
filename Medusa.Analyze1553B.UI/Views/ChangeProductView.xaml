@@ -7,7 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
              xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
-             d:DataContext="{d:DesignInstance Type=vm:StartVmObject}"
+             d:DataContext="{d:DesignInstance Type=vms:ChoosePageViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="850" d:DesignWidth="600"
              Background="White">
@@ -41,7 +41,7 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseUp">
                     <i:InvokeCommandAction  Command="{Binding Commands.AddVMCommand}"
-                                                              CommandParameter="{Binding ElementName=myListView, Path=SelectedIndex}"/>
+                                                              CommandParameter="{Binding ElementName=myListView, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListView>

@@ -75,11 +75,15 @@ namespace Medusa.Analyze1553B.UI
         public void AddText(object arg, string text)
         {
             TextBlock textBlock = new TextBlock();
-            if (Object.ReferenceEquals(arg.GetType(), textBlock.GetType()))
+            if (arg!=null)
             {
-                textBlock = (TextBlock)arg;
-                textBlock.Text += text + "\n";
+                if (Object.ReferenceEquals(arg.GetType(), textBlock.GetType()))
+                {
+                    textBlock = (TextBlock)arg;
+                    textBlock.Text += text + "\n";
+                }
             }
+            
         }
 
         public void CreateCustomWindow()
@@ -140,6 +144,11 @@ namespace Medusa.Analyze1553B.UI
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             //MessageBox.Show("Window_SizeChanged");
+        }
+
+        public int IndexSelectedViewModel()
+        {
+            return products.SelectedIndex;
         }
     }
 }

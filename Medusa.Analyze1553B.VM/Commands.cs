@@ -208,15 +208,43 @@ namespace Medusa.Analyze1553B.VM
 
         private void AddVM(object arg)
         {
-            int x = 666;
-            if (Object.ReferenceEquals(arg.GetType(), x.GetType()))
+            if (arg != null)
             {
-                x = Convert.ToInt32(arg);
-                string s = vmObject.ListViewModels[x].GetType().ToString();
-                //dialogService.ShowMessage(s);
-                object obj = vmObject.ListViewModels[x];
-                vmObject.ViewModels.Add((IPageViewModel)obj);
+                string[] words = arg.ToString().Split(new char[] { '.' });
+                string inputString = words[words.Length - 1];
+
+                switch (inputString)
+                {
+                    case "MedusaViewModel":
+                        AddNewViewModelAndRemoveSelectedViewModel(new MedusaViewModel(syncContext, dialogService, dataService, this) { });
+                        break;
+
+                    case "TcpServerViewModel":
+                        AddNewViewModelAndRemoveSelectedViewModel(new TcpServerViewModel(syncContext, dialogService, dataService, this) { });
+                        break;
+
+                    case "TestViewModel":
+                        AddNewViewModelAndRemoveSelectedViewModel(new TestViewModel(syncContext, dialogService, dataService, this) { });
+                        break;
+
+                    case "ChoosePageViewModel":
+                        vmObject.ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, this) { });
+                        break;
+
+                    default: 
+                        dialogService.ShowMessage("Nothing");
+                        break;
+                }
             }
+
+        }
+
+        private void AddNewViewModelAndRemoveSelectedViewModel(IPageViewModel newViewModel)
+        {
+
+            int indexSelectedViewModel = dialogService.IndexSelectedViewModel();
+            vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
+            vmObject.ViewModels.Insert(indexSelectedViewModel, newViewModel);
         }
 
         private void UpdateCurrentRow(object arg)

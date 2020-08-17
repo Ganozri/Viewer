@@ -26,21 +26,19 @@ namespace Medusa.Analyze1553B.VM
 
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = new Commands(syncContext, this, dialogService, dataService);
-            //
-            ListViewModels = new ObservableCollection<IPageViewModel>();
-            ListViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands) { });
-            ListViewModels.Add(new TestViewModel(syncContext, dialogService, dataService, Commands)   { });
-            //
+           
             ViewModels = new ObservableCollection<IPageViewModel>();
-            ViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands)   { Name = "MedusaVM"});
-            ViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands)   { Name = "MedusaVM1" });
-            ViewModels.Add(new TestViewModel(syncContext, dialogService, dataService, Commands)     { Name = "TestVM1"});
-            ViewModels.Add(new TcpServerViewModel(syncContext, dialogService, dataService, Commands){ });
+            //ViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands)   { Name = "MedusaVM"});
+            //ViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands)   { Name = "MedusaVM1" });
+            //ViewModels.Add(new TestViewModel(syncContext, dialogService, dataService, Commands)     { Name = "TestVM1"});
+            //ViewModels.Add(new TcpServerViewModel(syncContext, dialogService, dataService, Commands){ });
+
+            ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, Commands) { });
 
             SelectedViewModel = ViewModels[ViewModels.Count-1];
 
         }
 
-        //[Reactive] public double WindowScale { get; set; } = 1;
+        [Reactive] public double WindowScale { get; set; } = 1;
     }
 }

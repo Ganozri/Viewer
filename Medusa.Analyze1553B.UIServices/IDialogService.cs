@@ -13,5 +13,6 @@ namespace Medusa.Analyze1553B.UIServices
         void UpdateView(object arg);
         void AddText(object arg, string text);
         int CurrentPosition(object arg);
+        int IndexSelectedViewModel();
     }
 }

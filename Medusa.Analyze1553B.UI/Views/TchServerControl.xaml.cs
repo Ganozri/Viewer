@@ -37,8 +37,14 @@ namespace Medusa.Analyze1553B.UI.Views
             //outputScroll.ScrollToEnd();
         }
 
-        
-        
+        private void currentTagNotContactsList_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+           
+        }
 
+        private void myListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            MessageBox.Show("myListView_ScrollChanged");
+        }
     }
 }

@@ -21,7 +21,6 @@ namespace Medusa.Analyze1553B.VM
         [Reactive] public int rowCount { get; set; }
 
         [Reactive] public States currentState { get; set; }
-
         //
         public Commands Commands { get; set; }
         public SynchronizationContext syncContext;
@@ -32,9 +31,9 @@ namespace Medusa.Analyze1553B.VM
             currentState = States.Red;
         }
 
-        public void FillData(IDataService dataService)
+        public void FillData(IDataService dataService, string path = "@")
         {
-            string path = @"";
+            //string path = @"";
             if (File.Exists(path))
             {
                 dataRecordsList = dataService.dataRecordsList(path);
