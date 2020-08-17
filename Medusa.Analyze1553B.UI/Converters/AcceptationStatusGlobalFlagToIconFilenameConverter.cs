@@ -14,11 +14,11 @@ namespace Medusa.Analyze1553B.UI.Converters
             switch ((States)value)
             {
                 case States.Red:
-                    return "Icons/red.png";
+                    return "Icons/redCircle.png";
                 case States.Yellow:
-                    return "Icons/yellow.png";
+                    return "Icons/yellowCircle.png";
                 case States.Green:
-                    return "Icons/green.png";
+                    return "Icons/greenCircle.png";
                 default:
                     return null;
             }

@@ -41,19 +41,21 @@
                             </Grid.RowDefinitions>
                             <!-- This inserts the button -> -->
                             <Grid>
-                                
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <Button x:Name="TabPanelButton"  
+                                        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
                                         Grid.Column="1"
                                         Command="{Binding Commands.AddVMCommand}"
                                         CommandParameter="ChoosePageViewModel"
-                                        Content="+" 
-                                        Height="25"/>
-                                
+                                        Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+
+                                        Margin="5,0,0,0"/>
+
                                 <TabPanel Name="HeaderPanel"
                                           Grid.Column="0"
                                           IsItemsHost="True"
@@ -104,7 +106,14 @@
                                 <ContentPresenter.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Name}"/>
-                                        <Image Source="{Binding currentState, Converter={StaticResource IconConverter}}"/>
+                                        <Image Source="{Binding currentState, Converter={StaticResource IconConverter}}"
+                                               Height="20" Width="20"/>
+                                        <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                Content="X"
+                                                Margin="3,0,0,0"
+                                                Command="{Binding Commands.RemoveViewModelCommand}"
+                                                CommandParameter="{Binding SelectedIndex, ElementName = products, NotifyOnTargetUpdated = True}"/>
                                     </StackPanel>
                                 </ContentPresenter.Content>
                             </ContentPresenter>
@@ -158,20 +167,14 @@
             <Menu x:Name="MainMenu"
                     VerticalAlignment="Center">
                 <MenuItem Header="Menu">
-                    <MenuItem Header="AddTemplateRow" Command=""  
-                              InputGestureText="Ctrl+T"/>
                     <MenuItem Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
                               InputGestureText="Ctrl+N"/>
                     <MenuItem Header="Save"           Command="{Binding  Commands.SaveXmlFromTableCommand}"      
                               InputGestureText="Ctrl+S"/>
                 </MenuItem>
-                
-                <MenuItem Header="Clear" InputGestureText="Ctrl+L"/>
+
                 <MenuItem Header="Help"  Command="{Binding  Commands.ShowHelpInformationCommand}" 
                           InputGestureText="Ctrl+H"/>
-                <MenuItem Header="AddVMCommand" Command="{Binding  Commands.AddVMCommand}" CommandParameter=""/>
-                <MenuItem Header="TestCommandbutton"  Command="{Binding  Commands.TestCommand}"
-                                                      CommandParameter=""/>
 
                 <!--<MenuItem Header="UI scale">
                     <MenuItem >

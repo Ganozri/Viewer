@@ -42,6 +42,7 @@ namespace Medusa.Analyze1553B.VM
         //
         public ICommand UpdateCurrentRowCommand { get; }
         public ICommand AddVMCommand { get; }
+        public ICommand RemoveViewModelCommand { get; }
 
         public ICommand ConnectAsTcpClientCommand { get; }
         public ICommand TestCommand { get; }
@@ -68,13 +69,17 @@ namespace Medusa.Analyze1553B.VM
             AddVMCommand = CreateCommand<object>(AddVM);
             ConnectAsTcpClientCommand = CreateCommand<object>(RunConnectAsTcpClient);
             TestCommand = CreateCommand<object>(Test);
-
+            RemoveViewModelCommand = CreateCommand<int>(RemoveViewModel);
         }
 
 
 
         #region Command Implementation
         //
+        private void RemoveViewModel(int number)
+        {
+            vmObject.ViewModels.RemoveAt(number);
+        }
         private void Test(object obj)
         {
             ////
@@ -229,6 +234,7 @@ namespace Medusa.Analyze1553B.VM
 
                     case "ChoosePageViewModel":
                         vmObject.ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, this) { });
+                        vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];
                         break;
 
                     default: 
@@ -245,6 +251,7 @@ namespace Medusa.Analyze1553B.VM
             int indexSelectedViewModel = dialogService.IndexSelectedViewModel();
             vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
             vmObject.ViewModels.Insert(indexSelectedViewModel, newViewModel);
+            vmObject.SelectedViewModel = vmObject.ViewModels[indexSelectedViewModel];
         }
 
         private void UpdateCurrentRow(object arg)

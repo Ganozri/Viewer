@@ -28,11 +28,6 @@ namespace Medusa.Analyze1553B.VM
             this.Commands = new Commands(syncContext, this, dialogService, dataService);
            
             ViewModels = new ObservableCollection<IPageViewModel>();
-            //ViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands)   { Name = "MedusaVM"});
-            //ViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands)   { Name = "MedusaVM1" });
-            //ViewModels.Add(new TestViewModel(syncContext, dialogService, dataService, Commands)     { Name = "TestVM1"});
-            //ViewModels.Add(new TcpServerViewModel(syncContext, dialogService, dataService, Commands){ });
-
             ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, Commands) { });
 
             SelectedViewModel = ViewModels[ViewModels.Count-1];

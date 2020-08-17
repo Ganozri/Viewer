@@ -9,9 +9,14 @@
 
   <ItemGroup>
     <None Remove="Icons\arrowRight.png" />
+    <None Remove="Icons\close.png" />
+    <None Remove="Icons\close96.png" />
     <None Remove="Icons\green.png" />
+    <None Remove="Icons\greenCircle.png" />
     <None Remove="Icons\red.png" />
+    <None Remove="Icons\redCircle.png" />
     <None Remove="Icons\yellow.png" />
+    <None Remove="Icons\yellowCircle.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,13 +40,13 @@
     <Resource Include="Icons\arrowRight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Icons\green.png">
+    <Resource Include="Icons\greenCircle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Icons\red.png">
+    <Resource Include="Icons\redCircle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Icons\yellow.png">
+    <Resource Include="Icons\yellowCircle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
