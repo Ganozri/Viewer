@@ -17,6 +17,10 @@ using System.Reactive;
 using Medusa.Analyze1553B.VM.ProductViewModels;
 using DynamicData;
 using System.Net.Sockets;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using Medusa.Analyze1553B.Common;
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -41,7 +45,7 @@ namespace Medusa.Analyze1553B.VM
         public ICommand ShowHelpInformationCommand { get; }
         //
         public ICommand UpdateCurrentRowCommand { get; }
-        public ICommand AddVMCommand { get; }
+        public ICommand AddViewModelCommand { get; }
         public ICommand RemoveViewModelCommand { get; }
 
         public ICommand ConnectAsTcpClientCommand { get; }
@@ -66,65 +70,32 @@ namespace Medusa.Analyze1553B.VM
             SaveXmlFromTableCommand = CreateCommand(SaveXmlFromTable);
             ShowHelpInformationCommand = CreateCommand<object>(ShowHelpInformation);
             UpdateCurrentRowCommand = CreateCommand<object>(UpdateCurrentRow);
-            AddVMCommand = CreateCommand<object>(AddVM);
+            AddViewModelCommand = CreateCommand<object>(AddViewModel);
             ConnectAsTcpClientCommand = CreateCommand<object>(RunConnectAsTcpClient);
             TestCommand = CreateCommand<object>(Test);
-            RemoveViewModelCommand = CreateCommand<int>(RemoveViewModel);
+            RemoveViewModelCommand = CreateCommand<object>(RemoveViewModel);
         }
 
 
 
         #region Command Implementation
         //
-        private void RemoveViewModel(int number)
+        private void RemoveViewModel(object number)
         {
-            vmObject.ViewModels.RemoveAt(number);
+            dialogService.ShowMessage(number.ToString());
+            //vmObject.ViewModels.RemoveAt(number);
         }
         private void Test(object obj)
         {
-            ////
-            //long ellapledTicks = DateTime.Now.Ticks;
-
-            //vmObject.SelectedViewModel.dataRecordsList[1] = vmObject.SelectedViewModel.dataRecordsList[0];
-            //object[] o = vmObject.SelectedViewModel.dataRecordsList;
-            //int realLength = o.Length;
-            //Array.Resize<object>(ref o, o.Length + 10000);
-            //for (int i = 0; i < 100000; i++)
-            //{
-            //    if (o.Length < i + 10000)
-            //    {
-            //        Array.Resize<object>(ref o, o.Length + 10000);
-            //    }
-            //    object s = o[i];
-            //    o[realLength] = s;
-            //    realLength++;
-            //    //Array.Resize<object>(ref o, o.Length - 1);
-            //}
-            //Array.Resize<object>(ref o, realLength);
-            //vmObject.SelectedViewModel.dataRecordsList = o;
-            //SelectedDataUpdate();
-            ////dialogService.UpdateView(obj);
-            //ellapledTicks = DateTime.Now.Ticks - ellapledTicks;
-            //dialogService.ShowMessage(ellapledTicks.ToString());
-            ////
-            
             dialogService.ShowMessage(Directory.GetCurrentDirectory());
         }
         private void OutputWriteLine(object obj,string text)
         {
             dialogService.AddText(obj, text);
-            //output.Text = output.Text + "\n" + text;
-            //outputScroll.ScrollToEnd();
         }
 
         private void RunConnectAsTcpClient(object obj)
         {
-            //
-             //vmObject.SelectedViewModel.dataRecordsList = new object[] { };
-             //vmObject.SelectedViewModel.currentRow = 0;
-             //vmObject.SelectedViewModel.rowCount = 0;
-             //vmObject.SelectedViewModel.Data = new object[] { };
-            //
             Task _ = ConnectAsTcpClient(obj,"127.0.0.1", 1234);
         }
 
@@ -211,7 +182,7 @@ namespace Medusa.Analyze1553B.VM
         }
         private static readonly string ClientRequestString = "Hello Mr server";
 
-        private void AddVM(object arg)
+        private void AddViewModel(object arg)
         {
             if (arg != null)
             {
@@ -230,6 +201,10 @@ namespace Medusa.Analyze1553B.VM
 
                     case "TestViewModel":
                         AddNewViewModelAndRemoveSelectedViewModel(new TestViewModel(syncContext, dialogService, dataService, this) { });
+                        break;
+
+                    case "_1553MTViewModel":
+                        AddNewViewModelAndRemoveSelectedViewModel(new _1553MTViewModel(syncContext, dialogService, dataService, this) { });
                         break;
 
                     case "ChoosePageViewModel":
@@ -252,6 +227,7 @@ namespace Medusa.Analyze1553B.VM
             vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
             vmObject.ViewModels.Insert(indexSelectedViewModel, newViewModel);
             vmObject.SelectedViewModel = vmObject.ViewModels[indexSelectedViewModel];
+            OpenXmlForTableCreation();
         }
 
         private void UpdateCurrentRow(object arg)
@@ -324,7 +300,7 @@ namespace Medusa.Analyze1553B.VM
             //
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Yellow;
             //
-            vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
+            vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList<DataRecord>(path);
             vmObject.SelectedViewModel.currentRow = 0;
             vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
             vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
@@ -339,9 +315,10 @@ namespace Medusa.Analyze1553B.VM
             // convert stream to string
             StreamReader reader = new StreamReader(dialogService.ShowSaveFileDialog());
             string path = reader.ReadToEnd();
-           
         }
+        //
 
+        //
         private void ShowHelpInformation(object obj)
         {
             if (obj!=null)

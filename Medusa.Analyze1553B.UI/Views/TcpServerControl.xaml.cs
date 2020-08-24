@@ -27,24 +27,5 @@ namespace Medusa.Analyze1553B.UI.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //OutputWriteLine("Button_Click");
-        }
-
-        private void output_TargetUpdated(object sender, DataTransferEventArgs e)
-        {
-            //outputScroll.ScrollToEnd();
-        }
-
-        private void currentTagNotContactsList_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
-        {
-           
-        }
-
-        private void myListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            MessageBox.Show("myListView_ScrollChanged");
-        }
     }
 }

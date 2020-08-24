@@ -10,14 +10,9 @@ namespace Medusa.Analyze1553B.VM
     {
         object VmObject { get; }
 
-        //
         public Commands Commands { get; }
         ObservableCollection<IPageViewModel> ListViewModels { get; set; }
         ObservableCollection<IPageViewModel> ViewModels { get; set; }
         IPageViewModel SelectedViewModel { get; set; }
-        //object[] dataRecordsList { get; set; }
-        //object[] Data { get; set; }
-        //int currentRow { get; set; }
-        //int rowCount { get; set; }
     }
 }

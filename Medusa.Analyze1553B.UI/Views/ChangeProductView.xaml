@@ -40,7 +40,7 @@
                 </ListView.View>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseUp">
-                    <i:InvokeCommandAction  Command="{Binding Commands.AddVMCommand}"
+                    <i:InvokeCommandAction  Command="{Binding Commands.AddViewModelCommand}"
                                                               CommandParameter="{Binding ElementName=myListView, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>

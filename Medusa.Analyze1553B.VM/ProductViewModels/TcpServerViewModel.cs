@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Medusa.Analyze1553B.Common;
 
 namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
@@ -23,8 +24,8 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             this.Commands = Commands;
 
             Name = "TcpServerViewModel";
-
-            FillData(dataService);
+            
+            FillData<DataRecord>(dataService);
         }
 
 

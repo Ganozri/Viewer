@@ -19,12 +19,13 @@
     
     <Window.InputBindings>
         <KeyBinding Command="{Binding Commands.OpenXmlForTableCreationCommand}" Key="N" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Commands.SaveXmlFromTableCommand}" Key="S" Modifiers="Ctrl"/>
     </Window.InputBindings>
     
     <Window.Resources>
 
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
-        <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+        <SolidColorBrush x:Key="SolidBorderBrush" Color="#FFF" />
         <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
         <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
 
@@ -36,7 +37,7 @@
                     <ControlTemplate TargetType="{x:Type TabControl}">
                         <Grid KeyboardNavigation.TabNavigation="Local">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="30"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <!-- This inserts the button -> -->
@@ -46,22 +47,24 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-
-                                <Button x:Name="TabPanelButton"  
-                                        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                                        Grid.Column="1"
-                                        Command="{Binding Commands.AddVMCommand}"
-                                        CommandParameter="ChoosePageViewModel"
-                                        Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
-
-                                        Margin="5,0,0,0"/>
-
+ 
                                 <TabPanel Name="HeaderPanel"
                                           Grid.Column="0"
                                           IsItemsHost="True"
                                           KeyboardNavigation.TabIndex="1"
-                                          Background="Transparent"/>
-                                
+                                          Background="Transparent"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                <Button x:Name="TabPanelButton"  
+                                        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                                        Grid.Column="1"
+                                        Command="{Binding Commands.AddViewModelCommand}"
+                                        CommandParameter="ChoosePageViewModel"
+                                        Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Margin="5,0,0,0"/>
+
+
+
                             </Grid>
                             <!-- <- This inserts the button -->
                             <Border Name="Border" 
@@ -92,7 +95,7 @@
         <converters:AcceptationStatusGlobalFlagToIconFilenameConverter x:Key="IconConverter"/>
 
         <Style TargetType="TabItem">
-
+          
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
@@ -104,30 +107,36 @@
                                     ContentSource="Header"
                                     Margin="10,2">
                                 <ContentPresenter.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}"/>
-                                        <Image Source="{Binding currentState, Converter={StaticResource IconConverter}}"
-                                               Height="20" Width="20"/>
-                                        <Button Style="{StaticResource MaterialDesignIconButton}"
-                                                Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                Content="X"
-                                                Margin="3,0,0,0"
-                                                Command="{Binding Commands.RemoveViewModelCommand}"
-                                                CommandParameter="{Binding SelectedIndex-1, ElementName = products, NotifyOnTargetUpdated = True}"/>
-                                    </StackPanel>
+                                    <Border Name="tabItemBorder"
+                                            BorderThickness="0 0 0 2"
+                                            BorderBrush="{Binding currentState, Converter={StaticResource IconConverter}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <!--<Image Source="{Binding currentState, Converter={StaticResource IconConverter}}"
+                                               Height="20" Width="20"/>-->
+                                            <Button Name="tabItemCloseButton"
+                                                    Style="{StaticResource MaterialDesignIconButton}"
+                                                    Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Content="X"
+                                                    Margin="3,0,0,0"
+                                                    Command="{Binding Commands.RemoveViewModelCommand}"
+                                                    CommandParameter="{Binding SelectedIndex, ElementName = products, NotifyOnTargetUpdated = True}"/>
+                                        </StackPanel>
+                                    </Border>
+                                   
                                 </ContentPresenter.Content>
                             </ContentPresenter>
 
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                <Setter TargetName="Panel" Property="Background" Value="#FFBBDEFB" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
-                            <Setter TargetName="Panel" Property="Background" Value="White" />
+                                <Setter TargetName="Panel" Property="Background" Value="AliceBlue" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="Panel" Property="Background" Value="#FFA2C5E4" />
+                                <Setter TargetName="Panel" Property="Background" Value="#FFBBDEFB" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -136,10 +145,10 @@
             
         </Style>
 
-        <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}">
-           
-        </Style>
-       
+        <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
+
+
+
 
     </Window.Resources>
 
@@ -157,7 +166,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
@@ -166,7 +175,7 @@
             
             <Menu x:Name="MainMenu"
                     VerticalAlignment="Center">
-                <MenuItem Header="Menu">
+                <MenuItem Header="Menu" Height="30">
                     <MenuItem Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
                               InputGestureText="Ctrl+N"/>
                     <MenuItem Header="Save"           Command="{Binding  Commands.SaveXmlFromTableCommand}"      
@@ -174,33 +183,13 @@
                 </MenuItem>
 
                 <MenuItem Header="Help"  Command="{Binding  Commands.ShowHelpInformationCommand}" 
-                          InputGestureText="Ctrl+H"/>
-
-                <!--<MenuItem Header="UI scale">
-                    <MenuItem >
-                        <MenuItem.Header>
-                            <StackPanel>
-                                <TextBlock Text="Details scale"/>
-                                <Slider MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
-                                <TextBlock Text="{Binding WindowScale,Mode=OneWay}"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem >
-                        <MenuItem.Header>
-                            <StackPanel>
-                                <TextBlock Text="Fonts scale"/>
-                                <Slider MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
-                                <TextBlock Text="{Binding WindowScale,Mode=OneWay}"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                </MenuItem>--> 
+                          InputGestureText="Ctrl+H"
+                          Height="30"/>
             </Menu>
 
-            <StackPanel>
-                <Slider MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
-                <TextBox Text="{Binding WindowScale, Mode=TwoWay}"/>
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="ScaleUI " />
+                <Slider Name="ScaleUI" MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
             </StackPanel>
 
         </StackPanel>
@@ -229,7 +218,11 @@
                 <DataTemplate DataType="{x:Type vms:ChoosePageViewModel}">
                     <views:ChangeProductView/>
                 </DataTemplate>
-                
+
+                <DataTemplate DataType="{x:Type vms:_1553MTViewModel}">
+                    <views:_1553MTView/>
+                </DataTemplate>
+
             </TabControl.Resources>
 
         </TabControl>

@@ -26,6 +26,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             ListViewModels.Add(new MedusaViewModel(syncContext, dialogService, dataService, Commands) { });
             ListViewModels.Add(new TestViewModel(syncContext, dialogService, dataService, Commands) { });
             ListViewModels.Add(new TcpServerViewModel(syncContext, dialogService, dataService, Commands) { });
+            ListViewModels.Add(new _1553MTViewModel(syncContext, dialogService, dataService, Commands) { });
             //
             //FillData(dataService);
         }

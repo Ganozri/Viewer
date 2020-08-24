@@ -8,6 +8,7 @@ using static Medusa.Analyze1553B.VM.IPageViewModel;
 using ReactiveUI.Fody.Helpers;
 using Medusa.Analyze1553B.VMServices;
 using Medusa.Analyze1553B.UIServices;
+using Medusa.Analyze1553B.Common;
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -31,12 +32,11 @@ namespace Medusa.Analyze1553B.VM
             currentState = States.Red;
         }
 
-        public void FillData(IDataService dataService, string path = "@")
+        public void FillData<T>(IDataService dataService, string path = "@")
         {
-            //string path = @"";
             if (File.Exists(path))
             {
-                dataRecordsList = dataService.dataRecordsList(path);
+                dataRecordsList = dataService.dataRecordsList<T>(path);
                 currentRow = 0;
                 rowCount = dataRecordsList.Length - 1;
                 Data = dataService.Data(currentRow, dataRecordsList);

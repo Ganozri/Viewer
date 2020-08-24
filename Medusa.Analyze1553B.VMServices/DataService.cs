@@ -1,5 +1,6 @@
 ﻿using Medusa.Analyze1553B.Common;
 using Medusa.Analyze1553B.UIServices;
+using Newtonsoft.Json;
 using Olympus.Checkers;
 using Olympus.Translation;
 using System;
@@ -8,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Medusa.Analyze1553B.VMServices
 {
@@ -18,7 +21,7 @@ namespace Medusa.Analyze1553B.VMServices
         private TranslationRepository translationRepository;
         private Medusa.Analyze1553B.Loader.BMD.Loader loader;
 
-        private ObservableCollection<DataRecord> dataRecordsList_;
+        //private ObservableCollection<DataRecord> dataRecordsList_;
 
         public DataService(IDialogService dialogService)
         {
@@ -32,7 +35,8 @@ namespace Medusa.Analyze1553B.VMServices
         {
                 //
                 IEnumerable<DataRecord> dr = currentData.Cast<DataRecord>();
-                dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
+                //dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
+                ObservableCollection<DataRecord> dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
                 //
                 ObservableCollection<ushort> Data_ = new ObservableCollection<ushort>(dataRecordsList_[currentRow].Data);
                 object[] Data = Data_.Select(x => x as object).ToArray();
@@ -40,11 +44,11 @@ namespace Medusa.Analyze1553B.VMServices
                 return Data;       
         }
 
-        public object[] dataRecordsList(string path)
+        public object[] dataRecordsList<T>(string path)
         {
             FileStream fstream = File.OpenRead(path);
             IEnumerable<DataRecord> dataRecords = loader.ReadStream(fstream);
-            dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
+            ObservableCollection<DataRecord>  dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
             object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
 
             return dataRecordsList;
@@ -55,7 +59,7 @@ namespace Medusa.Analyze1553B.VMServices
             using (var stream = GenerateStreamFromString(input))
             {
                 IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
-                dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
+                ObservableCollection<DataRecord>  dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
                 object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
 
                 return dataRecordsList;
@@ -63,15 +67,12 @@ namespace Medusa.Analyze1553B.VMServices
             
         }
 
-
-
-
         public object[] updateDataRerordsList(object[] currentData, string input)
         {
             using (var stream = GenerateStreamFromString(input))
             {
                 IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
-                dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
+                ObservableCollection<DataRecord>  dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
                 object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
 
                 int oldLength = currentData.Length;
@@ -87,42 +88,6 @@ namespace Medusa.Analyze1553B.VMServices
             }
         }
 
-        //public object[] updateDataRerordsList(object[] currentData, string input)
-        //{
-        //    using (var stream = GenerateStreamFromString(input))
-        //    {
-        //        IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
-        //        dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
-        //        object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
-
-        //        int oldLength = currentData.Length;
-        //        int addedLength = dataRecordsList.Length;
-
-        //        object[] objs = InitializeArray<object>(oldLength + addedLength);
-        //        for (int i = 0; i < oldLength; i++)
-        //        {
-        //            objs[i] = currentData[i];
-        //        }
-        //        for (int i = oldLength; i < (oldLength + addedLength); i++)
-        //        {
-        //            objs[i] = dataRecordsList[i - oldLength];
-        //        }
-
-        //        return objs;
-        //    }
-        //}
-
-        T[] InitializeArray<T>(int length) where T : new()
-        {
-            T[] array = new T[length];
-            for (int i = 0; i < length; ++i)
-            {
-                array[i] = new T();
-            }
-
-            return array;
-        }
-
         private static Stream GenerateStreamFromString(string s)
         {
             var stream = new MemoryStream();
@@ -134,5 +99,6 @@ namespace Medusa.Analyze1553B.VMServices
         }
 
         
+       
     }
 }

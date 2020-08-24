@@ -3,10 +3,12 @@ using Medusa.Analyze1553B.UIServices;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using SynchronizationContext = System.Threading.SynchronizationContext;
 //
 
@@ -18,7 +20,8 @@ namespace Medusa.Analyze1553B.UI
     /// </summary>
     public partial class MainWindow : ISynchronizationContextProvider, IDialogService
     {
-        public string test { get; set; } = "test";
+
+
         readonly Microsoft.Win32.OpenFileDialog openFileDlg;
         readonly Microsoft.Win32.SaveFileDialog saveFileDialog;
 
@@ -31,6 +34,8 @@ namespace Medusa.Analyze1553B.UI
         public MainWindow()
         {
             InitializeComponent();
+            PreviewMouseWheel += Window_PreviewMouseWheel;
+
             SynchronizationContext = SynchronizationContext.Current;
             openFileDlg = new Microsoft.Win32.OpenFileDialog
             {
@@ -41,6 +46,19 @@ namespace Medusa.Analyze1553B.UI
             {
                 Filter = this.Filter
             };
+        }
+
+        private void Window_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers != ModifierKeys.Control)
+                return;
+
+            if (e.Delta > 0)
+                ScaleUI.Value += 0.1;
+
+
+            else if (e.Delta < 0)
+                ScaleUI.Value -= 0.1;
         }
 
         public MemoryStream ShowOpenFileDialog()
@@ -150,5 +168,8 @@ namespace Medusa.Analyze1553B.UI
         {
             return products.SelectedIndex;
         }
+
+
+      
     }
 }

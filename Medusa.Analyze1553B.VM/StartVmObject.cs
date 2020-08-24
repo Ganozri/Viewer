@@ -29,7 +29,7 @@ namespace Medusa.Analyze1553B.VM
            
             ViewModels = new ObservableCollection<IPageViewModel>();
             ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, Commands) { });
-
+            ViewModels.Add(new _1553MTViewModel(syncContext, dialogService, dataService, Commands) { });
             SelectedViewModel = ViewModels[ViewModels.Count-1];
 
         }
