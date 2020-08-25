@@ -25,7 +25,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 
             Name = "TcpServerViewModel";
             
-            FillData<DataRecord>(dataService);
+            FillData(dataService);
         }
 
 

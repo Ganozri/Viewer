@@ -55,15 +55,17 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MsgNO}"      >MsgNO</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MoniTimetorTime}">Time</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Channel}"    >Cl</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Error}"      >Error</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Value}"  >Cw1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw2.Value}"  >Cw2</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Rw1.Value}"  >Rw1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Rw2.Value}"  >Rw2</GridViewColumn>
-
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MsgNO}"  >MsgNO</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Time}"   >Time</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=BusTime}">BusTime</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Bus}"    >Bus</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cmd1}"   >Cmd1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cmd2}"   >Cmd2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=status1}">status1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=status2}">status2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=resp1}"  >resp1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=resp2}"  >resp2</GridViewColumn>
+                    
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[0]}">0</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[1]}">1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[2]}">2</GridViewColumn>

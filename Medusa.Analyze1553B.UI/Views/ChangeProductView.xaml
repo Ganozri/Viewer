@@ -32,12 +32,7 @@
                   ItemsSource="{Binding ListViewModels}"
                   HorizontalAlignment="Center"
                   FontSize="32">
-                <ListView.View>
-                    <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" 
-                                    Header="Name"/> 
-                </GridView>
-                </ListView.View>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseUp">
                     <i:InvokeCommandAction  Command="{Binding Commands.AddViewModelCommand}"

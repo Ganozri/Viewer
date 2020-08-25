@@ -32,14 +32,17 @@ namespace Medusa.Analyze1553B.VM
             currentState = States.Red;
         }
 
-        public void FillData<T>(IDataService dataService, string path = "@")
+        public void FillData(IDataService dataService, string path = "@")
         {
-            if (File.Exists(path))
+            //path = @"D:\Data\20200314-173833 (norm).bmd";
+            path = @"D:\Data\1553-MT(TEST DATA)).txt";
+            bool isFileExists = File.Exists(path);
+            if (isFileExists)
             {
-                dataRecordsList = dataService.dataRecordsList<T>(path);
+                dataRecordsList = dataService.dataRecordsList(path);
                 currentRow = 0;
                 rowCount = dataRecordsList.Length - 1;
-                Data = dataService.Data(currentRow, dataRecordsList);
+                //Data = dataService.Data(currentRow, dataRecordsList);
             }
             else
             {

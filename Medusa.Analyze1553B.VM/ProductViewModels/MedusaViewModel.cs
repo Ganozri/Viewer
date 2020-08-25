@@ -21,7 +21,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 
             Name = "MedusaViewModel";
 
-            FillData<DataRecord>(dataService);
+            FillData(dataService);
         }    
     }
 }

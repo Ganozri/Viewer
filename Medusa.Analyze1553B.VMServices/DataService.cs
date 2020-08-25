@@ -3,6 +3,7 @@ using Medusa.Analyze1553B.UIServices;
 using Newtonsoft.Json;
 using Olympus.Checkers;
 using Olympus.Translation;
+using Parsers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,20 +32,36 @@ namespace Medusa.Analyze1553B.VMServices
             loader = new Medusa.Analyze1553B.Loader.BMD.Loader(translationRepository);
         }
 
-        public object[] Data(int currentRow, object[] currentData)
-        {
-                //
-                IEnumerable<DataRecord> dr = currentData.Cast<DataRecord>();
-                //dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
-                ObservableCollection<DataRecord> dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
-                //
-                ObservableCollection<ushort> Data_ = new ObservableCollection<ushort>(dataRecordsList_[currentRow].Data);
-                object[] Data = Data_.Select(x => x as object).ToArray();
+        //public object[] Data(int currentRow, object[] currentData)
+        //{
+        //        //
+        //        IEnumerable<DataRecord> dr = currentData.Cast<DataRecord>();
+        //        //dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
+        //        ObservableCollection<DataRecord> dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
+        //        //
+        //        ObservableCollection<ushort> Data_ = new ObservableCollection<ushort>(dataRecordsList_[currentRow].Data);
+        //        object[] Data = Data_.Select(x => x as object).ToArray();
 
-                return Data;       
+        //        return Data;       
+        //}
+
+        public object[] newDataRecordsList(string path)
+        {
+            var timer = System.Diagnostics.Stopwatch.StartNew();
+            var dataRecords = Parser1553MT.GetDataByPath(path);
+            timer.Stop();
+            var k = timer.Elapsed;
+            
+            timer.Start();
+            object[] values = dataRecords.Cast<object>().ToArray();
+
+            timer.Stop();
+            var l = timer.Elapsed;
+
+            return values;
         }
 
-        public object[] dataRecordsList<T>(string path)
+        public object[] dataRecordsList(string path)
         {
             FileStream fstream = File.OpenRead(path);
             IEnumerable<DataRecord> dataRecords = loader.ReadStream(fstream);

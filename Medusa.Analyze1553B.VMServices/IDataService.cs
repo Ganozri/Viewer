@@ -9,9 +9,11 @@ namespace Medusa.Analyze1553B.VMServices
         object[] updateDataRerordsList(string input);
         object[] updateDataRerordsList(object[] currentData, string input);
         //
-        object[] dataRecordsList<T>(string path);
-        object[] Data(int currentRow, object[] currentData);
+        object[] dataRecordsList(string path);
 
-     
+        object[] newDataRecordsList(string path);
+        //object[] Data(int currentRow, object[] currentData);
+
+
     }
 }

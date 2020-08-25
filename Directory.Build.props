@@ -1,5 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(ProjectExt)'=='.csproj'">
     <LangVersion>8.0</LangVersion>
 
     <Deterministic>true</Deterministic>

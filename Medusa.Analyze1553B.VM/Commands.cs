@@ -258,7 +258,7 @@ namespace Medusa.Analyze1553B.VM
             if (vmObject.SelectedViewModel.currentRow < vmObject.SelectedViewModel.dataRecordsList.Length)
             {
                 dialogService.ScrollIntoView(arg, vmObject.SelectedViewModel.currentRow);
-                vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
+                //vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
             }
             else
             { 
@@ -292,7 +292,7 @@ namespace Medusa.Analyze1553B.VM
         {
             vmObject.SelectedViewModel.currentRow = 0;
             vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-            vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
+            //vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
         }
 
         private void SelectedDataUpdate(string path)
@@ -300,10 +300,10 @@ namespace Medusa.Analyze1553B.VM
             //
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Yellow;
             //
-            vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList<DataRecord>(path);
+            vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
             vmObject.SelectedViewModel.currentRow = 0;
             vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-            vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
+            // vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
             //
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Green;
             //

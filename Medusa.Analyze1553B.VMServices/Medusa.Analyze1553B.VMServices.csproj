@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,6 +11,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Medusa.Analyze1553B.Loader.BMD\Medusa.Analyze1553B.Loader.BMD.csproj" />
     <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Medusa.Analyze1553B.UIServices.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Parsers">
+      <HintPath>..\Parsers\bin\x64\Debug\netstandard2.0\Parsers.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
