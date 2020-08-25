@@ -171,25 +171,28 @@
 
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" >
             
             <Menu x:Name="MainMenu"
                     VerticalAlignment="Center">
-                <MenuItem Header="Menu" Height="30">
+                <MenuItem Header="File" Height="30">
                     <MenuItem Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
                               InputGestureText="Ctrl+N"/>
                     <MenuItem Header="Save"           Command="{Binding  Commands.SaveXmlFromTableCommand}"      
                               InputGestureText="Ctrl+S"/>
                 </MenuItem>
-
+                <MenuItem Header="Edit" Height="30"/>
+                <MenuItem Header="View" Height="30"/>
                 <MenuItem Header="Help"  Command="{Binding  Commands.ShowHelpInformationCommand}" 
                           InputGestureText="Ctrl+H"
                           Height="30"/>
             </Menu>
-
+s
             <StackPanel Orientation="Horizontal" >
-                <TextBlock Text="ScaleUI " />
-                <Slider Name="ScaleUI" MinWidth="100" Minimum="0.5" Maximum="3" Value="{Binding WindowScale,Mode=TwoWay}" />
+                <TextBlock Text="ScaleUI " FontSize="{Binding FontSize, ElementName=MainMenu}" VerticalAlignment="Center"/>
+                <Slider Name="ScaleUI" 
+                        MinWidth="100" Minimum="0.5" Maximum="3"  VerticalAlignment="Center"
+                        Value="{Binding WindowScale,Mode=TwoWay}" />
             </StackPanel>
 
         </StackPanel>
