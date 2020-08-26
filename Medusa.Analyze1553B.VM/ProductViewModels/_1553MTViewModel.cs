@@ -14,23 +14,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             this.Commands = Commands;
 
             Name = "_1553MTViewModel";
-
-            //FillData(dataService);
-            //string path = @"D:\Data\1553-MT(TEST DATA).txt";
-
-            string path = @"D:\Data\1553-MT.txt";
-            bool isFileExists = File.Exists(path);
-            if (isFileExists)
-            {
-                dataRecordsList = dataService.newDataRecordsList(path);
-                currentRow = 0;
-                rowCount = dataRecordsList.Length - 1;
-                //Data = dataService.Data(currentRow, dataRecordsList);
-            }
-       
-
-
-
+            FillData(dataService);
         }
     }
 }

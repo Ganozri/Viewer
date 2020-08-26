@@ -9,7 +9,6 @@ namespace Medusa.Analyze1553B.VM
         string Name { get; set; }
         //
         object[] dataRecordsList { get; set; }
-        object[] Data { get; set; }
         int currentRow { get; set; }
         int rowCount { get; set; }
 

@@ -66,7 +66,7 @@ namespace Medusa.Analyze1553B.VM
 
             NextCurrentRowCommand = CreateCommand<object>(NextCurrentRow);
             PrevCurrentRowCommand = CreateCommand<object>(PrevCurrentRow);
-            OpenXmlForTableCreationCommand = CreateCommand(OpenXmlForTableCreation);
+            OpenXmlForTableCreationCommand = CreateCommand(OpenFileForDataCreation);
             SaveXmlFromTableCommand = CreateCommand(SaveXmlFromTable);
             ShowHelpInformationCommand = CreateCommand<object>(ShowHelpInformation);
             UpdateCurrentRowCommand = CreateCommand<object>(UpdateCurrentRow);
@@ -180,6 +180,7 @@ namespace Medusa.Analyze1553B.VM
                 }
             }
         }
+
         private static readonly string ClientRequestString = "Hello Mr server";
 
         private void AddViewModel(object arg)
@@ -216,18 +217,25 @@ namespace Medusa.Analyze1553B.VM
                         dialogService.ShowMessage("Nothing");
                         break;
                 }
+
             }
 
         }
 
         private void AddNewViewModelAndRemoveSelectedViewModel(IPageViewModel newViewModel)
         {
+            //int indexSelectedViewModel = dialogService.IndexSelectedViewModel();
+            //vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
+            //vmObject.ViewModels.Insert(indexSelectedViewModel, newViewModel);
+            //vmObject.SelectedViewModel = vmObject.ViewModels[indexSelectedViewModel];
+            //OpenFileForDataCreation();
 
-            int indexSelectedViewModel = dialogService.IndexSelectedViewModel();
+            var x = vmObject.ViewModels.Count;
+            vmObject.ViewModels.Add(newViewModel);
             vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
-            vmObject.ViewModels.Insert(indexSelectedViewModel, newViewModel);
-            vmObject.SelectedViewModel = vmObject.ViewModels[indexSelectedViewModel];
-            OpenXmlForTableCreation();
+            vmObject.SelectedViewModel = vmObject.ViewModels[x-1];
+
+            OpenFileForDataCreation();
         }
 
         private void UpdateCurrentRow(object arg)
@@ -255,29 +263,24 @@ namespace Medusa.Analyze1553B.VM
 
         private void ScrollAndChangeData(object arg)
         {
+
             if (vmObject.SelectedViewModel.currentRow < vmObject.SelectedViewModel.dataRecordsList.Length)
             {
                 dialogService.ScrollIntoView(arg, vmObject.SelectedViewModel.currentRow);
-                //vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
-            }
-            else
-            { 
-                dialogService.ShowMessage("vmObject.SelectedViewModel.currentRow = " + vmObject.SelectedViewModel.currentRow +
-                                          "\nvmObject.SelectedViewModel.dataRecordsList.Length = " + vmObject.SelectedViewModel.Data.Length);
             }
         }
 
-        private void OpenXmlForTableCreation()
+        private void OpenFileForDataCreation()
         {
-            StreamReader reader = new StreamReader(dialogService.ShowOpenFileDialog());
-            string path = reader.ReadToEnd();
-            if (File.Exists(path))
+           
+            using (StreamReader reader = new StreamReader(dialogService.ShowOpenFileDialog()))
             {
-                //TODO
-                SelectedDataUpdate(path);
-                //TODO
+                string path = reader.ReadToEnd();
+                if (File.Exists(path))
+                {
+                    SelectedDataUpdate(path);
+                }
             }
-
         }
 
         private void OpenXmlForTableCreation(string path)
@@ -297,17 +300,15 @@ namespace Medusa.Analyze1553B.VM
 
         private void SelectedDataUpdate(string path)
         {
-            //
+
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Yellow;
-            //
-            vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
+
+            //vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
+            vmObject.SelectedViewModel.dataRecordsList = dataService.newDataRecordsList(path);
             vmObject.SelectedViewModel.currentRow = 0;
             vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-            // vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
-            //
-            vmObject.SelectedViewModel.currentState = IPageViewModel.States.Green;
-            //
-            
+
+            vmObject.SelectedViewModel.currentState = IPageViewModel.States.Green; 
         }
 
         private void SaveXmlFromTable()

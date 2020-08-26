@@ -37,7 +37,7 @@
                   SelectedIndex="{Binding  currentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}"
-                  VirtualizingStackPanel.IsVirtualizing="True">
+                  >
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
@@ -66,53 +66,43 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=resp1}"  >resp1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=resp2}"  >resp2</GridViewColumn>
                     
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[0]}">0</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[1]}">1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[2]}">2</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[3]}">3</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[4]}">4</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[5]}">5</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[6]}">6</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[7]}">7</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[8]}">8</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[9]}">9</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[10]}">10</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[11]}">11</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[12]}">12</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[13]}">13</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[14]}">14</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[15]}">15</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[16]}">16</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[17]}">17</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[18]}">18</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[19]}">19</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[20]}">20</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[21]}">21</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[22]}">22</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[23]}">23</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[24]}">24</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[25]}">25</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[26]}">26</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[27]}">27</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[28]}">28</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[29]}">29</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[30]}">30</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[31]}">31</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[0]}">0</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[1]}">1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[2]}">2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[3]}">3</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[4]}">4</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[5]}">5</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[6]}">6</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[7]}">7</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[8]}">8</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[9]}">9</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[10]}">10</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[11]}">11</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[12]}">12</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[13]}">13</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[14]}">14</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[15]}">15</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[16]}">16</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[17]}">17</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[18]}">18</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[19]}">19</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[20]}">20</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[21]}">21</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[22]}">22</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[23]}">23</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[24]}">24</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[25]}">25</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[26]}">26</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[27]}">27</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[28]}">28</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[29]}">29</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[30]}">30</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[31]}">31</GridViewColumn>
 
                 </GridView>
             </ListView.View>
 
         </ListView>
-
-        <!--<ScrollViewer x:Name="outputScroll" 
-                      Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1"
-                      Height="100" 
-                      Width="{Binding ActualWidth,ElementName=myListView,NotifyOnTargetUpdated=True}">
-            <TextBlock x:Name="output" Text="{Binding TextRow,NotifyOnTargetUpdated=True}"
-                       VirtualizingPanel.IsVirtualizing="True"
-                       TargetUpdated="output_TargetUpdated"/>
-        </ScrollViewer>-->
-
 
         <Slider         x:Name="Update"
                             Grid.Row="1" Grid.Column="2" 

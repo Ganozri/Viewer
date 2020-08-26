@@ -34,8 +34,11 @@ namespace Medusa.Analyze1553B.VM
 
         public void FillData(IDataService dataService, string path = "@")
         {
+
+            var timer = System.Diagnostics.Stopwatch.StartNew();
+
             //path = @"D:\Data\20200314-173833 (norm).bmd";
-            path = @"D:\Data\1553-MT(TEST DATA)).txt";
+            path = @"";
             bool isFileExists = File.Exists(path);
             if (isFileExists)
             {
@@ -49,8 +52,11 @@ namespace Medusa.Analyze1553B.VM
                 dataRecordsList = new object[] { };
                 currentRow = 0;
                 rowCount = 0;
-                Data = new object[] { };
             }
+
+            timer.Stop();
+            var x = timer.Elapsed;
+
         }
 
        

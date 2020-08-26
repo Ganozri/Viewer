@@ -47,26 +47,18 @@ namespace Medusa.Analyze1553B.VMServices
 
         public object[] newDataRecordsList(string path)
         {
-            var timer = System.Diagnostics.Stopwatch.StartNew();
             var dataRecords = Parser1553MT.GetDataByPath(path);
-            timer.Stop();
-            var k = timer.Elapsed;
-            
-            timer.Start();
-            object[] values = dataRecords.Cast<object>().ToArray();
+            object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
 
-            timer.Stop();
-            var l = timer.Elapsed;
-
-            return values;
+            return dataRecordsList;
         }
 
         public object[] dataRecordsList(string path)
         {
             FileStream fstream = File.OpenRead(path);
-            IEnumerable<DataRecord> dataRecords = loader.ReadStream(fstream);
-            ObservableCollection<DataRecord>  dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
-            object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
+
+            var dataRecords = loader.ReadStream(fstream);
+            object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
 
             return dataRecordsList;
         }
@@ -76,8 +68,7 @@ namespace Medusa.Analyze1553B.VMServices
             using (var stream = GenerateStreamFromString(input))
             {
                 IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
-                ObservableCollection<DataRecord>  dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
-                object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
+                object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
 
                 return dataRecordsList;
             }
@@ -89,8 +80,7 @@ namespace Medusa.Analyze1553B.VMServices
             using (var stream = GenerateStreamFromString(input))
             {
                 IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
-                ObservableCollection<DataRecord>  dataRecordsList_ = new ObservableCollection<DataRecord>(dataRecords.ToList<DataRecord>());
-                object[] dataRecordsList = dataRecordsList_.Select(x => x as object).ToArray();
+                object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
 
                 int oldLength = currentData.Length;
                 int addedLength = dataRecordsList.Length;
