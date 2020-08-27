@@ -32,12 +32,10 @@
                   MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"
                   ScrollViewer.HorizontalScrollBarVisibility="Visible"  
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
-
                   ItemsSource="{Binding dataRecordsList}"
                   SelectedIndex="{Binding  currentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
-                                           NotifyOnTargetUpdated=True}"
-                  >
+                                           NotifyOnTargetUpdated=True}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">

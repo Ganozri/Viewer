@@ -67,7 +67,7 @@ namespace Medusa.Analyze1553B.VMServices
         {
             using (var stream = GenerateStreamFromString(input))
             {
-                IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
+                var dataRecords = loader.ReadStream(stream);
                 object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
 
                 return dataRecordsList;
