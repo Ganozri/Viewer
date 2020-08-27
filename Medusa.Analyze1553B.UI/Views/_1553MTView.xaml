@@ -39,6 +39,7 @@
                   SelectedIndex="{Binding  currentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}"
+                  VirtualizingStackPanel.IsVirtualizing="True"
                   SelectionChanged="myListView_SelectionChanged">
 
             <i:Interaction.Triggers>

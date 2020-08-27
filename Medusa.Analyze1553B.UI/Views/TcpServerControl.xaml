@@ -39,7 +39,8 @@
                   SelectedIndex="{Binding  currentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}"
-                  VirtualizingStackPanel.IsVirtualizing="True">
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  SelectionChanged="myListView_SelectionChanged">
             
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
@@ -66,16 +67,16 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Rw1.Value}"  >Rw1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Rw2.Value}"  >Rw2</GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[0]}">0</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[1]}">1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[2]}">2</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[3]}">3</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[4]}">4</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[5]}">5</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[6]}">6</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[7]}">7</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[8]}">8</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[9]}">9</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[0]}" >0</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[1]}" >1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[2]}" >2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[3]}" >3</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[4]}" >4</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[5]}" >5</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[6]}" >6</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[7]}" >7</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[8]}" >8</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[9]}" >9</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[10]}">10</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[11]}">11</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[12]}">12</GridViewColumn>
@@ -105,103 +106,6 @@
         </ListView>
 
         
-            <!--<Slider         x:Name="Update"
-                            Grid.Row="1" Grid.Column="2" 
-                            Value="{Binding currentRow, UpdateSourceTrigger=PropertyChanged}"
-                            Minimum="0" Maximum="{Binding rowCount}" 
-                            SelectionStart="{Binding currentRow}" Width="25" 
-                            IsSelectionRangeEnabled="True" Orientation="Vertical"
-                            TickFrequency="500">
-                <Slider.LayoutTransform>
-                    <ScaleTransform ScaleY="-1"/>
-                </Slider.LayoutTransform>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PreviewMouseUp">
-                        <i:InvokeCommandAction  Command="{Binding Commands.UpdateCurrentRowCommand}"
-                                                        CommandParameter="{Binding ElementName=myListView}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Slider>
-
-
-        <Expander  Grid.Row="4" Grid.Column="0" 
-                   VerticalAlignment="Bottom" IsExpanded="True"
-                   >
-            <Grid>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" MinWidth="75"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto" MinWidth="75"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-
-                
-
-                <StackPanel Grid.Column="1" 
-                            Orientation="Horizontal"  HorizontalAlignment="Center">
-
-                    <StackPanel Margin="0,0,40,0">
-
-                        <Button Width="50" HorizontalAlignment="Left"   
-                            Command="{Binding Commands.PrevCurrentRowCommand}"
-                                              CommandParameter="{Binding ElementName=myListView}">
-                            <Polygon Points="8,0 0,5, 8,10" Stroke="Black" Fill="Black" />
-                        </Button>
-
-                        <TextBlock  Name="currentRowTB" Grid.Row="1"
-                            Text="{Binding currentRow, 
-                                           UpdateSourceTrigger=PropertyChanged,
-                                           NotifyOnTargetUpdated=True}"
-                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                            FontSize="32"/>
-                    </StackPanel>
-                    
-                    
-                    <Button  HorizontalAlignment="Center"  
-                             Command="{Binding Commands.ConnectAsTcpClientCommand}"
-                                               CommandParameter="{Binding ElementName=output}"
-                             Content="Start"
-                             Width="100"
-                             Margin="5"/>
-                    
-                    <Button  HorizontalAlignment="Center"  
-                             Content="Test"
-                             Width="100" 
-                             Margin="5"
-                             Command="{Binding  Commands.TestCommand}"
-                                                CommandParameter="{Binding ElementName=myListView}"/>
-                    
-                    <StackPanel  Margin="40,0,0,0">
-
-                        <Button Name="RightArrowButton"
-                                Command="{Binding Commands.NextCurrentRowCommand}"
-                                                  CommandParameter="{Binding ElementName=myListView}">
-                            <Polygon Points="0,0 8,5, 0,10" Stroke="Black" Fill="Black" />
-                        </Button>
-
-                        <TextBlock  Grid.Row="1" Grid.Column="2"
-                                    Text="{Binding rowCount}"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    FontSize="32"/>
-
-                    </StackPanel>
-                   
-
-                </StackPanel>
-
-               
-
-
-               
-                
-            </Grid>
-        </Expander>-->
-
         <ctrls:RightSliderControl Grid.Row="1" Grid.Column="2" 
                                   DataContext="{Binding}"/>
 
