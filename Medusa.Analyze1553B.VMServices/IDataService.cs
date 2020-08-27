@@ -8,12 +8,10 @@ namespace Medusa.Analyze1553B.VMServices
     {
         object[] updateDataRerordsList(string input);
         object[] updateDataRerordsList(object[] currentData, string input);
-        //
-        object[] dataRecordsList(string path);
 
-        object[] newDataRecordsList(string path);
-        //object[] Data(int currentRow, object[] currentData);
+        object[] GetDataByBMDLoader(string path);
+        object[] GetDataByParser1553MT(string path);
 
-
+        object[] GetData(string path, string name);
     }
 }

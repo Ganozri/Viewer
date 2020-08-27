@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,7 @@
 
   <ItemGroup>
     <Reference Include="Parsers">
-      <HintPath>..\Parsers\bin\x64\Debug\netstandard2.0\Parsers.dll</HintPath>
+      <HintPath>..\Parsers\bin\Debug\netstandard2.0\Parsers.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -25,6 +25,7 @@ namespace Medusa.Analyze1553B.VM
         //
         public Commands Commands { get; set; }
         public SynchronizationContext syncContext;
+        public IDataService dataService;
         //
 
         public SupportClass()
@@ -35,14 +36,12 @@ namespace Medusa.Analyze1553B.VM
         public void FillData(IDataService dataService, string path = "@")
         {
 
-            var timer = System.Diagnostics.Stopwatch.StartNew();
-
             //path = @"D:\Data\20200314-173833 (norm).bmd";
             path = @"";
             bool isFileExists = File.Exists(path);
             if (isFileExists)
             {
-                dataRecordsList = dataService.dataRecordsList(path);
+                dataRecordsList = dataService.GetDataByBMDLoader(path);
                 currentRow = 0;
                 rowCount = dataRecordsList.Length - 1;
                 //Data = dataService.Data(currentRow, dataRecordsList);
@@ -53,9 +52,6 @@ namespace Medusa.Analyze1553B.VM
                 currentRow = 0;
                 rowCount = 0;
             }
-
-            timer.Stop();
-            var x = timer.Elapsed;
 
         }
 

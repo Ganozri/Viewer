@@ -51,7 +51,7 @@
             </i:Interaction.Triggers>
 
 
-            <ListView.View>
+            <ListView.View >
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MsgNO}"  >MsgNO</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Time}"   >Time</GridViewColumn>
@@ -64,16 +64,16 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=resp1}"  >resp1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=resp2}"  >resp2</GridViewColumn>
                     
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[0]}">0</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[1]}">1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[2]}">2</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[3]}">3</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[4]}">4</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[5]}">5</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[6]}">6</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[7]}">7</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[8]}">8</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[9]}">9</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[0]}"  >0</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[1]}"  >1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[2]}"  >2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[3]}"  >3</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[4]}"  >4</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[5]}"  >5</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[6]}"  >6</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[7]}"  >7</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[8]}"  >8</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=words[9]}"  >9</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=words[10]}">10</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=words[11]}">11</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=words[12]}">12</GridViewColumn>
@@ -102,13 +102,13 @@
 
         </ListView>
 
-        <Slider         x:Name="Update"
-                            Grid.Row="1" Grid.Column="2" 
-                            Value="{Binding currentRow, UpdateSourceTrigger=PropertyChanged}"
-                            Minimum="0" Maximum="{Binding rowCount}" 
-                            SelectionStart="{Binding currentRow}" Width="25" 
-                            IsSelectionRangeEnabled="True" Orientation="Vertical"
-                            TickFrequency="500">
+        <Slider x:Name="Update"
+                Grid.Row="1" Grid.Column="2" 
+                Value="{Binding currentRow, UpdateSourceTrigger=PropertyChanged}"
+                Minimum="0" Maximum="{Binding rowCount}" 
+                SelectionStart="{Binding currentRow}" Width="25" 
+                IsSelectionRangeEnabled="True" Orientation="Vertical"
+                TickFrequency="500">
             <Slider.LayoutTransform>
                 <ScaleTransform ScaleY="-1"/>
             </Slider.LayoutTransform>

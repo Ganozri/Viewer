@@ -10,11 +10,14 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
     {
         public _1553MTViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
+            Name = "_1553MTViewModel";
+
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
 
-            Name = "_1553MTViewModel";
-            FillData(dataService);
+
+
+            FillData(this.dataService);
         }
     }
 }

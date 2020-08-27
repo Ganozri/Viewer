@@ -30,9 +30,9 @@ namespace Medusa.Analyze1553B.VM
         public readonly IVmObject vmObject;
         public readonly IDialogService dialogService;
         public readonly IDataService dataService;
-        //
+
         public readonly ISynchronizationContextProvider syncContext;
-        //
+
 
         #region Commands
         public ICommand DoNothingCommand { get; }
@@ -43,14 +43,14 @@ namespace Medusa.Analyze1553B.VM
         public ICommand OpenXmlForTableCreationCommand { get; }
         public ICommand SaveXmlFromTableCommand { get; }
         public ICommand ShowHelpInformationCommand { get; }
-        //
+
         public ICommand UpdateCurrentRowCommand { get; }
         public ICommand AddViewModelCommand { get; }
         public ICommand RemoveViewModelCommand { get; }
 
         public ICommand ConnectAsTcpClientCommand { get; }
         public ICommand TestCommand { get; }
-        //
+
         #endregion
 
 
@@ -78,9 +78,11 @@ namespace Medusa.Analyze1553B.VM
 
 
 
-        #region Command Implementation
-        //
-        private void RemoveViewModel(object number)
+
+
+            #region Command Implementation
+            //
+            private void RemoveViewModel(object number)
         {
             dialogService.ShowMessage(number.ToString());
             //vmObject.ViewModels.RemoveAt(number);
@@ -304,9 +306,18 @@ namespace Medusa.Analyze1553B.VM
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Yellow;
 
             //vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
-            vmObject.SelectedViewModel.dataRecordsList = dataService.newDataRecordsList(path);
+            //vmObject.SelectedViewModel.dataRecordsList = dataService.newDataRecordsList(path);
+            
+            vmObject.SelectedViewModel.dataRecordsList = dataService.GetData(path, vmObject.SelectedViewModel.Name);
             vmObject.SelectedViewModel.currentRow = 0;
-            vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+            if (vmObject.SelectedViewModel!=null)
+            {
+                vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+            }
+            else
+            {
+                vmObject.SelectedViewModel.rowCount = 0;
+            }
 
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Green; 
         }

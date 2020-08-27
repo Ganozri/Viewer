@@ -19,33 +19,36 @@ namespace Medusa.Analyze1553B.VMServices
     {
         private readonly IDialogService dialogService;
 
-        private TranslationRepository translationRepository;
         private Medusa.Analyze1553B.Loader.BMD.Loader loader;
 
-        //private ObservableCollection<DataRecord> dataRecordsList_;
+        private string Name { get; set; }
 
         public DataService(IDialogService dialogService)
         {
             this.dialogService = dialogService;
 
-            translationRepository = new TranslationRepository();
-            loader = new Medusa.Analyze1553B.Loader.BMD.Loader(translationRepository);
+            loader = new Medusa.Analyze1553B.Loader.BMD.Loader(new TranslationRepository());
         }
 
-        //public object[] Data(int currentRow, object[] currentData)
-        //{
-        //        //
-        //        IEnumerable<DataRecord> dr = currentData.Cast<DataRecord>();
-        //        //dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
-        //        ObservableCollection<DataRecord> dataRecordsList_ = new ObservableCollection<DataRecord>(dr.ToList<DataRecord>());
-        //        //
-        //        ObservableCollection<ushort> Data_ = new ObservableCollection<ushort>(dataRecordsList_[currentRow].Data);
-        //        object[] Data = Data_.Select(x => x as object).ToArray();
+        public object[] GetData(string path,string name)
+        {
+            switch (name)
+            {
+                case "TcpServerViewModel":
+                    return GetDataByBMDLoader(path);
 
-        //        return Data;       
-        //}
+                case "TestViewModel":
+                    return GetDataByBMDLoader(path);
 
-        public object[] newDataRecordsList(string path)
+                case "_1553MTViewModel":
+                    return GetDataByParser1553MT(path);
+                    
+                default:
+                    return null;
+            }
+        }
+
+        public object[] GetDataByParser1553MT(string path)
         {
             var dataRecords = Parser1553MT.GetDataByPath(path);
             object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
@@ -53,7 +56,7 @@ namespace Medusa.Analyze1553B.VMServices
             return dataRecordsList;
         }
 
-        public object[] dataRecordsList(string path)
+        public object[] GetDataByBMDLoader(string path)
         {
             FileStream fstream = File.OpenRead(path);
 
@@ -106,6 +109,5 @@ namespace Medusa.Analyze1553B.VMServices
         }
 
         
-       
     }
 }

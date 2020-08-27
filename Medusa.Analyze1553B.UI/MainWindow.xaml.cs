@@ -25,10 +25,8 @@ namespace Medusa.Analyze1553B.UI
         readonly Microsoft.Win32.OpenFileDialog openFileDlg;
         readonly Microsoft.Win32.SaveFileDialog saveFileDialog;
 
-        string Filter = "BMD files (*.bmd)|*.bmd|Xml files (*.xml)|*.xml|All files (*.*)|*.*";
-        //
+        public string Filter = "BMD files (*.bmd)|*.bmd|XML files (*.xml)|*.xml|TXT files (*.txt)|*.txt|All files (*.*)|*.*";
 
-        //
         public SynchronizationContext SynchronizationContext { get; }
 
         public MainWindow()
@@ -39,7 +37,6 @@ namespace Medusa.Analyze1553B.UI
             SynchronizationContext = SynchronizationContext.Current;
             openFileDlg = new Microsoft.Win32.OpenFileDialog
             {
-                DefaultExt = ".bmd",
                 Filter = this.Filter
             };
             saveFileDialog = new Microsoft.Win32.SaveFileDialog()
@@ -55,7 +52,6 @@ namespace Medusa.Analyze1553B.UI
 
             if (e.Delta > 0)
                 ScaleUI.Value += 0.1;
-
 
             else if (e.Delta < 0)
                 ScaleUI.Value -= 0.1;
@@ -138,9 +134,6 @@ namespace Medusa.Analyze1553B.UI
             if (Object.ReferenceEquals(arg.GetType(), myListView.GetType()))
             {
                 myListView = (ListView)arg;
-
-                
-                //MessageBox.Show("UpdateView!");
             }
         }
 
@@ -169,7 +162,5 @@ namespace Medusa.Analyze1553B.UI
             return products.SelectedIndex;
         }
 
-
-      
     }
 }
