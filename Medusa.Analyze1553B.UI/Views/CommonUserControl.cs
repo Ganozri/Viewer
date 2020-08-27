@@ -11,16 +11,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Medusa.Analyze1553B.UI.Views
+namespace Medusa.Analyze1553B.UI
 {
     /// <summary>
-    /// Interaction logic for _1553MT.xaml
+    /// Interaction logic for CommonPageUserControl.xaml
     /// </summary>
-    public partial class _1553MTView : CommonPageUserControl
+    public partial class CommonPageUserControl : UserControl
     {
-        public _1553MTView()
+
+        public void myListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InitializeComponent();
+            ListView listView = (ListView)sender;
+            listView.ScrollIntoView(listView.SelectedItem);
         }
 
     }

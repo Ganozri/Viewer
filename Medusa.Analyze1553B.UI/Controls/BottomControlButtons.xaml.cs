@@ -11,17 +11,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Medusa.Analyze1553B.UI.Views
+namespace Medusa.Analyze1553B.UI.Controls
 {
     /// <summary>
-    /// Interaction logic for _1553MT.xaml
+    /// Interaction logic for BottomControlButtons.xaml
     /// </summary>
-    public partial class _1553MTView : CommonPageUserControl
+    public partial class BottomControlButtons : UserControl
     {
-        public _1553MTView()
+        public BottomControlButtons()
         {
             InitializeComponent();
         }
+
 
     }
 }

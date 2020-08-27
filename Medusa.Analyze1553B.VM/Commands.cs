@@ -73,20 +73,17 @@ namespace Medusa.Analyze1553B.VM
             AddViewModelCommand = CreateCommand<object>(AddViewModel);
             ConnectAsTcpClientCommand = CreateCommand<object>(RunConnectAsTcpClient);
             TestCommand = CreateCommand<object>(Test);
-            RemoveViewModelCommand = CreateCommand<object>(RemoveViewModel);
+            RemoveViewModelCommand = CreateCommand(RemoveViewModel);
         }
 
+        #region Command Implementation
 
-
-
-
-            #region Command Implementation
-            //
-            private void RemoveViewModel(object number)
+        private void RemoveViewModel()
         {
-            dialogService.ShowMessage(number.ToString());
-            //vmObject.ViewModels.RemoveAt(number);
+            vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
+            vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];
         }
+
         private void Test(object obj)
         {
             dialogService.ShowMessage(Directory.GetCurrentDirectory());
@@ -226,12 +223,6 @@ namespace Medusa.Analyze1553B.VM
 
         private void AddNewViewModelAndRemoveSelectedViewModel(IPageViewModel newViewModel)
         {
-            //int indexSelectedViewModel = dialogService.IndexSelectedViewModel();
-            //vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
-            //vmObject.ViewModels.Insert(indexSelectedViewModel, newViewModel);
-            //vmObject.SelectedViewModel = vmObject.ViewModels[indexSelectedViewModel];
-            //OpenFileForDataCreation();
-
             var x = vmObject.ViewModels.Count;
             vmObject.ViewModels.Add(newViewModel);
             vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
@@ -250,7 +241,7 @@ namespace Medusa.Analyze1553B.VM
             if (vmObject.SelectedViewModel.currentRow < vmObject.SelectedViewModel.rowCount)
             {
                 vmObject.SelectedViewModel.currentRow++;
-                ScrollAndChangeData(arg);
+                //ScrollAndChangeData(arg);
             }
         }
 
@@ -259,7 +250,7 @@ namespace Medusa.Analyze1553B.VM
             if (vmObject.SelectedViewModel.currentRow > 0)
             {
                 vmObject.SelectedViewModel.currentRow--;
-                ScrollAndChangeData(arg);
+                //ScrollAndChangeData(arg);
             }
         }
 
@@ -302,22 +293,11 @@ namespace Medusa.Analyze1553B.VM
 
         private void SelectedDataUpdate(string path)
         {
-
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Yellow;
 
-            //vmObject.SelectedViewModel.dataRecordsList = dataService.dataRecordsList(path);
-            //vmObject.SelectedViewModel.dataRecordsList = dataService.newDataRecordsList(path);
-            
             vmObject.SelectedViewModel.dataRecordsList = dataService.GetData(path, vmObject.SelectedViewModel.Name);
             vmObject.SelectedViewModel.currentRow = 0;
-            if (vmObject.SelectedViewModel!=null)
-            {
-                vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-            }
-            else
-            {
-                vmObject.SelectedViewModel.rowCount = 0;
-            }
+            vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
 
             vmObject.SelectedViewModel.currentState = IPageViewModel.States.Green; 
         }
@@ -328,9 +308,7 @@ namespace Medusa.Analyze1553B.VM
             StreamReader reader = new StreamReader(dialogService.ShowSaveFileDialog());
             string path = reader.ReadToEnd();
         }
-        //
 
-        //
         private void ShowHelpInformation(object obj)
         {
             if (obj!=null)

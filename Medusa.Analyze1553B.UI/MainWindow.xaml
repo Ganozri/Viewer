@@ -111,8 +111,7 @@
                                                     Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                     Content="X"
                                                     Margin="3,0,0,0"
-                                                    Command="{Binding Commands.RemoveViewModelCommand}"
-                                                    CommandParameter="{Binding SelectedIndex, ElementName = products, NotifyOnTargetUpdated = True}"/>
+                                                    Command="{Binding Commands.RemoveViewModelCommand}"/>
                                         </StackPanel>
                                     </Border>
 
@@ -178,6 +177,7 @@
                         Value="{Binding WindowScale,Mode=TwoWay}" />
             </StackPanel>
         </StackPanel>
+        
         <TabControl Grid.Row="1" Grid.Column="0"
                     x:Name="products"
                     ItemsSource="{Binding ViewModels}"

@@ -162,5 +162,6 @@ namespace Medusa.Analyze1553B.UI
             return products.SelectedIndex;
         }
 
+    
     }
 }
