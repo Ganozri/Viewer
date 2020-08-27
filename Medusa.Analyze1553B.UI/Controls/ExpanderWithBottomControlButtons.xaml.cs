@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,17 +11,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Medusa.Analyze1553B.UI.Views
+namespace Medusa.Analyze1553B.UI.Controls
 {
     /// <summary>
-    /// Interaction logic for TcpServerControl.xaml
+    /// Interaction logic for ExpanderWithBottomControlButtons.xaml
     /// </summary>
-    public partial class TcpServerControl : CommonPageUserControl
+    public partial class ExpanderWithBottomControlButtons : UserControl
     {
-        public TcpServerControl()
+        public ExpanderWithBottomControlButtons()
         {
             InitializeComponent();
         }
-
     }
 }

@@ -1,4 +1,6 @@
-﻿<UserControl x:Class="Medusa.Analyze1553B.UI.Views.TcpServerControl"
+﻿<ui:CommonPageUserControl  
+             xmlns:ui="clr-namespace:Medusa.Analyze1553B.UI"
+             x:Class="Medusa.Analyze1553B.UI.Views.TcpServerControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +8,7 @@
              xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
-             xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
+             xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM" xmlns:ctrls="clr-namespace:Medusa.Analyze1553B.UI.Controls"
              d:DataContext="{d:DesignInstance Type=vms:TcpServerViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="1024" d:DesignWidth="1280"
@@ -102,17 +104,8 @@
 
         </ListView>
 
-        <!--<ScrollViewer x:Name="outputScroll" 
-                      Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1"
-                      Height="100" 
-                      Width="{Binding ActualWidth,ElementName=myListView,NotifyOnTargetUpdated=True}">
-            <TextBlock x:Name="output" Text="{Binding TextRow,NotifyOnTargetUpdated=True}"
-                       VirtualizingPanel.IsVirtualizing="True"
-                       TargetUpdated="output_TargetUpdated"/>
-        </ScrollViewer>-->
-
-
-            <Slider         x:Name="Update"
+        
+            <!--<Slider         x:Name="Update"
                             Grid.Row="1" Grid.Column="2" 
                             Value="{Binding currentRow, UpdateSourceTrigger=PropertyChanged}"
                             Minimum="0" Maximum="{Binding rowCount}" 
@@ -207,8 +200,14 @@
                
                 
             </Grid>
-        </Expander>
-       
+        </Expander>-->
+
+        <ctrls:RightSliderControl Grid.Row="1" Grid.Column="2" 
+                                  DataContext="{Binding}"/>
+
+        <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.Row="4" 
+                                                DataContext="{Binding}"/>
+
     </Grid>
   
-</UserControl>
+</ui:CommonPageUserControl>
