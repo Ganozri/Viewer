@@ -97,23 +97,25 @@
                             <ContentPresenter x:Name="ContentSite"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
-                                    ContentSource="Header"
-                                    Margin="1">
+                                    ContentSource="Header">
                                 <ContentPresenter.Content>
-                                    <Border Name="tabItemBorder"
+                                    <Border  BorderThickness="3"
+                                             BorderBrush="White">
+                                        <Border Name="tabItemBorder"
                                             BorderThickness="0 0 0 2"
-                                            BorderBrush="{Binding CurrentState, Converter={StaticResource IconConverter}}"
-                                            >
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}"/>
-                                            <Button Name="tabItemCloseButton"
+                                            BorderBrush="{Binding CurrentState, Converter={StaticResource IconConverter}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Name}"/>
+                                                <Button Name="tabItemCloseButton"
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                     Content="X"
                                                     Margin="3,0,0,0"
                                                     Command="{Binding Commands.RemoveViewModelCommand}"/>
-                                        </StackPanel>
+                                            </StackPanel>
+                                        </Border>
                                     </Border>
+                                    
 
                                 </ContentPresenter.Content>
                             </ContentPresenter>

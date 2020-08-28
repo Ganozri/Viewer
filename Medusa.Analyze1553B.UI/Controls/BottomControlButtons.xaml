@@ -32,7 +32,9 @@
                              Command="{Binding Commands.ConnectAsTcpClientCommand}"
                                                CommandParameter="{Binding ElementName=output}"
                              Content="Start"
-                             
+                             Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, UpdateSourceTrigger=PropertyChanged,
+                                           NotifyOnTargetUpdated=True}"
+                             MinWidth="70"
                              Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}"/>
 
             <Button  HorizontalAlignment="Center"  
