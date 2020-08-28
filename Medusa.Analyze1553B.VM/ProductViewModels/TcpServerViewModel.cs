@@ -15,8 +15,16 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
     public class TcpServerViewModel : SupportClass, IPageViewModel
     {
-        //public Commands Commands { get; }
-        //private readonly SynchronizationContext syncContext;
+
+        public TcpServerViewModel(ISynchronizationContextProvider syncContext, Commands Commands)
+        {
+            this.syncContext = syncContext.SynchronizationContext;
+            this.Commands = Commands;
+
+            Name = "TcpServerViewModel";
+
+            FillData(this.dataService);
+        }
 
         public TcpServerViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
@@ -25,7 +33,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 
             Name = "TcpServerViewModel";
             
-            FillData(dataService);
+            FillData(this.dataService);
         }
 
 

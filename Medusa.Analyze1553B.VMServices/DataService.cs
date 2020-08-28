@@ -51,9 +51,9 @@ namespace Medusa.Analyze1553B.VMServices
         public object[] GetDataByParser1553MT(string path)
         {
             var dataRecords = Parser1553MT.GetDataByPath(path);
-            object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
+            object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
 
-            return dataRecordsList;
+            return DataRecordsList;
         }
 
         public object[] GetDataByBMDLoader(string path)
@@ -61,9 +61,9 @@ namespace Medusa.Analyze1553B.VMServices
             FileStream fstream = File.OpenRead(path);
 
             var dataRecords = loader.ReadStream(fstream);
-            object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
+            object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
 
-            return dataRecordsList;
+            return DataRecordsList;
         }
 
         public object[] updateDataRerordsList(string input)
@@ -71,9 +71,9 @@ namespace Medusa.Analyze1553B.VMServices
             using (var stream = GenerateStreamFromString(input))
             {
                 var dataRecords = loader.ReadStream(stream);
-                object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
+                object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
 
-                return dataRecordsList;
+                return DataRecordsList;
             }
             
         }
@@ -83,15 +83,16 @@ namespace Medusa.Analyze1553B.VMServices
             using (var stream = GenerateStreamFromString(input))
             {
                 IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
-                object[] dataRecordsList = dataRecords.Cast<object>().ToArray();
+                object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
 
                 int oldLength = currentData.Length;
-                int addedLength = dataRecordsList.Length;
+                int addedLength = DataRecordsList.Length;
 
                 Array.Resize<object>(ref currentData, oldLength + addedLength);
+
                 for (int i = oldLength; i < (oldLength + addedLength); i++)
                 {
-                    currentData[i] = dataRecordsList[i - oldLength];
+                    currentData[i] = DataRecordsList[i - oldLength];
                 }
 
                 return currentData;

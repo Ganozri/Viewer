@@ -44,8 +44,8 @@
 
         <ListView x:Name="myListView"
                   Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"
-                  ItemsSource="{Binding dataRecordsList}"
-                  SelectedIndex="{Binding  currentRow, 
+                  ItemsSource="{Binding DataRecordsList}"
+                  SelectedIndex="{Binding  CurrentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}">
             <i:Interaction.Triggers>
@@ -114,7 +114,7 @@
                 </Button>
 
                 <TextBlock  Name="currentRowTB" Grid.Row="1"
-                            Text="{Binding currentRow, 
+                            Text="{Binding CurrentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -126,9 +126,9 @@
                                             DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
                     <Slider x:Name="Update"
                             Grid.Row="1" Grid.Column="1"
-                            Value="{Binding currentRow, UpdateSourceTrigger=PropertyChanged}"
-                            Minimum="0" Maximum="{Binding rowCount}" 
-                            SelectionStart="{Binding currentRow}" Height="25" 
+                            Value="{Binding CurrentRow, UpdateSourceTrigger=PropertyChanged}"
+                            Minimum="0" Maximum="{Binding RowCount}" 
+                            SelectionStart="{Binding CurrentRow}" Height="25" 
                             IsSelectionRangeEnabled="True"
                             TickPlacement="BottomRight" TickFrequency="500">
                         <i:Interaction.Triggers>
@@ -142,7 +142,7 @@
                 </DockPanel>
 
                 <TextBlock  Grid.Row="1" Grid.Column="2"
-                            Text="{Binding rowCount}"
+                            Text="{Binding RowCount}"
                             HorizontalAlignment="Right" VerticalAlignment="Center"
                             FontSize="32"/>
             </Grid>

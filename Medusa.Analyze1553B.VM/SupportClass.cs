@@ -16,12 +16,12 @@ namespace Medusa.Analyze1553B.VM
     {
         public string Name { get; set; }
 
-        [Reactive] public object[] dataRecordsList { get; set; }
+        [Reactive] public object[] DataRecordsList { get; set; }
         [Reactive] public object[] Data { get; set; }
-        [Reactive] public int currentRow { get; set; }
-        [Reactive] public int rowCount { get; set; }
+        [Reactive] public int CurrentRow { get; set; }
+        [Reactive] public int RowCount { get; set; }
 
-        [Reactive] public States currentState { get; set; }
+        [Reactive] public States CurrentState { get; set; }
         //
         public Commands Commands { get; set; }
         public SynchronizationContext syncContext;
@@ -30,7 +30,7 @@ namespace Medusa.Analyze1553B.VM
 
         public SupportClass()
         {
-            currentState = States.Red;
+            CurrentState = States.Red;
         }
 
         public void FillData(IDataService dataService, string path = "@")
@@ -41,16 +41,16 @@ namespace Medusa.Analyze1553B.VM
             bool isFileExists = File.Exists(path);
             if (isFileExists)
             {
-                dataRecordsList = dataService.GetDataByBMDLoader(path);
-                currentRow = 0;
-                rowCount = dataRecordsList.Length - 1;
-                //Data = dataService.Data(currentRow, dataRecordsList);
+                DataRecordsList = dataService.GetDataByBMDLoader(path);
+                CurrentRow = 0;
+                RowCount = DataRecordsList.Length - 1;
+                //Data = dataService.Data(CurrentRow, DataRecordsList);
             }
             else
             {
-                dataRecordsList = new object[] { };
-                currentRow = 0;
-                rowCount = 0;
+                DataRecordsList = new object[] { };
+                CurrentRow = 0;
+                RowCount = 0;
             }
 
         }

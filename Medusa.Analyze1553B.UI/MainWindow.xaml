@@ -102,7 +102,7 @@
                                 <ContentPresenter.Content>
                                     <Border Name="tabItemBorder"
                                             BorderThickness="0 0 0 2"
-                                            BorderBrush="{Binding currentState, Converter={StaticResource IconConverter}}"
+                                            BorderBrush="{Binding CurrentState, Converter={StaticResource IconConverter}}"
                                             >
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Name}"/>

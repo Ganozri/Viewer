@@ -8,14 +8,23 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
     public class _1553MTViewModel : SupportClass, IPageViewModel
     {
-        public _1553MTViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
+
+        public _1553MTViewModel(ISynchronizationContextProvider syncContext, Commands Commands)
         {
             Name = "_1553MTViewModel";
 
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
 
+            FillData(this.dataService);
+        }
 
+        public _1553MTViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
+        {
+            Name = "_1553MTViewModel";
+
+            this.syncContext = syncContext.SynchronizationContext;
+            this.Commands = Commands;
 
             FillData(this.dataService);
         }

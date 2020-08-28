@@ -7,12 +7,12 @@ namespace Medusa.Analyze1553B.VM
     public interface IPageViewModel 
     {
         string Name { get; set; }
-        //
-        object[] dataRecordsList { get; set; }
-        int currentRow { get; set; }
-        int rowCount { get; set; }
 
-        States currentState { get; set; }
+        object[] DataRecordsList { get; set; }
+        int CurrentRow { get; set; }
+        int RowCount { get; set; }
+
+        States CurrentState { get; set; }
 
         enum States
         {
@@ -20,7 +20,6 @@ namespace Medusa.Analyze1553B.VM
             Yellow,
             Green
         }
-        //
 
     }
 }

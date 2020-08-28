@@ -56,24 +56,24 @@ namespace Medusa.Analyze1553B.VM
 
         public Commands(ISynchronizationContextProvider syncContext, IVmObject vmObject, IDialogService dialogService, IDataService dataService)
         {
-            this.vmObject = vmObject;
-            this.dialogService = dialogService;
-            this.dataService = dataService;
-            this.scheduler = new SynchronizationContextScheduler(syncContext.SynchronizationContext);
-            this.syncContext = syncContext;
+            this.vmObject       = vmObject;
+            this.dialogService  = dialogService;
+            this.dataService    = dataService;
+            this.scheduler      = new SynchronizationContextScheduler(syncContext.SynchronizationContext);
+            this.syncContext    = syncContext;
 
-            DoNothingCommand = CreateCommand(DoNothing);
+            DoNothingCommand                = CreateCommand(DoNothing);
 
-            NextCurrentRowCommand = CreateCommand<object>(NextCurrentRow);
-            PrevCurrentRowCommand = CreateCommand<object>(PrevCurrentRow);
-            OpenXmlForTableCreationCommand = CreateCommand(OpenFileForDataCreation);
-            SaveXmlFromTableCommand = CreateCommand(SaveXmlFromTable);
-            ShowHelpInformationCommand = CreateCommand<object>(ShowHelpInformation);
-            UpdateCurrentRowCommand = CreateCommand<object>(UpdateCurrentRow);
-            AddViewModelCommand = CreateCommand<object>(AddViewModel);
-            ConnectAsTcpClientCommand = CreateCommand<object>(RunConnectAsTcpClient);
-            TestCommand = CreateCommand<object>(Test);
-            RemoveViewModelCommand = CreateCommand(RemoveViewModel);
+            NextCurrentRowCommand           = CreateCommand<object>(NextCurrentRow);
+            PrevCurrentRowCommand           = CreateCommand<object>(PrevCurrentRow);
+            OpenXmlForTableCreationCommand  = CreateCommand(OpenFileForDataCreation);
+            SaveXmlFromTableCommand         = CreateCommand(SaveXmlFromTable);
+            ShowHelpInformationCommand      = CreateCommand<object>(ShowHelpInformation);
+            UpdateCurrentRowCommand         = CreateCommand<object>(UpdateCurrentRow);
+            AddViewModelCommand             = CreateCommand<object>(AddViewModel);
+            ConnectAsTcpClientCommand       = CreateCommand<object>(RunConnectAsTcpClient);
+            TestCommand                     = CreateCommand<object>(Test);
+            RemoveViewModelCommand          = CreateCommand(RemoveViewModel);
         }
 
         #region Command Implementation
@@ -101,22 +101,19 @@ namespace Medusa.Analyze1553B.VM
         private async Task ConnectAsTcpClient(object obj, string ip, int port)
         {
             int x = Array.IndexOf(vmObject.ViewModels.ToArray(), vmObject.SelectedViewModel);
-            //
-            vmObject.ViewModels[x].currentState = IPageViewModel.States.Yellow;
-            OutputWriteLine(obj, "State  = " + vmObject.ViewModels[x].currentState.ToString());
-            //
+
+            vmObject.ViewModels[x].CurrentState = IPageViewModel.States.Yellow;
+
             for (; ; )
             {
                 try
                 {
-                    await Task.Delay(millisecondsDelay: 1000);
-                    //
+                    await Task.Delay(millisecondsDelay: 100);
+
                     long ellapledTicks = DateTime.Now.Second;
-                    
-                    //
+
                     using (var tcpClient = new TcpClient())
                     {
-                        //OutputWriteLine(obj,"[Client] Attempting connection to server " + ip + ":" + port);
                         Task connectTask = tcpClient.ConnectAsync(ip, port);
                         Task timeoutTask = Task.Delay(millisecondsDelay: 100);
                         if (await Task.WhenAny(connectTask, timeoutTask) == timeoutTask)
@@ -124,12 +121,11 @@ namespace Medusa.Analyze1553B.VM
                             throw new TimeoutException();
                         }
 
-                        OutputWriteLine(obj,"[Client] Connected to server");
                         using (var networkStream = tcpClient.GetStream())
                         using (var reader = new StreamReader(networkStream))
                         using (var writer = new StreamWriter(networkStream) { AutoFlush = true })
                         {
-                            OutputWriteLine(obj, string.Format("[Client] Writing request '{0}'", ClientRequestString));
+
                             await writer.WriteLineAsync(ClientRequestString);
                             try
                             {
@@ -139,34 +135,26 @@ namespace Medusa.Analyze1553B.VM
                                     if (response == "")
                                     {
                                         ellapledTicks = DateTime.Now.Second - ellapledTicks;
-                                        OutputWriteLine(obj, "ellapledTicks = " + ellapledTicks.ToString());
-                                        //
+                                        vmObject.ViewModels[x].CurrentState = IPageViewModel.States.Green;
 
-                                        vmObject.ViewModels[x].currentState = IPageViewModel.States.Green;
-                                        OutputWriteLine(obj, "State  = " + vmObject.ViewModels[x].currentState.ToString());
-                                        //
                                         break;
                                     }
                                     if (response == null) 
                                     {
                                         break;
                                     }
-                                    //OutputWriteLine(obj,count.ToString());
-                                    //OutputWriteLine(obj, response);
 
                                     //TODO
-                                    vmObject.ViewModels[x].dataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].dataRecordsList, response + "\n");
-                                    vmObject.ViewModels[x].currentRow = vmObject.ViewModels[x].rowCount;
-                                    vmObject.ViewModels[x].rowCount = vmObject.ViewModels[x].dataRecordsList.Length - 1;
-                                    
-
+                                    vmObject.ViewModels[x].DataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].DataRecordsList, response + "\n");
+                                    vmObject.ViewModels[x].CurrentRow = vmObject.ViewModels[x].RowCount;
+                                    vmObject.ViewModels[x].RowCount = vmObject.ViewModels[x].DataRecordsList.Length - 1;
                                     //TODO
                                 }
-                                OutputWriteLine(obj,"[Client] Server disconnected");
+
                             }
                             catch (IOException)
                             {
-                                OutputWriteLine(obj,"[Client] Server disconnected");
+
                             }
                         }
                       
@@ -196,7 +184,7 @@ namespace Medusa.Analyze1553B.VM
                         break;
 
                     case "TcpServerViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new TcpServerViewModel(syncContext, dialogService, dataService, this) { });
+                        AddNewViewModelAndRemoveSelectedViewModel(new TcpServerViewModel(syncContext, this) { });
                         break;
 
                     case "TestViewModel":
@@ -204,7 +192,7 @@ namespace Medusa.Analyze1553B.VM
                         break;
 
                     case "_1553MTViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new _1553MTViewModel(syncContext, dialogService, dataService, this) { });
+                        AddNewViewModelAndRemoveSelectedViewModel(new _1553MTViewModel(syncContext,  this) { });
                         break;
 
                     case "ChoosePageViewModel":
@@ -223,10 +211,9 @@ namespace Medusa.Analyze1553B.VM
 
         private void AddNewViewModelAndRemoveSelectedViewModel(IPageViewModel newViewModel)
         {
-            var x = vmObject.ViewModels.Count;
             vmObject.ViewModels.Add(newViewModel);
             vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
-            vmObject.SelectedViewModel = vmObject.ViewModels[x-1];
+            vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];
 
             OpenFileForDataCreation();
         }
@@ -238,34 +225,30 @@ namespace Medusa.Analyze1553B.VM
         
         private void NextCurrentRow(object arg)
         {
-            if (vmObject.SelectedViewModel.currentRow < vmObject.SelectedViewModel.rowCount)
+            if (vmObject.SelectedViewModel.CurrentRow < vmObject.SelectedViewModel.RowCount)
             {
-                vmObject.SelectedViewModel.currentRow++;
-                //ScrollAndChangeData(arg);
+                vmObject.SelectedViewModel.CurrentRow++;
             }
         }
 
         private void PrevCurrentRow(object arg)
         {
-            if (vmObject.SelectedViewModel.currentRow > 0)
+            if (vmObject.SelectedViewModel.CurrentRow > 0)
             {
-                vmObject.SelectedViewModel.currentRow--;
-                //ScrollAndChangeData(arg);
+                vmObject.SelectedViewModel.CurrentRow--;
             }
         }
 
         private void ScrollAndChangeData(object arg)
         {
-
-            if (vmObject.SelectedViewModel.currentRow < vmObject.SelectedViewModel.dataRecordsList.Length)
+            if (vmObject.SelectedViewModel.CurrentRow < vmObject.SelectedViewModel.DataRecordsList.Length)
             {
-                dialogService.ScrollIntoView(arg, vmObject.SelectedViewModel.currentRow);
+                dialogService.ScrollIntoView(arg, vmObject.SelectedViewModel.CurrentRow);
             }
         }
 
         private void OpenFileForDataCreation()
         {
-           
             using (StreamReader reader = new StreamReader(dialogService.ShowOpenFileDialog()))
             {
                 string path = reader.ReadToEnd();
@@ -284,22 +267,15 @@ namespace Medusa.Analyze1553B.VM
             }
         }
 
-        private void SelectedDataUpdate()
-        {
-            vmObject.SelectedViewModel.currentRow = 0;
-            vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
-            //vmObject.SelectedViewModel.Data = dataService.Data(vmObject.SelectedViewModel.currentRow, vmObject.SelectedViewModel.dataRecordsList);
-        }
-
         private void SelectedDataUpdate(string path)
         {
-            vmObject.SelectedViewModel.currentState = IPageViewModel.States.Yellow;
+            vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Yellow;
 
-            vmObject.SelectedViewModel.dataRecordsList = dataService.GetData(path, vmObject.SelectedViewModel.Name);
-            vmObject.SelectedViewModel.currentRow = 0;
-            vmObject.SelectedViewModel.rowCount = vmObject.SelectedViewModel.dataRecordsList.Length - 1;
+            vmObject.SelectedViewModel.DataRecordsList = dataService.GetData(path, vmObject.SelectedViewModel.Name);
+            vmObject.SelectedViewModel.CurrentRow = 0;
+            vmObject.SelectedViewModel.RowCount = vmObject.SelectedViewModel.DataRecordsList.Length - 1;
 
-            vmObject.SelectedViewModel.currentState = IPageViewModel.States.Green; 
+            vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Green; 
         }
 
         private void SaveXmlFromTable()

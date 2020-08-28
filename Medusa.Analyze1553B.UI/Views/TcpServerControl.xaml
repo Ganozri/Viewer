@@ -35,8 +35,8 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Visible"  
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
 
-                  ItemsSource="{Binding dataRecordsList}"
-                  SelectedIndex="{Binding  currentRow, 
+                  ItemsSource="{Binding DataRecordsList}"
+                  SelectedIndex="{Binding  CurrentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}"
                   VirtualizingStackPanel.IsVirtualizing="True"

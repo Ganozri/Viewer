@@ -9,38 +9,42 @@
     
     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
 
-        <StackPanel Margin="0,0,40,0">
+        <StackPanel Margin="20,0,20,0" x:Name="LeftButtonPanel">
 
-            <Button Width="50" HorizontalAlignment="Left"   
+            <Button  HorizontalAlignment="Left"   
                             Command="{Binding Commands.PrevCurrentRowCommand}"
-                                              CommandParameter="{Binding ElementName=myListView}">
+                                              CommandParameter="{Binding ElementName=myListView}"
+                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, UpdateSourceTrigger=PropertyChanged,
+                                           NotifyOnTargetUpdated=True}">
                 <Polygon Points="8,0 0,5, 8,10" Stroke="Black" Fill="Black" />
             </Button>
 
             <TextBlock  Name="currentRowTB" Grid.Row="1"
-                            Text="{Binding currentRow, 
+                            Text="{Binding CurrentRow, 
                                            UpdateSourceTrigger=PropertyChanged,
                                            NotifyOnTargetUpdated=True}"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             FontSize="32"/>
         </StackPanel>
 
-
-        <Button  HorizontalAlignment="Center"  
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <Button  HorizontalAlignment="Center" Name="StartButton" 
                              Command="{Binding Commands.ConnectAsTcpClientCommand}"
                                                CommandParameter="{Binding ElementName=output}"
                              Content="Start"
-                             Width="100"
-                             Margin="5"/>
+                             
+                             Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}"/>
 
-        <Button  HorizontalAlignment="Center"  
+            <Button  HorizontalAlignment="Center"  
                              Content="Test"
-                             Width="100" 
-                             Margin="5"
+                             Width="{Binding ElementName=StartButton, Path=ActualWidth}"
+                             Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}"
                              Command="{Binding  Commands.TestCommand}"
                                                 CommandParameter="{Binding ElementName=myListView}"/>
+        </StackPanel>
 
-        <StackPanel  Margin="40,0,0,0">
+
+        <StackPanel  Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}" Name="RightButtonPanel">
 
             <Button Name="RightArrowButton"
                                 Command="{Binding Commands.NextCurrentRowCommand}"
@@ -48,7 +52,7 @@
                 <Polygon Points="0,0 8,5, 0,10" Stroke="Black" Fill="Black" />
             </Button>
 
-            <TextBlock Text="{Binding rowCount}"
+            <TextBlock Text="{Binding RowCount}"
                        HorizontalAlignment="Right" VerticalAlignment="Center"
                        FontSize="32"/>
 
