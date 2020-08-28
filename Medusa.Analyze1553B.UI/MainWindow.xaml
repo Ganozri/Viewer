@@ -110,6 +110,7 @@
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                     Content="X"
+                                                    Visibility="Hidden"
                                                     Margin="3,0,0,0"
                                                     Command="{Binding Commands.RemoveViewModelCommand}"/>
                                             </StackPanel>
@@ -123,6 +124,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="Panel" Property="Background" Value="#FFBBDEFB" />
+                                <Setter TargetName="tabItemCloseButton" Property="Visibility" Value="Visible"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
                                 <Setter TargetName="Panel" Property="Background" Value="AliceBlue" />

@@ -78,11 +78,7 @@ namespace Medusa.Analyze1553B.VM
 
         #region Command Implementation
 
-        private void RemoveViewModel()
-        {
-            vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
-            vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];
-        }
+       
 
         private void Test(object obj)
         {
@@ -209,11 +205,33 @@ namespace Medusa.Analyze1553B.VM
 
         }
 
+        private void RemoveViewModel()
+        {
+            if (vmObject.ViewModels.Count > 2)
+            {
+                vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
+                var SelectedViewModelCount = vmObject.ViewModels.IndexOf(vmObject.SelectedViewModel);
+                vmObject.SelectedViewModel = vmObject.ViewModels[SelectedViewModelCount];
+            }
+            else if (vmObject.ViewModels.Count > 1)
+            {
+                vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
+                vmObject.SelectedViewModel = vmObject.ViewModels[0];
+            }
+            else
+            {
+                vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
+            }   
+        }
+
         private void AddNewViewModelAndRemoveSelectedViewModel(IPageViewModel newViewModel)
         {
-            vmObject.ViewModels.Add(newViewModel);
+            var SelectedViewModelCount = vmObject.ViewModels.IndexOf(vmObject.SelectedViewModel);
+
             vmObject.ViewModels.Remove(vmObject.SelectedViewModel);
-            vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];
+            vmObject.ViewModels.Insert(SelectedViewModelCount, newViewModel);
+           
+            vmObject.SelectedViewModel = vmObject.ViewModels[SelectedViewModelCount];
 
             OpenFileForDataCreation();
         }
