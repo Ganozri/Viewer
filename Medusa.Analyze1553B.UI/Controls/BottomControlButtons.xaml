@@ -3,28 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Controls"
+             xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Controls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
+    <UserControl.Resources>
+
+    </UserControl.Resources>
     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+        
+        
+        <StackPanel Margin="20,0,20,0" x:Name="LeftButtonPanel" 
+                    Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                    UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}">
 
-        <StackPanel Margin="20,0,20,0" x:Name="LeftButtonPanel">
-
-            <Button  HorizontalAlignment="Left"   
-                            Command="{Binding Commands.PrevCurrentRowCommand}"
-                                              CommandParameter="{Binding ElementName=myListView}"
-                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, UpdateSourceTrigger=PropertyChanged,
-                                           NotifyOnTargetUpdated=True}">
-                <Polygon Points="8,0 0,5, 8,10" Stroke="Black" Fill="Black" />
+            <Button  HorizontalAlignment="Right"   
+                     Command="{Binding Commands.PrevCurrentRowCommand}"
+                                       CommandParameter="{Binding ElementName=myListView}"
+                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                     UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
+                     MinWidth="45">
+                <materialDesign:PackIcon Name="ArrowLeft" Kind="ArrowLeft" Foreground="White"/>
             </Button>
 
-            <TextBlock  Name="currentRowTB" Grid.Row="1"
-                            Text="{Binding CurrentRow, 
-                                           UpdateSourceTrigger=PropertyChanged,
-                                           NotifyOnTargetUpdated=True}"
-                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                            FontSize="32"/>
+            <TextBlock  Name="currentRowTB" 
+                        Text="{Binding CurrentRow, 
+                                       UpdateSourceTrigger=PropertyChanged,
+                                       NotifyOnTargetUpdated=True}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        FontSize="32"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
@@ -32,8 +39,8 @@
                              Command="{Binding Commands.ConnectAsTcpClientCommand}"
                                                CommandParameter="{Binding ElementName=output}"
                              Content="Start"
-                             Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, UpdateSourceTrigger=PropertyChanged,
-                                           NotifyOnTargetUpdated=True}"
+                             Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                             UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
                              MinWidth="70"
                              Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}"/>
 
@@ -49,13 +56,13 @@
         <StackPanel  Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}" Name="RightButtonPanel">
 
             <Button Name="RightArrowButton"
-                                Command="{Binding Commands.NextCurrentRowCommand}"
-                                                  CommandParameter="{Binding ElementName=myListView}">
-                <Polygon Points="0,0 8,5, 0,10" Stroke="Black" Fill="Black" />
+                    Command="{Binding Commands.NextCurrentRowCommand}"
+                                      CommandParameter="{Binding ElementName=myListView}">
+                <materialDesign:PackIcon Kind="ArrowRight" Foreground="{Binding ElementName=ArrowLeft, Path=Foreground}"/>
             </Button>
 
             <TextBlock Text="{Binding RowCount}"
-                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontSize="32"/>
 
         </StackPanel>

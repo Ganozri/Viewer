@@ -35,8 +35,6 @@ namespace Medusa.Analyze1553B.VM
 
         public void FillData(IDataService dataService, string path = "@")
         {
-
-            //path = @"D:\Data\20200314-173833 (norm).bmd";
             path = @"";
             bool isFileExists = File.Exists(path);
             if (isFileExists)
@@ -44,7 +42,6 @@ namespace Medusa.Analyze1553B.VM
                 DataRecordsList = dataService.GetDataByBMDLoader(path);
                 CurrentRow = 0;
                 RowCount = DataRecordsList.Length - 1;
-                //Data = dataService.Data(CurrentRow, DataRecordsList);
             }
             else
             {
