@@ -1,5 +1,6 @@
 ﻿using Medusa.Analyze1553B.UI.Views;
 using Medusa.Analyze1553B.UIServices;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Globalization;
 using System.IO;
@@ -15,17 +16,15 @@ using SynchronizationContext = System.Threading.SynchronizationContext;
 //
 namespace Medusa.Analyze1553B.UI
 {
-    /// <summary>
+    /// <summary> 
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : ISynchronizationContextProvider, IDialogService
     {
-
-
         readonly Microsoft.Win32.OpenFileDialog openFileDlg;
         readonly Microsoft.Win32.SaveFileDialog saveFileDialog;
 
-        public string Filter = "BMD files (*.bmd)|*.bmd|XML files (*.xml)|*.xml|TXT files (*.txt)|*.txt|All files (*.*)|*.*";
+        [Reactive]public string Filter { get; set; }
 
         public SynchronizationContext SynchronizationContext { get; }
 
@@ -35,6 +34,16 @@ namespace Medusa.Analyze1553B.UI
             PreviewMouseWheel += Window_PreviewMouseWheel;
 
             SynchronizationContext = SynchronizationContext.Current;
+            //this.Filter = "BMD files (*.bmd)|*.bmd|XML files (*.xml)|*.xml|TXT files (*.txt)|*.txt";
+            if (Filter==null)
+            {
+                this.Filter += "All files (*.*)|*.*";
+            }
+            else
+            {
+                this.Filter += "|All files (*.*)|*.*";
+            }
+           
             openFileDlg = new Microsoft.Win32.OpenFileDialog
             {
                 Filter = this.Filter
@@ -59,6 +68,10 @@ namespace Medusa.Analyze1553B.UI
 
         public MemoryStream ShowOpenFileDialog()
         {
+            var openFileDlg = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = this.Filter
+            };
             if (openFileDlg.ShowDialog() == true)
             {
                 byte[] byteArray = Encoding.ASCII.GetBytes(openFileDlg.FileName);
@@ -74,6 +87,10 @@ namespace Medusa.Analyze1553B.UI
 
         public MemoryStream ShowSaveFileDialog()
         {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog()
+            {
+                Filter = this.Filter
+            };
             if (saveFileDialog.ShowDialog() == true)
             {
                 byte[] byteArray = Encoding.ASCII.GetBytes(openFileDlg.FileName);

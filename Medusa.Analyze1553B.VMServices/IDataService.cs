@@ -12,6 +12,6 @@ namespace Medusa.Analyze1553B.VMServices
         object[] GetDataByBMDLoader(string path);
         object[] GetDataByParser1553MT(string path);
 
-        object[] GetData(string path, string name);
+        object[] GetData(string path, string ViewModelName);
     }
 }

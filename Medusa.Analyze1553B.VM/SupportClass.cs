@@ -14,7 +14,7 @@ namespace Medusa.Analyze1553B.VM
 {
     public class SupportClass : ReactiveObject
     {
-        public string Name { get; set; }
+        [Reactive] public string Name { get; set; }
 
         [Reactive] public object[] DataRecordsList { get; set; }
         [Reactive] public object[] Data { get; set; }
@@ -26,6 +26,7 @@ namespace Medusa.Analyze1553B.VM
         public Commands Commands { get; set; }
         public SynchronizationContext syncContext;
         public IDataService dataService;
+        
         //
 
         public SupportClass()

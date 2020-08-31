@@ -15,27 +15,20 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
     public class TcpServerViewModel : SupportClass, IPageViewModel
     {
+        public IDialogService dialogService { get; set; }
 
-        public TcpServerViewModel(ISynchronizationContextProvider syncContext, Commands Commands)
-        {
-            this.syncContext = syncContext.SynchronizationContext;
-            this.Commands = Commands;
-
-            Name = "TcpServerViewModel";
-
-            FillData(this.dataService);
-        }
 
         public TcpServerViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
+            Name = "TcpServerViewModel";
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
 
-            Name = "TcpServerViewModel";
-            
+            this.dialogService = dialogService;
+            this.dialogService.Filter = "BMD files(*.bmd) | *.bmd";
             FillData(this.dataService);
         }
 
-
+        
     }
 }

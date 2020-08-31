@@ -48,10 +48,29 @@ namespace Medusa.Analyze1553B.VMServices
             }
         }
 
+        public object[] TryGetDataBy(object[] obj)
+        {
+            object[] DataRecordsList = new object[0];
+
+            return DataRecordsList;
+        }
+
         public object[] GetDataByParser1553MT(string path)
         {
-            var dataRecords = Parser1553MT.GetDataByPath(path);
-            object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
+            object[] DataRecordsList = new object[0];
+
+            try
+            {
+                var dataRecords = Parser1553MT.GetDataByPath(path);
+                DataRecordsList = dataRecords.Cast<object>().ToArray();
+            }
+            catch (Exception ex)
+            {
+                dialogService.ShowMessage(ex.ToString());
+            }
+            finally
+            {
+            }
 
             return DataRecordsList;
         }

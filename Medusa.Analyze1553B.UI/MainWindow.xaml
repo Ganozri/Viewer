@@ -105,7 +105,7 @@
                                             BorderThickness="0 0 0 2"
                                             BorderBrush="{Binding CurrentState, Converter={StaticResource IconConverter}}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Name}"/>
+                                                <TextBlock Text="{Binding Name, NotifyOnTargetUpdated = True}"/>
                                                 <Button Name="tabItemCloseButton"
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -188,12 +188,6 @@
                     SelectedItem="{Binding SelectedViewModel}"
                     FontSize="15">
             <TabControl.Resources>
-                <DataTemplate DataType="{x:Type vms:MedusaViewModel}">
-                    <views:UserControl1 x:Name="UserControl1Name"/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type vms:TestViewModel}">
-                    <views:UserControlTest/>
-                </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:TcpServerViewModel}">
                     <views:TcpServerControl/>
                 </DataTemplate>

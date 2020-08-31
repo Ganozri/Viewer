@@ -139,7 +139,6 @@ namespace Medusa.Analyze1553B.VM
                                     {
                                         break;
                                     }
-
                                     //TODO
                                     vmObject.ViewModels[x].DataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].DataRecordsList, response + "\n");
                                     vmObject.ViewModels[x].CurrentRow = vmObject.ViewModels[x].RowCount;
@@ -175,20 +174,12 @@ namespace Medusa.Analyze1553B.VM
 
                 switch (inputString)
                 {
-                    case "MedusaViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new MedusaViewModel(syncContext, dialogService, dataService, this) { });
-                        break;
-
                     case "TcpServerViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new TcpServerViewModel(syncContext, this) { });
-                        break;
-
-                    case "TestViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new TestViewModel(syncContext, dialogService, dataService, this) { });
+                        AddNewViewModelAndRemoveSelectedViewModel(new TcpServerViewModel(syncContext, dialogService, dataService, this) { });
                         break;
 
                     case "_1553MTViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new _1553MTViewModel(syncContext,  this) { });
+                        AddNewViewModelAndRemoveSelectedViewModel(new _1553MTViewModel(syncContext,dialogService,dataService, this) { });
                         break;
 
                     case "ChoosePageViewModel":
@@ -267,7 +258,10 @@ namespace Medusa.Analyze1553B.VM
 
         private void OpenFileForDataCreation()
         {
-            using (StreamReader reader = new StreamReader(dialogService.ShowOpenFileDialog()))
+
+
+            //using (StreamReader reader = new StreamReader(dialogService.ShowOpenFileDialog()))
+            using (StreamReader reader = new StreamReader(vmObject.SelectedViewModel.dialogService.ShowOpenFileDialog()))
             {
                 string path = reader.ReadToEnd();
                 if (File.Exists(path))
@@ -293,7 +287,15 @@ namespace Medusa.Analyze1553B.VM
             vmObject.SelectedViewModel.CurrentRow = 0;
             vmObject.SelectedViewModel.RowCount = vmObject.SelectedViewModel.DataRecordsList.Length - 1;
 
-            vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Green; 
+            if (vmObject.SelectedViewModel.RowCount != -1)
+            {
+                vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Green;
+            }
+            else
+            {
+                vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Red;
+            }
+           
         }
 
         private void SaveXmlFromTable()

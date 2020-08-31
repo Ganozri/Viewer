@@ -65,8 +65,8 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Cmd2}"   >Cmd2</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=status1}">status1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=status2}">status2</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=resp1}"  >resp1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=resp2}"  >resp2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=resp1}"  >RW1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=resp2}"  >RW2</GridViewColumn>
                     
                     <GridViewColumn DisplayMemberBinding="{Binding Path=words[0]}"  >0</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=words[1]}"  >1</GridViewColumn>
