@@ -32,27 +32,12 @@ namespace Medusa.Analyze1553B.VMServices
 
         public object[] GetData(string path,string name)
         {
-            switch (name)
+            return name switch
             {
-                case "TcpServerViewModel":
-                    return GetDataByBMDLoader(path);
-
-                case "TestViewModel":
-                    return GetDataByBMDLoader(path);
-
-                case "_1553MTViewModel":
-                    return GetDataByParser1553MT(path);
-                    
-                default:
-                    return null;
-            }
-        }
-
-        public object[] TryGetDataBy(object[] obj)
-        {
-            object[] DataRecordsList = new object[0];
-
-            return DataRecordsList;
+                "TcpServerViewModel" => GetDataByBMDLoader(path),
+                "_1553MTViewModel" => GetDataByParser1553MT(path),
+                _ => null,
+            };
         }
 
         public object[] GetDataByParser1553MT(string path)
