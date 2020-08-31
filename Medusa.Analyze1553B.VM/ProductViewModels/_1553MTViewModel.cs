@@ -9,8 +9,6 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
     public class _1553MTViewModel : SupportClass, IPageViewModel
     {
-        public IDialogService dialogService { get; set; }
-
 
         public _1553MTViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {

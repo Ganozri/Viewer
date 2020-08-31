@@ -14,12 +14,12 @@
         Title="{Binding Title}" 
         Width="1280" Height="1024" 
         MinWidth="1280" MinHeight="1024" 
-        WindowState="Maximized"
-        SizeChanged="Window_SizeChanged">
+        WindowState="Maximized">
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding Commands.OpenXmlForTableCreationCommand}" Key="N" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding Commands.SaveXmlFromTableCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Commands.AddViewModelCommand}" CommandParameter="ChoosePageViewModel" Key="T" Modifiers="Ctrl"/>
     </Window.InputBindings>
 
     <Window.Resources>
@@ -58,6 +58,7 @@
                                         CommandParameter="ChoosePageViewModel"
                                         Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
                                         Margin="5,0,0,0"/>
+                                
                             </Grid>
                             <!-- <- This inserts the button -->
                             <Border Name="Border" 
@@ -114,6 +115,16 @@
                                                     Margin="3,0,0,0"
                                                     Command="{Binding Commands.RemoveViewModelCommand}"/>
                                             </StackPanel>
+                                            <Border.Triggers>
+                                                <EventTrigger RoutedEvent='Border.Loaded'>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <!--<ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                                            To="#6990EE90" Duration="0:0:1.5" />-->
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger>
+                                            </Border.Triggers>
                                         </Border>
                                     </Border>
                                     

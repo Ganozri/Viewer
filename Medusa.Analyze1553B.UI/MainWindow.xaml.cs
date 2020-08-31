@@ -24,7 +24,7 @@ namespace Medusa.Analyze1553B.UI
         readonly Microsoft.Win32.OpenFileDialog openFileDlg;
         readonly Microsoft.Win32.SaveFileDialog saveFileDialog;
 
-        [Reactive]public string Filter { get; set; }
+        public string Filter { get; set; }
 
         public SynchronizationContext SynchronizationContext { get; }
 
@@ -34,7 +34,7 @@ namespace Medusa.Analyze1553B.UI
             PreviewMouseWheel += Window_PreviewMouseWheel;
 
             SynchronizationContext = SynchronizationContext.Current;
-            //this.Filter = "BMD files (*.bmd)|*.bmd|XML files (*.xml)|*.xml|TXT files (*.txt)|*.txt";
+
             if (Filter==null)
             {
                 this.Filter += "All files (*.*)|*.*";
@@ -167,11 +167,6 @@ namespace Medusa.Analyze1553B.UI
                 return 0;
             }
             
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //MessageBox.Show("Window_SizeChanged");
         }
 
         public int IndexSelectedViewModel()

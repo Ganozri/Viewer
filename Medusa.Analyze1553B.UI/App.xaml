@@ -33,6 +33,9 @@
                     <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent400Foreground}" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+
+      
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
