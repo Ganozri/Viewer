@@ -51,21 +51,25 @@
 
         <StackPanel  VerticalAlignment="Top">
             <Button  HorizontalAlignment="Center" Name="StartButton" 
-                             Command="{Binding Commands.ConnectAsTcpClientCommand}"
-                                               CommandParameter="{Binding ElementName=output}"
-                             
-                             Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
-                                             UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
-                             MinWidth="70"
-                             Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}">
-                <materialDesign:PackIcon Kind="Play" Foreground="{Binding ElementName=ArrowLeft, Path=Foreground}"/>
+                     Command="{Binding Commands.StartOrPausePlayCommand}"
+                                       CommandParameter="{Binding NumberOfTransitions}"
+                     
+                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                     UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
+                     MinWidth="70"
+                     Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Play" Foreground="{Binding ElementName=ArrowLeft, Path=Foreground}"/>
+                    <materialDesign:PackIcon Kind="Pause" Foreground="{Binding ElementName=ArrowLeft, Path=Foreground}"/>
+                </StackPanel>
+               
+                
             </Button>
 
-            <TextBox   Text="0"
+            <TextBox   Text="{Binding NumberOfTransitions}"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontSize="32"
-                       PreviewTextInput="NumberValidationTextBox"
-                       />
+                       PreviewTextInput="NumberValidationTextBox"/>
 
         </StackPanel>
 

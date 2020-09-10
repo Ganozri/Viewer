@@ -13,6 +13,9 @@ namespace Medusa.Analyze1553B.VM
         object[] DataRecordsList { get; set; }
         int CurrentRow { get; set; }
         int RowCount { get; set; }
+
+        int NumberOfTransitions { get; set; }
+        bool IsPlay { get; set; }
         States CurrentState { get; set; }
 
         IDialogService DialogService { get; set; }

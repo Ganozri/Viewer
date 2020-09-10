@@ -31,7 +31,7 @@ namespace Medusa.Analyze1553B.VM
             ViewModels.Add(new ChoosePageViewModel(syncContext, Commands) { });
 
             SelectedViewModel = ViewModels[ViewModels.Count-1];
-
+            
         }
 
         [Reactive] public double WindowScale { get; set; } = 1;

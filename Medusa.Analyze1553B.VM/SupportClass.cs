@@ -21,6 +21,9 @@ namespace Medusa.Analyze1553B.VM
         [Reactive] public int CurrentRow { get; set; }
         [Reactive] public int RowCount { get; set; }
 
+        [Reactive] public int NumberOfTransitions { get; set; }
+        [Reactive] public bool IsPlay { get; set; }
+
         [Reactive] public States CurrentState { get; set; }
         //
         public Commands Commands { get; set; }
@@ -32,6 +35,8 @@ namespace Medusa.Analyze1553B.VM
         public SupportClass()
         {
             CurrentState = States.Red;
+            NumberOfTransitions = 1;
+            IsPlay = false;
         }
 
         public void FillData(IDataService dataService, string path = "@")

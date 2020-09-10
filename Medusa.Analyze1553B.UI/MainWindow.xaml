@@ -115,16 +115,7 @@
                                                     Margin="3,0,0,0"
                                                     Command="{Binding Commands.RemoveViewModelCommand}"/>
                                             </StackPanel>
-                                            <Border.Triggers>
-                                                <EventTrigger RoutedEvent='Border.Loaded'>
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <!--<ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                                                            To="#6990EE90" Duration="0:0:1.5" />-->
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                            </Border.Triggers>
+                                            
                                         </Border>
                                     </Border>
                                     
@@ -134,14 +125,14 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Panel" Property="Background" Value="#FFBBDEFB" />
+                                <Setter TargetName="Panel" Property="Background" Value="#FFDADADA" />
                                 <Setter TargetName="tabItemCloseButton" Property="Visibility" Value="Visible"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="Panel" Property="Background" Value="AliceBlue" />
+                                <Setter TargetName="Panel" Property="Background" Value="{Binding ElementName=MainMenu,Path=Background}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Panel" Property="Background" Value="#FFBBDEFB" />
+                                <Setter TargetName="Panel" Property="Background" Value="#FFDADADA" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -169,9 +160,9 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" >
 
-            <Menu x:Name="MainMenu"
+            <Menu  x:Name="MainMenu"
                     VerticalAlignment="Center">
-                <MenuItem Header="File" Height="30">
+                <MenuItem Name="File" Header="File" Height="30">
                     <MenuItem Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
                               InputGestureText="Ctrl+N"/>
                     <MenuItem Header="Save"           Command="{Binding  Commands.SaveXmlFromTableCommand}"      
@@ -184,9 +175,10 @@
                           Height="30"/>
             </Menu>
 
-            <StackPanel Orientation="Horizontal" Height="30">
+            <StackPanel Orientation="Horizontal" Height="30" Background="{Binding ElementName=MainMenu,Path=Background}">
                 <TextBlock Text="ScaleUI " FontSize="{Binding FontSize, ElementName=MainMenu}"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           Padding="{Binding ElementName=File, Path=Padding}"/>
                 <Slider Name="ScaleUI" 
                         MinWidth="100" Minimum="0.5" Maximum="3"  VerticalAlignment="Center"
                         Value="{Binding WindowScale,Mode=TwoWay}" />

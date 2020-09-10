@@ -21,6 +21,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Medusa.Analyze1553B.Common;
+using System.Threading;
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -41,13 +42,16 @@ namespace Medusa.Analyze1553B.VM
         public ICommand PrevCurrentRowCommand { get; }
         public ICommand ToEndElementCommand   { get; }
         public ICommand ToFirstElementCommand { get; }
+
+        public ICommand StartOrPausePlayCommand { get; }
+
         public ICommand OpenXmlForTableCreationCommand { get; }
-        public ICommand SaveXmlFromTableCommand { get; }
-        public ICommand ShowHelpInformationCommand { get; }
+        public ICommand SaveXmlFromTableCommand        { get; }
+        public ICommand ShowHelpInformationCommand     { get; }
 
         public ICommand UpdateCurrentRowCommand { get; }
-        public ICommand AddViewModelCommand { get; }
-        public ICommand RemoveViewModelCommand { get; }
+        public ICommand AddViewModelCommand     { get; }
+        public ICommand RemoveViewModelCommand  { get; }
 
         public ICommand ConnectAsTcpClientCommand { get; }
         public ICommand TestCommand { get; }
@@ -69,9 +73,13 @@ namespace Medusa.Analyze1553B.VM
             PrevCurrentRowCommand           = CreateCommand<object>(PrevCurrentRow);
             ToEndElementCommand             = CreateCommand<object>(ToEndElement);
             ToFirstElementCommand           = CreateCommand<object>(ToFirstElement);
+            StartOrPausePlayCommand         = CreateCommand<object>(StartOrPausePlay);
+
             OpenXmlForTableCreationCommand  = CreateCommand(OpenFileForDataCreation);
             SaveXmlFromTableCommand         = CreateCommand(SaveXmlFromTable);
+
             ShowHelpInformationCommand      = CreateCommand<object>(ShowHelpInformation);
+
             UpdateCurrentRowCommand         = CreateCommand<object>(UpdateCurrentRow);
             AddViewModelCommand             = CreateCommand<object>(AddViewModel);
             ConnectAsTcpClientCommand       = CreateCommand<object>(RunConnectAsTcpClient);
@@ -81,6 +89,24 @@ namespace Medusa.Analyze1553B.VM
 
         #region Command Implementation
 
+        private void StartOrPausePlay(object arg)
+        {
+            var outer = Task.Factory.StartNew(() =>      // внешняя задача
+            {
+                vmObject.SelectedViewModel.IsPlay = !vmObject.SelectedViewModel.IsPlay;
+                var inner = Task.Factory.StartNew(() =>  // вложенная задача
+                {
+                    while (vmObject.SelectedViewModel.IsPlay && vmObject.SelectedViewModel.CurrentRow + (int)arg <= vmObject.SelectedViewModel.RowCount)
+                    {
+                        vmObject.SelectedViewModel.CurrentRow = vmObject.SelectedViewModel.CurrentRow + (int)arg;
+                        Thread.Sleep(1000);
+                    }
+                    vmObject.SelectedViewModel.CurrentRow = vmObject.SelectedViewModel.RowCount;
+                    vmObject.SelectedViewModel.IsPlay = false;
+                });
+            });
+
+        }
 
         private void ToEndElement(object arg)
         {

@@ -27,18 +27,8 @@ namespace Medusa.Analyze1553B.UI.Controls
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-
-            //Regex regex = new Regex(@"[^\s]{6,}$");
-            //e.Handled = regex.IsMatch(e.Text);
-
-            //TextBox textBox = (TextBox)sender;
-            //textBox.Text.All(c => !char.IsWhiteSpace(c));
-            //sender = textBox;
-
-            //textBox.Text = Int32.Parse(textBox.Text).ToString();
-
-
-            //MessageBox.Show(textBox.Text);
+            Regex regex = new Regex("^[^0-9\\s]+$");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
