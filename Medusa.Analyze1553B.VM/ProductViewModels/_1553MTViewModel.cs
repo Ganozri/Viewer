@@ -13,8 +13,8 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
         public _1553MTViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
             Name = "_1553MTViewModel";
-            this.dialogService = dialogService;
-            this.dialogService.Filter = "TXT files (*.txt)|*.txt";
+            this.DialogService = dialogService;
+            this.DialogService.Filter = "TXT files (*.txt)|*.txt";
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
 

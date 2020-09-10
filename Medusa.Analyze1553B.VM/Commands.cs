@@ -39,7 +39,8 @@ namespace Medusa.Analyze1553B.VM
 
         public ICommand NextCurrentRowCommand { get; }
         public ICommand PrevCurrentRowCommand { get; }
-
+        public ICommand ToEndElementCommand   { get; }
+        public ICommand ToFirstElementCommand { get; }
         public ICommand OpenXmlForTableCreationCommand { get; }
         public ICommand SaveXmlFromTableCommand { get; }
         public ICommand ShowHelpInformationCommand { get; }
@@ -66,6 +67,8 @@ namespace Medusa.Analyze1553B.VM
 
             NextCurrentRowCommand           = CreateCommand<object>(NextCurrentRow);
             PrevCurrentRowCommand           = CreateCommand<object>(PrevCurrentRow);
+            ToEndElementCommand             = CreateCommand<object>(ToEndElement);
+            ToFirstElementCommand           = CreateCommand<object>(ToFirstElement);
             OpenXmlForTableCreationCommand  = CreateCommand(OpenFileForDataCreation);
             SaveXmlFromTableCommand         = CreateCommand(SaveXmlFromTable);
             ShowHelpInformationCommand      = CreateCommand<object>(ShowHelpInformation);
@@ -78,7 +81,16 @@ namespace Medusa.Analyze1553B.VM
 
         #region Command Implementation
 
-       
+
+        private void ToEndElement(object arg)
+        {
+                vmObject.SelectedViewModel.CurrentRow = vmObject.SelectedViewModel.RowCount;
+        }
+
+        private void ToFirstElement(object arg)
+        {
+            vmObject.SelectedViewModel.CurrentRow = 0;
+        }
 
         private void Test(object obj)
         {
@@ -261,7 +273,7 @@ namespace Medusa.Analyze1553B.VM
 
 
             //using (StreamReader reader = new StreamReader(dialogService.ShowOpenFileDialog()))
-            using (StreamReader reader = new StreamReader(vmObject.SelectedViewModel.dialogService.ShowOpenFileDialog()))
+            using (StreamReader reader = new StreamReader(vmObject.SelectedViewModel.DialogService.ShowOpenFileDialog()))
             {
                 string path = reader.ReadToEnd();
                 if (File.Exists(path))

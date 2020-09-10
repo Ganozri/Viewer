@@ -8,11 +8,26 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-
+   
     </UserControl.Resources>
+    
     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-        
-        
+
+        <StackPanel Margin="20,0,20,0" x:Name="DoubleLeftButtonPanel" 
+                    Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                    UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}">
+
+            <Button  HorizontalAlignment="Right"   
+                     Command="{Binding Commands.ToFirstElementCommand}"
+                                       CommandParameter="{Binding ElementName=myListView}"
+                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                     UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
+                     MinWidth="45">
+                <materialDesign:PackIcon Name="ChevronDoubleLeft" Kind="ChevronDoubleLeft" Foreground="White"/>
+            </Button>
+
+        </StackPanel>
+
         <StackPanel Margin="20,0,20,0" x:Name="LeftButtonPanel" 
                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
                                     UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}">
@@ -34,24 +49,25 @@
                         FontSize="32"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <StackPanel  VerticalAlignment="Top">
             <Button  HorizontalAlignment="Center" Name="StartButton" 
                              Command="{Binding Commands.ConnectAsTcpClientCommand}"
                                                CommandParameter="{Binding ElementName=output}"
-                             Content="Start"
+                             
                              Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
                                              UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
                              MinWidth="70"
-                             Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}"/>
+                             Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}">
+                <materialDesign:PackIcon Kind="Play" Foreground="{Binding ElementName=ArrowLeft, Path=Foreground}"/>
+            </Button>
 
-            <Button  HorizontalAlignment="Center"  
-                             Content="Test"
-                             Width="{Binding ElementName=StartButton, Path=ActualWidth}"
-                             Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}"
-                             Command="{Binding  Commands.TestCommand}"
-                                                CommandParameter="{Binding ElementName=myListView}"/>
+            <TextBox   Text="0"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="32"
+                       PreviewTextInput="NumberValidationTextBox"
+                       />
+
         </StackPanel>
-
 
         <StackPanel  Margin="{Binding ElementName=LeftButtonPanel, Path=Margin}" Name="RightButtonPanel">
 
@@ -67,6 +83,21 @@
 
         </StackPanel>
 
+        <StackPanel Margin="20,0,20,0" x:Name="DoubleRightButtonPanel" 
+                    Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                    UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}">
+
+            <Button  HorizontalAlignment="Right"   
+                     Command="{Binding Commands.ToEndElementCommand}"
+                                       CommandParameter="{Binding ElementName=myListView}"
+                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
+                                     UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
+                     MinWidth="45">
+                <materialDesign:PackIcon Name="ChevronDoubleRight" Kind="ChevronDoubleRight" Foreground="White"/>
+            </Button>
+
+        </StackPanel>
 
     </StackPanel>
+    
 </UserControl>

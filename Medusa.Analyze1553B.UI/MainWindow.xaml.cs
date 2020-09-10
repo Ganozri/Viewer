@@ -60,10 +60,10 @@ namespace Medusa.Analyze1553B.UI
                 return;
 
             if (e.Delta > 0)
-                ScaleUI.Value += 0.1;
+                ScaleUI.Value += 0.05;
 
             else if (e.Delta < 0)
-                ScaleUI.Value -= 0.1;
+                ScaleUI.Value -= 0.05;
         }
 
         public MemoryStream ShowOpenFileDialog()

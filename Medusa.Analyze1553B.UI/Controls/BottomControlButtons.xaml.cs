@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,6 +25,20 @@ namespace Medusa.Analyze1553B.UI.Controls
             InitializeComponent();
         }
 
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
 
+            //Regex regex = new Regex(@"[^\s]{6,}$");
+            //e.Handled = regex.IsMatch(e.Text);
+
+            //TextBox textBox = (TextBox)sender;
+            //textBox.Text.All(c => !char.IsWhiteSpace(c));
+            //sender = textBox;
+
+            //textBox.Text = Int32.Parse(textBox.Text).ToString();
+
+
+            //MessageBox.Show(textBox.Text);
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Medusa.Analyze1553B.VM
         public object VmObject { get; private set; }
 
         public ObservableCollection<IPageViewModel> ListViewModels { get; set; }
-
+         
         [Reactive] public ObservableCollection<IPageViewModel> ViewModels { get; set; }
         [Reactive] public IPageViewModel SelectedViewModel { get; set; }
 

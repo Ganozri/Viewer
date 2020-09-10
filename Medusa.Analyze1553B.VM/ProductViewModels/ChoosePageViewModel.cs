@@ -12,7 +12,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
     public class ChoosePageViewModel : SupportClass, IPageViewModel
     {
         public ObservableCollection<string> ListViewModels { get; set; }
-        public IDialogService dialogService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IDialogService DialogService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public ChoosePageViewModel(ISynchronizationContextProvider syncContext, Commands Commands)
         {

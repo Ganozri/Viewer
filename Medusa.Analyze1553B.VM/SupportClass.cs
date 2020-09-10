@@ -26,7 +26,7 @@ namespace Medusa.Analyze1553B.VM
         public Commands Commands { get; set; }
         public SynchronizationContext syncContext;
         public IDataService dataService;
-        public IDialogService dialogService { get; set; }
+        public IDialogService DialogService { get; set; }
         //
 
         public SupportClass()

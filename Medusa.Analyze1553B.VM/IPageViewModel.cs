@@ -15,7 +15,7 @@ namespace Medusa.Analyze1553B.VM
         int RowCount { get; set; }
         States CurrentState { get; set; }
 
-        IDialogService dialogService { get; set; }
+        IDialogService DialogService { get; set; }
 
         enum States
         {

@@ -24,8 +24,8 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
 
-            this.dialogService = dialogService;
-            this.dialogService.Filter = "BMD files(*.bmd) | *.bmd";
+            this.DialogService = dialogService;
+            this.DialogService.Filter = "BMD files(*.bmd) | *.bmd";
             FillData(this.dataService);
         }
 
