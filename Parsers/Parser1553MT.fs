@@ -1,5 +1,6 @@
 ﻿namespace Parsers
 open System
+open FSharp.Collections.ParallelSeq
 
 module Parser1553MT =
 
@@ -35,8 +36,8 @@ module Parser1553MT =
              else firstSymbol
          else "MISSED PARAMETER"
     
-    let breakIntoBlocks (blocks:string list) (count:int) =
-         let a = blocks.[count].Split([|"     ";"         ";"    -->    "; "    <--    ";"  ";"\n";"\r"|], StringSplitOptions.RemoveEmptyEntries)
+    let breakIntoBlocks (blocks:string)  =
+         let a = blocks.Split([|"     ";"         ";"    -->    "; "    <--    ";"  ";"\n";"\r"|], StringSplitOptions.RemoveEmptyEntries)
          let aList = Seq.toList a
          aList
     
@@ -80,55 +81,43 @@ module Parser1553MT =
          let result = inputString.Split([|"MsgNO"|], StringSplitOptions.RemoveEmptyEntries)
          let listResult = Seq.toList result
          let blocks = splitWithoutDelete listResult "MsgNO"
-         let xSeq =
-             seq {
-                     for i in 0..blocks.Length-1 do
-                     yield! seq { SetElementDataRecord1553MT (breakIntoBlocks blocks i)}
-                 } 
+         let xSeq = [for i in 0..blocks.Length-1 do SetElementDataRecord1553MT (breakIntoBlocks blocks.[i])]
          xSeq
-         //let list = [ for i in 1 .. (blocks.Length-1) -> SetElementDataRecord1553MT (breakIntoBlocks blocks i) ]
-         //list
-            
     
     let GetDataByPath (path:string) = 
      let inputString = System.IO.File.ReadAllText path
      let xSeq = GetDataByString inputString
      xSeq
     
-    let testSpeed = 
+    let NewGetDataByPath (path:string) = 
+        let inputString = System.IO.File.ReadAllText path
+        let result = inputString.Split([|"MsgNO"|], StringSplitOptions.RemoveEmptyEntries)
+        let listResult = Seq.toList result
+        let blocks = splitWithoutDelete listResult "MsgNO"
+
         let startTime = System.Diagnostics.Stopwatch.StartNew()
-        let listOfSquares = [ 
-             for _ in 1 .. 1 do
-                 let Data = GetDataByPath(@"D:\Data\1553-MT.txt")
-                 startTime.Elapsed.TotalMilliseconds
-                 startTime.Restart()
-                             ]
-        startTime.Stop()
-        let average list =
-            let isFloat (x : obj) =
-                match x with
-                | :? float -> true
-                | _        -> false
-            let toFloat (x : obj) = x :?> float
-            if List.forall isFloat list then
-                List.averageBy toFloat list
-                |> Some
-            else None
+        let LengthOfBlocks = blocks.Length-1
+        //let FinalBlocks = [for i in 0..LengthOfBlocks/2 do  breakIntoBlocks blocks.[i]]
+        //let FinalBlocks = [for i in LengthOfBlocks/2..LengthOfBlocks do  breakIntoBlocks blocks.[i]]
+        let newList = 
+            blocks
+            |> PSeq.map breakIntoBlocks
+            |> PSeq.map SetElementDataRecord1553MT
+            |> PSeq.toList
+        newList
     
-        printfn "average of list = %A" (average listOfSquares)
-        printfn "\n %A" listOfSquares 
 
-    [<EntryPoint>]
-    let main argv =
+    //[<EntryPoint>]
+    //let main argv =
 
-        //let startTime = System.Diagnostics.Stopwatch.StartNew()
+    //    let startTime = System.Diagnostics.Stopwatch.StartNew()
 
-        ////let Data = GetDataByPath(@"D:\Data\1553-MT.txt")
-        //let Data = GetDataByPath(@"D:\Data\SMALL.txt")
+    //    //let Data = GetDataByPath(@"D:\Data\1553-MT.txt")
+    //    let Data = GetDataByPath(@"D:\Data\SMALL.txt")
 
-        //startTime.Stop()
-        //printfn "\nTime = %A" (startTime.Elapsed.TotalMilliseconds) 
+    //    startTime.Stop()
+    //    printfn "\nTime = %A" (startTime.Elapsed.TotalMilliseconds) 
 
-        0 
+    //    0 
 
 

@@ -52,7 +52,7 @@
         <StackPanel  VerticalAlignment="Top">
             <Button  HorizontalAlignment="Center" Name="StartButton" 
                      Command="{Binding Commands.StartOrPausePlayCommand}"
-                                       CommandParameter="{Binding NumberOfTransitions}"
+                                       CommandParameter="{Binding ElementName=TextNumberOfTransitions, Path=Text}"
                      
                      Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
                                      UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
@@ -62,11 +62,10 @@
                     <materialDesign:PackIcon Kind="Play" Foreground="{Binding ElementName=ArrowLeft, Path=Foreground}"/>
                     <materialDesign:PackIcon Kind="Pause" Foreground="{Binding ElementName=ArrowLeft, Path=Foreground}"/>
                 </StackPanel>
-               
-                
             </Button>
 
-            <TextBox   Text="{Binding NumberOfTransitions}"
+            <TextBox   x:Name="TextNumberOfTransitions"
+                       Text="{Binding NumberOfTransitions}" 
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontSize="32"
                        PreviewTextInput="NumberValidationTextBox"/>

@@ -10,4 +10,9 @@
     <Compile Include="Parser1553MT.fs" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Collections.ParallelSeq" Version="1.1.4" />
+  </ItemGroup>
+
 </Project>

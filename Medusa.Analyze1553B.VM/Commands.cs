@@ -34,7 +34,6 @@ namespace Medusa.Analyze1553B.VM
 
         public readonly ISynchronizationContextProvider syncContext;
 
-
         #region Commands
         public ICommand DoNothingCommand { get; }
 
@@ -57,7 +56,6 @@ namespace Medusa.Analyze1553B.VM
         public ICommand TestCommand { get; }
 
         #endregion
-
 
         public Commands(ISynchronizationContextProvider syncContext, IVmObject vmObject, IDialogService dialogService, IDataService dataService)
         {
@@ -91,21 +89,21 @@ namespace Medusa.Analyze1553B.VM
 
         private void StartOrPausePlay(object arg)
         {
-            var outer = Task.Factory.StartNew(() =>      // внешняя задача
+            vmObject.SelectedViewModel.NumberOfTransitions = Int32.Parse(arg.ToString().Replace(" ", ""));
+            int StepSize = vmObject.SelectedViewModel.NumberOfTransitions;
+            Task.Factory.StartNew(() =>      // external task
             {
                 vmObject.SelectedViewModel.IsPlay = !vmObject.SelectedViewModel.IsPlay;
-                var inner = Task.Factory.StartNew(() =>  // вложенная задача
+                Task.Factory.StartNew(() =>  // nested task
                 {
-                    while (vmObject.SelectedViewModel.IsPlay && vmObject.SelectedViewModel.CurrentRow + (int)arg <= vmObject.SelectedViewModel.RowCount)
+                    while (vmObject.SelectedViewModel.IsPlay && vmObject.SelectedViewModel.CurrentRow + StepSize <= vmObject.SelectedViewModel.RowCount)
                     {
-                        vmObject.SelectedViewModel.CurrentRow = vmObject.SelectedViewModel.CurrentRow + (int)arg;
+                        vmObject.SelectedViewModel.CurrentRow = vmObject.SelectedViewModel.CurrentRow + StepSize;
                         Thread.Sleep(1000);
                     }
-                    vmObject.SelectedViewModel.CurrentRow = vmObject.SelectedViewModel.RowCount;
                     vmObject.SelectedViewModel.IsPlay = false;
                 });
             });
-
         }
 
         private void ToEndElement(object arg)

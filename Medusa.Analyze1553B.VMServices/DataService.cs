@@ -35,6 +35,7 @@ namespace Medusa.Analyze1553B.VMServices
             return name switch
             {
                 "TcpServerViewModel" => GetDataByBMDLoader(path),
+                //"_1553MTViewModel" => GetDataByParser1553MT(path),
                 "_1553MTViewModel" => GetDataByParser1553MT(path),
                 _ => null,
             };
@@ -46,7 +47,7 @@ namespace Medusa.Analyze1553B.VMServices
 
             try
             {
-                var dataRecords = Parser1553MT.GetDataByPath(path);
+                var dataRecords = Parser1553MT.NewGetDataByPath(path);
                 DataRecordsList = dataRecords.Cast<object>().ToArray();
             }
             catch (Exception ex)
