@@ -31,7 +31,6 @@
         <StackPanel Margin="20,0,20,0" x:Name="LeftButtonPanel" 
                     Width="{Binding ElementName=RightButtonPanel, Path=ActualWidth, 
                                     UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}">
-
             <Button  HorizontalAlignment="Right"   
                      Command="{Binding Commands.PrevCurrentRowCommand}"
                                        CommandParameter="{Binding ElementName=myListView}"
@@ -41,7 +40,7 @@
                 <materialDesign:PackIcon Name="ArrowLeft" Kind="ArrowLeft" Foreground="White"/>
             </Button>
 
-            <TextBlock  Name="currentRowTB" 
+            <TextBox    Name="currentRowTB" 
                         Text="{Binding CurrentRow, 
                                        UpdateSourceTrigger=PropertyChanged,
                                        NotifyOnTargetUpdated=True}"

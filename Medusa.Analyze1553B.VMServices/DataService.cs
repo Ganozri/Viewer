@@ -36,6 +36,7 @@ namespace Medusa.Analyze1553B.VMServices
             {
                 "TcpServerViewModel" => GetDataByBMDLoader(path),
                 "_1553MTViewModel" => GetDataByParser1553MT(path),
+                "RT01ViewModel" => GetDataByParserRT01(path),
                 _ => null,
             };
         }
@@ -43,7 +44,6 @@ namespace Medusa.Analyze1553B.VMServices
         public object[] GetDataByParser1553MT(string path)
         {
             object[] DataRecordsList = new object[0];
-
             try
             {
                 var dataRecords = Parser1553MT.GetDataByPath(path);
@@ -69,6 +69,27 @@ namespace Medusa.Analyze1553B.VMServices
 
             return DataRecordsList;
         }
+
+        public object[] GetDataByParserRT01(string path)
+        {
+            object[] DataRecordsList = new object[0];
+            try
+            {
+                var dataRecords = ParserRT01.GetDataByPath(path);
+                DataRecordsList = dataRecords.Cast<object>().ToArray();
+            }
+            catch (Exception ex)
+            {
+                dialogService.ShowMessage(ex.ToString());
+            }
+            finally
+            {
+            }
+
+            return DataRecordsList;
+        }
+
+
 
         public object[] updateDataRerordsList(string input)
         {

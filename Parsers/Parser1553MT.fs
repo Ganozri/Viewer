@@ -61,7 +61,7 @@ module Parser1553MT =
                 Error   = let x = FilterByParameter aList "error code: "
                           match x with
                           | null -> "No error"
-                          | _ -> x
+                          | _ -> x.Split([|","|], StringSplitOptions.RemoveEmptyEntries)  |> String.Concat
             }
         currentElement
     
@@ -69,7 +69,7 @@ module Parser1553MT =
          let listResult = 
              inputString.Split([|"MsgNO"|], StringSplitOptions.RemoveEmptyEntries)
              |> Seq.toList 
-         let blocks = 
+         let Blocks = 
             listResult
             |> PSeq.map (fun x -> "MsgNO" + x)//Add MsgNO after Split
             |> PSeq.map BreakIntoBlocks
@@ -77,7 +77,7 @@ module Parser1553MT =
             |> PSeq.toList
             |> List.sortBy (fun (x : DataRecord1553MT) -> x.MsgNO) 
 
-         blocks
+         Blocks
     
     let GetDataByPath (path:string) = 
         let inputString = System.IO.File.ReadAllText path

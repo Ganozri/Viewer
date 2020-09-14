@@ -12,7 +12,6 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
     public class ChoosePageViewModel : SupportClass, IPageViewModel
     {
         public ObservableCollection<string> ListViewModels { get; set; }
-        public IDialogService DialogService { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public ChoosePageViewModel(ISynchronizationContextProvider syncContext, Commands Commands)
         {
@@ -26,9 +25,8 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             ListViewModels.Add("TestViewModel");
             ListViewModels.Add("TcpServerViewModel");
             ListViewModels.Add("_1553MTViewModel");
+            ListViewModels.Add("RT01ViewModel");
 
-
-            //FillData(dataService);
         }
 
         public ChoosePageViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
@@ -43,9 +41,6 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             ListViewModels.Add("TestViewModel"     );
             ListViewModels.Add("TcpServerViewModel");
             ListViewModels.Add("_1553MTViewModel"  );
-            
-
-            //FillData(dataService);
         }
     }
 }

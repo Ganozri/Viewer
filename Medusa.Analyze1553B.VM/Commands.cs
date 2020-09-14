@@ -218,6 +218,10 @@ namespace Medusa.Analyze1553B.VM
                         AddNewViewModelAndRemoveSelectedViewModel(new _1553MTViewModel(syncContext,dialogService,dataService, this) { });
                         break;
 
+                    case "RT01ViewModel":
+                        AddNewViewModelAndRemoveSelectedViewModel(new RT01ViewModel(syncContext, dialogService, dataService, this) { });
+                        break;
+
                     case "ChoosePageViewModel":
                         vmObject.ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, this) { });
                         vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];

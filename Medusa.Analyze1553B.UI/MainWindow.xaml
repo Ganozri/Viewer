@@ -195,15 +195,23 @@
                     SelectedItem="{Binding SelectedViewModel}"
                     FontSize="15">
             <TabControl.Resources>
+                
                 <DataTemplate DataType="{x:Type vms:TcpServerViewModel}">
                     <views:TcpServerControl/>
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type vms:ChoosePageViewModel}">
                     <views:ChangeProductView/>
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type vms:_1553MTViewModel}">
                     <views:_1553MTView/>
                 </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vms:RT01ViewModel}">
+                    <views:RT01View/>
+                </DataTemplate>
+
             </TabControl.Resources>
         </TabControl>
     </Grid>
