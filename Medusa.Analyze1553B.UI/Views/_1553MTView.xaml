@@ -57,13 +57,13 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Time}"   >Time</GridViewColumn>
+                    <!--<GridViewColumn DisplayMemberBinding="{Binding Path=Time}"   >Time</GridViewColumn>-->
                     <GridViewColumn DisplayMemberBinding="{Binding Path=BusTime}">BusTime</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Bus}"    >Bus</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Cmd1}"   >Cmd1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Cmd2}"   >Cmd2</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status1, StringFormat={}0x{0:X4}}">status1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status2, StringFormat={}0x{0:X4}}">status2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status1, StringFormat={}0x{0:X4}}">Status1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status2, StringFormat={}0x{0:X4}}">Status2</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Resp1}"  >RW1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Resp2}"  >RW2</GridViewColumn>
 
@@ -77,28 +77,28 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Words[7] , StringFormat={}{0:X4}}"  >7</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Words[8] , StringFormat={}{0:X4}}"  >8</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Words[9] , StringFormat={}{0:X4}}"  >9</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[10], StringFormat={}{0:X4}}">10</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[11], StringFormat={}{0:X4}}">11</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[12], StringFormat={}{0:X4}}">12</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[13], StringFormat={}{0:X4}}">13</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[14], StringFormat={}{0:X4}}">14</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[15], StringFormat={}{0:X4}}">15</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[16], StringFormat={}{0:X4}}">16</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[17], StringFormat={}{0:X4}}">17</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[18], StringFormat={}{0:X4}}">18</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[19], StringFormat={}{0:X4}}">19</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[20], StringFormat={}{0:X4}}">20</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[21], StringFormat={}{0:X4}}">21</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[22], StringFormat={}{0:X4}}">22</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[23], StringFormat={}{0:X4}}">23</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[24], StringFormat={}{0:X4}}">24</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[25], StringFormat={}{0:X4}}">25</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[26], StringFormat={}{0:X4}}">26</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[27], StringFormat={}{0:X4}}">27</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[28], StringFormat={}{0:X4}}">28</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[29], StringFormat={}{0:X4}}">29</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[30], StringFormat={}{0:X4}}">30</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[31], StringFormat={}{0:X4}}">31</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[10], StringFormat={}{0:X4}}"  >10</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[11], StringFormat={}{0:X4}}"  >11</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[12], StringFormat={}{0:X4}}"  >12</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[13], StringFormat={}{0:X4}}"  >13</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[14], StringFormat={}{0:X4}}"  >14</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[15], StringFormat={}{0:X4}}"  >15</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[16], StringFormat={}{0:X4}}"  >16</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[17], StringFormat={}{0:X4}}"  >17</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[18], StringFormat={}{0:X4}}"  >18</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[19], StringFormat={}{0:X4}}"  >19</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[20], StringFormat={}{0:X4}}"  >20</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[21], StringFormat={}{0:X4}}"  >21</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[22], StringFormat={}{0:X4}}"  >22</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[23], StringFormat={}{0:X4}}"  >23</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[24], StringFormat={}{0:X4}}"  >24</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[25], StringFormat={}{0:X4}}"  >25</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[26], StringFormat={}{0:X4}}"  >26</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[27], StringFormat={}{0:X4}}"  >27</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[28], StringFormat={}{0:X4}}"  >28</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[29], StringFormat={}{0:X4}}"  >29</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[30], StringFormat={}{0:X4}}"  >30</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Words[31], StringFormat={}{0:X4}}"  >31</GridViewColumn>
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Error}">Error</GridViewColumn>
 

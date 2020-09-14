@@ -6,7 +6,7 @@ module Parser1553MT =
     type DataRecord1553MT =
         {
         MsgNO  : uint32
-        Time   : string
+        //Time   : string
         BusTime: uint32
         Bus    : char
         Cmd1   : string
@@ -45,7 +45,7 @@ module Parser1553MT =
         let currentElement = 
             {
                 MsgNO   = aList.[0].[6..aList.[0].Length] |> uint32
-                Time    = aList.[1].Split([|" "|], StringSplitOptions.RemoveEmptyEntries).[1] 
+                //Time    = aList.[1].Split([|" "|], StringSplitOptions.RemoveEmptyEntries).[1] 
                 BusTime = ToUint32 (FilterByParameter aList "BusTime") 
                 Bus     = FilterByParameter aList "Bus:" |> (fun x -> x.[0])
                 Cmd1    = FilterByParameter aList "Cmd1"
@@ -71,11 +71,11 @@ module Parser1553MT =
              |> Seq.toList 
          let blocks = 
             listResult
-            |> List.map (fun x -> "MsgNO" + x)//Add MsgNO after Split
+            |> PSeq.map (fun x -> "MsgNO" + x)//Add MsgNO after Split
             |> PSeq.map BreakIntoBlocks
             |> PSeq.map SetElementDataRecord1553MT
             |> PSeq.toList
-            |>List.sortBy (fun (x : DataRecord1553MT) -> x.MsgNO) 
+            |> List.sortBy (fun (x : DataRecord1553MT) -> x.MsgNO) 
 
          blocks
     

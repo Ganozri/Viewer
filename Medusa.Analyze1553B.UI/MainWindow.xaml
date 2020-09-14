@@ -179,7 +179,7 @@
                           Height="30"/>
             </Menu>
 
-            <StackPanel Orientation="Horizontal" Height="30" Background="{Binding ElementName=MainMenu,Path=Background}">
+            <StackPanel Orientation="Horizontal" Height="30" Background="{Binding ElementName=MainMenu,Path=Background}" Visibility="Hidden">
                 <TextBlock Text="ScaleUI " FontSize="{Binding FontSize, ElementName=MainMenu}"
                            VerticalAlignment="Center"
                            Padding="{Binding ElementName=File, Path=Padding}"/>
