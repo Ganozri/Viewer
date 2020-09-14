@@ -20,6 +20,7 @@
         <KeyBinding Command="{Binding Commands.OpenXmlForTableCreationCommand}" Key="N" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding Commands.SaveXmlFromTableCommand}" Key="S" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding Commands.AddViewModelCommand}" CommandParameter="ChoosePageViewModel" Key="T" Modifiers="Ctrl"/>
+      
     </Window.InputBindings>
 
     <Window.Resources>
@@ -53,6 +54,7 @@
                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 <Button x:Name="TabPanelButton"  
                                         Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                                        Background="{StaticResource PrimaryHueDarkBrush}"
                                         Grid.Column="1"
                                         Command="{Binding Commands.AddViewModelCommand}"
                                         CommandParameter="ChoosePageViewModel"
@@ -98,9 +100,10 @@
                             <ContentPresenter x:Name="ContentSite"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
-                                    ContentSource="Header">
+                                    ContentSource="Header"
+                                    >
                                 <ContentPresenter.Content>
-                                    <Border  BorderThickness="3"
+                                    <Border  BorderThickness="1"
                                              BorderBrush="White">
                                         <Border Name="tabItemBorder"
                                             BorderThickness="0 0 0 2"
@@ -110,19 +113,20 @@
                                                 <Button Name="tabItemCloseButton"
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Foreground="{StaticResource PrimaryHueDarkBrush}"
                                                     Content="X"
                                                     Visibility="Hidden"
                                                     Margin="3,0,0,0"
                                                     Command="{Binding Commands.RemoveViewModelCommand}"/>
                                             </StackPanel>
-                                            
                                         </Border>
                                     </Border>
                                     
-
+            
                                 </ContentPresenter.Content>
                             </ContentPresenter>
                         </Grid>
+                        
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="Panel" Property="Background" Value="#FFDADADA" />
@@ -155,7 +159,7 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" >
@@ -168,7 +172,7 @@
                     <MenuItem Header="Save"           Command="{Binding  Commands.SaveXmlFromTableCommand}"      
                               InputGestureText="Ctrl+S"/>
                 </MenuItem>
-                <MenuItem Header="Edit" Height="30"/>
+                <MenuItem Header="Edit" Height="30" />
                 <MenuItem Header="View" Height="30"/>
                 <MenuItem Header="Help"  Command="{Binding  Commands.ShowHelpInformationCommand}" 
                           InputGestureText="Ctrl+H"

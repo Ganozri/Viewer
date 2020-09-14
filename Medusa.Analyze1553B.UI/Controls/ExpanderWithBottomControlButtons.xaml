@@ -45,7 +45,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
 
             <local:BottomControlButtons Grid.Column="1" DataContext="{Binding}" />
