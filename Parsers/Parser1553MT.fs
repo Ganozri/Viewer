@@ -5,17 +5,18 @@ open FSharp.Collections.ParallelSeq
 module Parser1553MT =
     type DataRecord1553MT =
         {
-        MsgNO  : int
+        MsgNO  : uint32
         Time   : string
-        BusTime: int
+        BusTime: uint32
         Bus    : char
         Cmd1   : string
         Cmd2   : string
-        status1: uint16
-        status2: uint16
-        resp1  : uint16
-        resp2  : uint16
-        words  : uint16 list
+        Status1: uint16
+        Status2: uint16
+        Resp1  : uint16
+        Resp2  : uint16
+        Words  : uint16 list
+        Error  : string
         }
 
     let Contain (contain : string) = 
@@ -29,34 +30,38 @@ module Parser1553MT =
              if (firstSymbol).[0] = ' ' 
              then firstSymbol.[1..firstSymbol.Length-1] 
              else firstSymbol
-         else "MISSED PARAMETER"
+         else null
     
     let BreakIntoBlocks (blocks:string)  =
          let a = blocks.Split([|"     ";"         ";"    -->    "; "    <--    ";"  ";"\n";"\r"|], StringSplitOptions.RemoveEmptyEntries)
          let aList = Seq.toList a
          aList
     
-    let ToInt (x:string) = x.[0..x.Length-3] |> int
+    let ToUint32 (x:string) = x.[0..x.Length-3] |> uint32
 
     let ToUint (x:string) = x.[0..x.Length-3] |> uint16
     
     let SetElementDataRecord1553MT (aList:string list) = 
         let currentElement = 
             {
-                MsgNO   = aList.[0].[6..aList.[0].Length] |>int
+                MsgNO   = aList.[0].[6..aList.[0].Length] |> uint32
                 Time    = aList.[1].Split([|" "|], StringSplitOptions.RemoveEmptyEntries).[1] 
-                BusTime = ToInt (FilterByParameter aList "BusTime") 
+                BusTime = ToUint32 (FilterByParameter aList "BusTime") 
                 Bus     = FilterByParameter aList "Bus:" |> (fun x -> x.[0])
                 Cmd1    = FilterByParameter aList "Cmd1"
                 Cmd2    = FilterByParameter aList "Cmd2"
-                status1 = ToUint (FilterByParameter aList "status1")
-                status2 = ToUint (FilterByParameter aList "status2")
-                resp1   = ToUint (FilterByParameter aList " resp1")
-                resp2   = ToUint (FilterByParameter aList "resp2:")
-                words   = (aList.[10..(aList.Length - 1)] 
+                Status1 = ToUint (FilterByParameter aList "status1")
+                Status2 = ToUint (FilterByParameter aList "status2")
+                Resp1   = ToUint (FilterByParameter aList " resp1")
+                Resp2   = ToUint (FilterByParameter aList "resp2:")
+                Words   = (aList.[10..(aList.Length - 1)] 
                           |> String.Concat).Split([|" "; ";"; "error code: no response ," |], StringSplitOptions.RemoveEmptyEntries) 
                           |> Seq.map (fun x -> Convert.ToUInt16(x, 16))
                           |> Seq.toList
+                Error   = let x = FilterByParameter aList "error code: "
+                          match x with
+                          | null -> "No error"
+                          | _ -> x
             }
         currentElement
     
