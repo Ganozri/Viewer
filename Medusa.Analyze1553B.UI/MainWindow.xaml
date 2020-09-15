@@ -17,6 +17,7 @@
         WindowState="Maximized">
 
     <Window.InputBindings>
+        
         <KeyBinding Command="{Binding Commands.OpenXmlForTableCreationCommand}" Key="N" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding Commands.SaveXmlFromTableCommand}" Key="S" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding Commands.AddViewModelCommand}" CommandParameter="ChoosePageViewModel" Key="T" Modifiers="Ctrl"/>

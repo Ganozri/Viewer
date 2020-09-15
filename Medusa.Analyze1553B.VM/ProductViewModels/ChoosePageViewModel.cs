@@ -13,21 +13,21 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
     {
         public ObservableCollection<string> ListViewModels { get; set; }
 
-        public ChoosePageViewModel(ISynchronizationContextProvider syncContext, Commands Commands)
-        {
-            this.syncContext = syncContext.SynchronizationContext;
-            this.Commands = Commands;
+        //public ChoosePageViewModel(ISynchronizationContextProvider syncContext, Commands Commands)
+        //{
+        //    this.syncContext = syncContext.SynchronizationContext;
+        //    this.Commands = Commands;
 
-            Name = "ChoosePageViewModel";
+        //    Name = "ChoosePageViewModel";
 
-            ListViewModels = new ObservableCollection<string>();
-            ListViewModels.Add("MedusaViewModel");
-            ListViewModels.Add("TestViewModel");
-            ListViewModels.Add("TcpServerViewModel");
-            ListViewModels.Add("_1553MTViewModel");
-            ListViewModels.Add("RT01ViewModel");
+        //    ListViewModels = new ObservableCollection<string>();
+        //    ListViewModels.Add("MedusaViewModel");
+        //    ListViewModels.Add("TestViewModel");
+        //    ListViewModels.Add("TcpServerViewModel");
+        //    ListViewModels.Add("_1553MTViewModel");
+        //    ListViewModels.Add("RT01ViewModel");
 
-        }
+        //}
 
         public ChoosePageViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
@@ -41,6 +41,7 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             ListViewModels.Add("TestViewModel"     );
             ListViewModels.Add("TcpServerViewModel");
             ListViewModels.Add("_1553MTViewModel"  );
+            ListViewModels.Add("RT01ViewModel");
         }
     }
 }

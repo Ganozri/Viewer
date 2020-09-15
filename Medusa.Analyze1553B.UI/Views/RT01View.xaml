@@ -10,7 +10,7 @@
              xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
              xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
              xmlns:ctrls="clr-namespace:Medusa.Analyze1553B.UI.Controls"
-             d:DataContext="{d:DesignInstance Type=vms:_1553MTViewModel}"
+             d:DataContext="{d:DesignInstance Type=vms:RT01ViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="1024" d:DesignWidth="1280"
              Background="White">
@@ -56,14 +56,17 @@
             <ListView.View>
                 <GridView>
                     <!--<GridViewColumn DisplayMemberBinding="{Binding Path=Time}"   >Time</GridViewColumn>-->
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=BusTime}">BusTime</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Bus}"    >Bus</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cmd1}"   >Cmd1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cmd2}"   >Cmd2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Time}">Time</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=RT1}"    >RT1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SA1}"    >SA1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Status1, StringFormat={}0x{0:X4}}">Status1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=RT2}"   >RT2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SA2}"   >SA2</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Status2, StringFormat={}0x{0:X4}}">Status2</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Resp1}"  >RW1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Resp2}"  >RW2</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=DataSource}"  >DataSource</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Bus}"    >Bus</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Path}"  >Path</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Resp2}"  >Resp2</GridViewColumn>
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Words[0] , StringFormat={}{0:X4}}"  >0</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Words[1] , StringFormat={}{0:X4}}"  >1</GridViewColumn>
