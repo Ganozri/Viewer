@@ -25,7 +25,7 @@ namespace Medusa.Analyze1553B.VM
         {
 
             this.syncContext = syncContext.SynchronizationContext;
-            this.Commands = new Commands(syncContext, this, dialogService, dataService);
+            this.Commands = new Commands(syncContext, this, dialogService, dataService); 
            
             ViewModels = new ObservableCollection<IPageViewModel>();
             ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, Commands) { });

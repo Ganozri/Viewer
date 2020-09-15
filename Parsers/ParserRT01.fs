@@ -5,7 +5,6 @@ open FSharp.Collections.ParallelSeq
 module ParserRT01 =
     type CommunicationPathsEnum = RT | BC | Error
     type ErorType = NoResp | Normal
-
     type RT01 =
         {
         Time       : uint64
@@ -26,15 +25,12 @@ module ParserRT01 =
     let Contain (contain : string) = 
         (fun x -> x.ToString().Contains(contain)) 
 
-    let FilterByParameter list parameter =
-        let x:string list = List.filter (Contain parameter) list
-        if x.Length > 0 then 
-            let y = x.Head.Split([|parameter; ":"; "\r" |], StringSplitOptions.RemoveEmptyEntries)
-            let firstSymbol = y.[0]
-            if (firstSymbol).[0] = ' ' 
-            then firstSymbol.[1..firstSymbol.Length-1] 
-            else firstSymbol
-        else null
+    let FilterByParameter (list : string[]) parameter  =
+        Array.filter (Contain parameter) list 
+                         |> Array.map(fun x -> x.Trim())
+                         |> Array.map(fun x -> x.Split([|parameter|], StringSplitOptions.RemoveEmptyEntries) )
+                         |> Array.map(fun x -> x.[0] )
+                         |> Array.head
 
     let TryParseUInt16 x = 
         try 
@@ -62,18 +58,18 @@ module ParserRT01 =
         let x = input.Split([|':'|], StringSplitOptions.RemoveEmptyEntries)
                 |> Seq.map (fun x -> x |> uint64)
                 |> Seq.toList
-        let out:uint64 = ( (x.[0]*(3600UL) + x.[1]*(60UL) + x.[2] ) * (1_000_000UL) + x.[3] |> uint64)
+        let out:uint64 = ( (x.[0]*(3600UL) + x.[1]*(60UL) + x.[2] ) * (1_000_000UL) + x.[3])
         out 
 
-    let SetElementDataRecordRT01 (aList: string list) (count : int)= 
+    let SetElementDataRecordRT01 (aList: string[])= 
            let currentElement = 
                {
                    Time       = TimeStringToUInt64() aList.[2]
-                   RT1        = aList.[3] |> uint32
+                   RT1        = aList.[3] |> Convert.ToUInt32 
                    SA1        = aList.[4] |> uint8
                    Status1    = FilterByParameter aList "status1:"  |> uint16
-                   RT2        = FilterByParameter aList "rt2:"      |> uint32
-                   SA2        = FilterByParameter aList "sa2:"      |> uint32
+                   RT2        = FilterByParameter aList "rt2:"      |> Convert.ToUInt32 
+                   SA2        = FilterByParameter aList "sa2:"      |> Convert.ToUInt32 
                    Status2    = FilterByParameter aList "status2:"  |> uint16
                    DataSource = aList.[9]  |> uint32
                    Bus        = aList.[10].[0] 
@@ -83,36 +79,42 @@ module ParserRT01 =
                                 | "BC->RT" -> CommunicationPathsEnum.BC
                                 | _ -> CommunicationPathsEnum.Error
                    Resp2      = aList.[12].[0..aList.[12].Length-3] |> uint16
-                   Words      = let x =  aList.[13..count-1]  
+                   Words      = let x =  aList.[13..aList.Length-2]  
                                          |> Seq.map (fun x -> (TryParseUInt16 x))
                                          |> Seq.filter IsNotNone
-                                         |> Seq.map (fun x -> x.Value |> uint16)
+                                         |> Seq.map (fun x -> x.Value |> Convert.ToUInt16 )
                                          |> Seq.toList
                                 x
-                   Error      =     let x = aList.[count..aList.Length] 
-                                            |> Seq.map (fun x -> x + " ")
-                                            |> String.Concat  
-                                    match x with
-                                    | "error code: no response " -> ErorType.NoResp
-                                    | _ -> ErorType.Normal      
+                   Error      = let x = aList.[aList.Length-4..aList.Length] 
+                                        |> Seq.map (fun x -> x + " ")
+                                        |> String.Concat  
+                                match x with
+                                | "error code: no response " -> ErorType.NoResp
+                                | _ -> ErorType.Normal      
                }
            currentElement
 
     let GetDataByString (inputString:string) =
-        let inputList = inputString.Split([|"\r"|], StringSplitOptions.RemoveEmptyEntries)
-                        |> Seq.toList 
-        let countOfDelimeters = countCharFromNth inputList.[0] ',' + 4//MAGIC
+            inputString 
+            |> (fun x -> x.Split([|", \t";",\t";", ";",";" "|], StringSplitOptions.RemoveEmptyEntries))
+            |> (fun x -> SetElementDataRecordRT01 x)
+            
+    let GetDataByStringArray (inputString:string[]) =
+        //let inputList  //inputString.Split([|"\r"|], StringSplitOptions.RemoveEmptyEntries)
+        let inputList = inputString 
+                        |> Array.toList 
         let Blocks = 
-            inputList.[1..inputList.Length-2]//excluding the part with names and the last empty(tab) line
-            |> PSeq.map (fun x -> x.Split([|", \t";",\t";", ";",";" "|], StringSplitOptions.RemoveEmptyEntries))
-            |> PSeq.map (fun x -> x |> Seq.toList)
-            |> PSeq.map (fun x -> SetElementDataRecordRT01 x countOfDelimeters)
-            |> PSeq.toList
-            |> List.sortBy (fun (x : RT01) -> x.Time) 
+            inputList.[0..inputList.Length-1]//excluding the part with names and the last empty(tab) line
+            |> PSeq.map GetDataByString 
+            |> PSeq.sortBy(fun (x : RT01) -> x.Time)
+            |> PSeq.toArray 
         Blocks
 
     let GetDataByPath (path:string) = 
-       let inputString = System.IO.File.ReadAllText path
-       let outputList = GetDataByString inputString
+       let inputString = System.IO.File.ReadAllLines path
+       //let inputString = readLines path |> Seq.toArray
+       let InputStringWithoutFirstAndEmptyLine = inputString.[1..inputString.Length-2]
+       
+       let outputList = GetDataByStringArray InputStringWithoutFirstAndEmptyLine
        outputList
 
