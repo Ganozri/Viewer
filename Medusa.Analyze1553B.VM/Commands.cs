@@ -214,8 +214,8 @@ namespace Medusa.Analyze1553B.VM
                         AddNewViewModelAndRemoveSelectedViewModel(new TcpServerViewModel(syncContext, dialogService, dataService, this) { });
                         break;
 
-                    case "_1553MTViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new _1553MTViewModel(syncContext,dialogService,dataService, this) { });
+                    case "MT1553ViewModel":
+                        AddNewViewModelAndRemoveSelectedViewModel(new MT1553ViewModel(syncContext,dialogService,dataService, this) { });
                         break;
 
                     case "RT01ViewModel":

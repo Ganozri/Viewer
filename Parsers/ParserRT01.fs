@@ -6,8 +6,10 @@ open System.Threading.Tasks
 open FSharp.Collections.ParallelSeq
 
 module ParserRT01 =
+
     type CommunicationPathsEnum = RT | BC | Error
     type ErorType = NoResp | Normal
+
     type RT01 =
         {
         Time       : uint64
@@ -35,15 +37,6 @@ module ParserRT01 =
                          |> Array.map(fun x -> x.[0] )
                          |> Array.head
 
-    let TryParseUInt16 x = 
-        try 
-            x |> (fun x -> Convert.ToUInt16(x, 16))  |> Some
-        with :? FormatException -> 
-            None
-
-    let IsNotNone x = 
-        x<>None
-    
     let TimeStringToUInt64() (input:string) = 
         let x = input.Split([|':'|], StringSplitOptions.RemoveEmptyEntries)
                 |> Seq.map (fun x -> x |> uint64)

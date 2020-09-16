@@ -204,8 +204,8 @@
                 <DataTemplate DataType="{x:Type vms:ChoosePageViewModel}">
                     <views:ChangeProductView/>
                 </DataTemplate>
-                
-                <DataTemplate DataType="{x:Type vms:_1553MTViewModel}">
+
+                <DataTemplate DataType="{x:Type vms:MT1553ViewModel}">
                     <views:_1553MTView/>
                 </DataTemplate>
 

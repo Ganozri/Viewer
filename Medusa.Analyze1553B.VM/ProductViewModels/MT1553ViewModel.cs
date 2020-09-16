@@ -7,12 +7,11 @@ using ReactiveUI.Fody.Helpers;
 
 namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
-    public class _1553MTViewModel : SupportClass, IPageViewModel
+    public class MT1553ViewModel : SupportClass, IPageViewModel
     {
-
-        public _1553MTViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
+        public MT1553ViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
-            Name = "_1553MTViewModel";
+            Name = "MT1553ViewModel";
             this.DialogService = dialogService;
             this.DialogService.Filter = "TXT files (*.txt)|*.txt";
             this.syncContext = syncContext.SynchronizationContext;
@@ -20,7 +19,5 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
 
             FillData(this.dataService);
         }
-
-       
     }
 }

@@ -35,7 +35,7 @@ namespace Medusa.Analyze1553B.VMServices
             return name switch
             {
                 "TcpServerViewModel" => GetDataByBMDLoader(path),
-                "_1553MTViewModel" => GetDataByParser1553MT(path),
+                "MT1553ViewModel" => GetDataByParser1553MT(path),
                 "RT01ViewModel" => GetDataByParserRT01(path),
                 _ => null,
             };
