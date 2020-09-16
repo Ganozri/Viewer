@@ -1,17 +1,12 @@
 ﻿using Medusa.Analyze1553B.Common;
 using Medusa.Analyze1553B.UIServices;
-using Newtonsoft.Json;
-using Olympus.Checkers;
 using Olympus.Translation;
 using Parsers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
+
 
 namespace Medusa.Analyze1553B.VMServices
 {
@@ -20,8 +15,6 @@ namespace Medusa.Analyze1553B.VMServices
         private readonly IDialogService dialogService;
 
         private Medusa.Analyze1553B.Loader.BMD.Loader loader;
-
-        private string Name { get; set; }
 
         public DataService(IDialogService dialogService)
         {
@@ -88,8 +81,6 @@ namespace Medusa.Analyze1553B.VMServices
 
             return DataRecordsList;
         }
-
-
 
         public object[] updateDataRerordsList(string input)
         {

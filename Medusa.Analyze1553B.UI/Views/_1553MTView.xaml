@@ -10,7 +10,7 @@
              xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
              xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
              xmlns:ctrls="clr-namespace:Medusa.Analyze1553B.UI.Controls"
-             d:DataContext="{d:DesignInstance Type=vms:_1553MTViewModel}"
+             d:DataContext="{d:DesignInstance Type=vms:MT1553ViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="1024" d:DesignWidth="1280"
              Background="White"

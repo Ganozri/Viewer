@@ -22,6 +22,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Medusa.Analyze1553B.Common;
 using System.Threading;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -208,32 +210,36 @@ namespace Medusa.Analyze1553B.VM
                 string[] words = arg.ToString().Split(new char[] { '.' });
                 string inputString = words[words.Length - 1];
 
-                switch (inputString)
+                if (inputString != "ChoosePageViewModel")
                 {
-                    case "TcpServerViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new TcpServerViewModel(syncContext, dialogService, dataService, this) { });
-                        break;
-
-                    case "MT1553ViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new MT1553ViewModel(syncContext,dialogService,dataService, this) { });
-                        break;
-
-                    case "RT01ViewModel":
-                        AddNewViewModelAndRemoveSelectedViewModel(new RT01ViewModel(syncContext, dialogService, dataService, this) { });
-                        break;
-
-                    case "ChoosePageViewModel":
-                        vmObject.ViewModels.Add(new ChoosePageViewModel(syncContext, dialogService, dataService, this) { });
-                        vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];
-                        break;
-
-                    default: 
-                        dialogService.ShowMessage("Nothing");
-                        break;
+                    foreach (var item in vmObject.Types)
+                    {
+                        if (inputString == item.Name)
+                        {
+                            AddNewViewModelAndRemoveSelectedViewModel(CreateViewModelByType(item, syncContext, dialogService, dataService, this));
+                        }
+                    }
+                }
+                else if (inputString == "ChoosePageViewModel")
+                {
+                    vmObject.ViewModels.Add(new ChoosePageViewModel(vmObject.Types,syncContext, this) { });
+                    vmObject.SelectedViewModel = vmObject.ViewModels[vmObject.ViewModels.Count - 1];
+                }
+                else
+                {
+                    dialogService.ShowMessage("Error!");
                 }
 
             }
 
+        }
+
+        public IPageViewModel CreateViewModelByType(Type t, ISynchronizationContextProvider s, IDialogService dialogService, IDataService dataService, Commands c)
+        {
+            ConstructorInfo ctor = t.GetConstructor(new[] { typeof(ISynchronizationContextProvider), typeof(IDialogService), typeof(IDataService), typeof(Commands) });
+            object instance = ctor.Invoke(new object[] { s, dialogService, dataService, c });
+
+            return (IPageViewModel)instance;
         }
 
         private void RemoveViewModel()
@@ -298,15 +304,12 @@ namespace Medusa.Analyze1553B.VM
 
         private void OpenFileForDataCreation()
         {
-
-
-            //using (StreamReader reader = new StreamReader(dialogService.ShowOpenFileDialog()))
             using (StreamReader reader = new StreamReader(vmObject.SelectedViewModel.DialogService.ShowOpenFileDialog()))
             {
                 string path = reader.ReadToEnd();
                 if (File.Exists(path))
                 {
-                    SelectedDataUpdate(path);
+                    _ = SelectedDataUpdateAsync(path);
                 }
             }
         }
@@ -315,34 +318,37 @@ namespace Medusa.Analyze1553B.VM
         {
             if (File.Exists(path))
             {
-                SelectedDataUpdate(path);
+                _ = SelectedDataUpdateAsync(path);
             }
         }
 
-        private void SelectedDataUpdate(string path)
+        private async Task SelectedDataUpdateAsync(string path)
         {
-            vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Yellow;
+            vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Yellow;// выполняется синхронно
 
-            vmObject.SelectedViewModel.DataRecordsList = dataService.GetData(path, vmObject.SelectedViewModel.Name);
-            vmObject.SelectedViewModel.CurrentRow = 0;
-            vmObject.SelectedViewModel.RowCount = vmObject.SelectedViewModel.DataRecordsList.Length - 1;
+            await Task.Run(() => 
+            {
+                vmObject.SelectedViewModel.DataRecordsList = dataService.GetData(path, vmObject.SelectedViewModel.Name);
+                vmObject.SelectedViewModel.CurrentRow = 0;
+                vmObject.SelectedViewModel.RowCount = vmObject.SelectedViewModel.DataRecordsList.Length - 1;
 
-            if (vmObject.SelectedViewModel.RowCount != -1)
-            {
-                vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Green;
-            }
-            else
-            {
-                vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Red;
-            }
-           
+                if (vmObject.SelectedViewModel.RowCount != -1)
+                {
+                    vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Green;
+                }
+                else
+                {
+                    vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Red;
+                }
+            });// выполняется асинхронно
+
         }
 
         private void SaveXmlFromTable()
         {
             // convert stream to string
             StreamReader reader = new StreamReader(dialogService.ShowSaveFileDialog());
-            string path = reader.ReadToEnd();
+            _ = reader.ReadToEnd();
         }
 
         private void ShowHelpInformation(object obj)

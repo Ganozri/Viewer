@@ -1,9 +1,6 @@
-﻿using ReactiveUI.Fody.Helpers;
-using SqlStreamStore;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Text;
+
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -12,8 +9,8 @@ namespace Medusa.Analyze1553B.VM
         object VmObject { get; }
 
         public Commands Commands { get; }
+        public ObservableCollection<Type> Types { get; set; }
 
-        ObservableCollection<IPageViewModel> ListViewModels { get; set; }
         ObservableCollection<IPageViewModel> ViewModels { get; set; }
         IPageViewModel SelectedViewModel { get; set; }
     }

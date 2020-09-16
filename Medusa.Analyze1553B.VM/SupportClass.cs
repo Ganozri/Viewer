@@ -1,14 +1,10 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using ReactiveUI;
 using static Medusa.Analyze1553B.VM.IPageViewModel;
 using ReactiveUI.Fody.Helpers;
 using Medusa.Analyze1553B.VMServices;
 using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.Common;
+
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -28,7 +24,7 @@ namespace Medusa.Analyze1553B.VM
         //
         public Commands Commands { get; set; }
         public SynchronizationContext syncContext;
-        public IDataService dataService;
+        public IDataService DataService;
         public IDialogService DialogService { get; set; }
         //
 
@@ -39,23 +35,13 @@ namespace Medusa.Analyze1553B.VM
             IsPlay = false;
         }
 
-        public void FillData(IDataService dataService, string path = "@")
+        public void FillData()
         {
-            path = @"";
-            bool isFileExists = File.Exists(path);
-            if (isFileExists)
-            {
-                DataRecordsList = dataService.GetDataByBMDLoader(path);
-                CurrentRow = 0;
-                RowCount = DataRecordsList.Length - 1;
-            }
-            else
-            {
-                DataRecordsList = new object[] { };
-                CurrentRow = 0;
-                RowCount = 0;
-            }
+            DataRecordsList = new object[] { };
+            CurrentRow = 0;
+            RowCount = 0;
 
+            DialogService.Filter += "|All files (*.*)|*.*";
         }
 
        

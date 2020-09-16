@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Threading;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VMServices;
-using System.IO;
 using System.Collections.ObjectModel;
 
 namespace Medusa.Analyze1553B.VM.ProductViewModels
@@ -13,19 +8,16 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
     {
         public ObservableCollection<string> ListViewModels { get; set; }
 
-        public ChoosePageViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
+        public ChoosePageViewModel(ObservableCollection<Type> types,ISynchronizationContextProvider syncContext, Commands Commands)
         {
             this.syncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
 
-            Name = "ChoosePageViewModel";
+            Name = GetType().Name;
 
-            ListViewModels = new ObservableCollection<string>
-            {
-                "TcpServerViewModel",
-                "MT1553ViewModel",
-                "RT01ViewModel"
-            };
+            ListViewModels = new ObservableCollection<string>();
+            foreach (var item in types)
+                ListViewModels.Add(item.Name);
         }
     }
 }

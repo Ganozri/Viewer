@@ -1,19 +1,12 @@
-﻿using Medusa.Analyze1553B.UI.Views;
-using Medusa.Analyze1553B.UIServices;
-using ReactiveUI.Fody.Helpers;
+﻿using Medusa.Analyze1553B.UIServices;
 using System;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using SynchronizationContext = System.Threading.SynchronizationContext;
-//
 
-//
 namespace Medusa.Analyze1553B.UI
 {
     /// <summary> 
