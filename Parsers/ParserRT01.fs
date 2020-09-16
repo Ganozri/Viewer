@@ -1,5 +1,8 @@
 ﻿namespace Parsers
+
 open System
+open System.IO
+open System.Threading.Tasks
 open FSharp.Collections.ParallelSeq
 
 module ParserRT01 =
@@ -37,20 +40,7 @@ module ParserRT01 =
             x |> (fun x -> Convert.ToUInt16(x, 16))  |> Some
         with :? FormatException -> 
             None
-    
-    let countCharFromNth (getStr : string)(chkdChar : char) = 
-        let rec loop i count =
-            if i < getStr.Length then 
-                if getStr.[i] = chkdChar then loop (i+1) (count+1)
-                else loop (i+1) count
-            else count
-        loop 0 0
 
-    let result x:uint16 option = 
-        match x with 
-        | Some i -> Some(i)
-        | None -> None
-    
     let IsNotNone x = 
         x<>None
     
@@ -80,9 +70,8 @@ module ParserRT01 =
                                 | _ -> CommunicationPathsEnum.Error
                    Resp2      = aList.[12].[0..aList.[12].Length-3] |> uint16
                    Words      = let x =  aList.[13..aList.Length-2]  
-                                         |> Seq.map (fun x -> (TryParseUInt16 x))
-                                         |> Seq.filter IsNotNone
-                                         |> Seq.map (fun x -> x.Value |> Convert.ToUInt16 )
+                                         |> Seq.filter (fun x -> x.Length=4)
+                                         |> Seq.map (fun x -> Convert.ToUInt16(x, 16))
                                          |> Seq.toList
                                 x
                    Error      = let x = aList.[aList.Length-4..aList.Length] 
@@ -93,28 +82,24 @@ module ParserRT01 =
                                 | _ -> ErorType.Normal      
                }
            currentElement
+    
+    let readLines (filePath:string) = seq  {
+        use sr = new StreamReader (filePath)
+        while not sr.EndOfStream do
+            yield sr.ReadLine ()
+            
+    }
 
     let GetDataByString (inputString:string) =
             inputString 
             |> (fun x -> x.Split([|", \t";",\t";", ";",";" "|], StringSplitOptions.RemoveEmptyEntries))
-            |> (fun x -> SetElementDataRecordRT01 x)
+            |> (fun x -> SetElementDataRecordRT01 x) 
             
-    let GetDataByStringArray (inputString:string[]) =
-        //let inputList  //inputString.Split([|"\r"|], StringSplitOptions.RemoveEmptyEntries)
-        let inputList = inputString 
-                        |> Array.toList 
-        let Blocks = 
-            inputList.[0..inputList.Length-1]//excluding the part with names and the last empty(tab) line
-            |> PSeq.map GetDataByString 
-            |> PSeq.sortBy(fun (x : RT01) -> x.Time)
-            |> PSeq.toArray 
-        Blocks
-
     let GetDataByPath (path:string) = 
-       let inputString = System.IO.File.ReadAllLines path
-       //let inputString = readLines path |> Seq.toArray
-       let InputStringWithoutFirstAndEmptyLine = inputString.[1..inputString.Length-2]
-       
-       let outputList = GetDataByStringArray InputStringWithoutFirstAndEmptyLine
-       outputList
+            readLines(path)
+            |> Seq.skip 1
+            |> Seq.takeWhile(fun x -> x <> "\t")
+            |> PSeq.map GetDataByString
+            |> PSeq.sortBy(fun (x : RT01) -> x.Time)
+            |> PSeq.toArray
 
