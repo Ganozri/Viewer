@@ -21,8 +21,6 @@ namespace Medusa.Analyze1553B.VM
 
         [Reactive] public ObservableCollection<Type> Types { get; set; }
 
-
-
         public StartVmObject(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService)
         {
 
@@ -48,7 +46,7 @@ namespace Medusa.Analyze1553B.VM
 
             Types = new ObservableCollection<Type>();
             foreach (var item in types)
-                Types.Add(item);
+                Types.Add(item); 
         }
  
         [Reactive] public double WindowScale { get; set; } = 1;

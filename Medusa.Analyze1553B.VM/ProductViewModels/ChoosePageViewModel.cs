@@ -3,6 +3,8 @@ using Medusa.Analyze1553B.UIServices;
 using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Medusa.Analyze1553B.VM.ProductViewModels
 {
@@ -33,25 +35,11 @@ namespace Medusa.Analyze1553B.VM.ProductViewModels
             string pathToSave = "PreviouslySelectedProducts.xml";
             XmlSerializer formatter = new XmlSerializer(typeof(ObservableCollection<TypePath>));
 
-            ////PreviouslySelectedVM = new ObservableCollection<TypePath>();
-            //PreviouslySelectedVM = new ObservableCollection<TypePath>
-            //{
-            //    new TypePath { Type = "RT01ViewModel", Path = @"D:\Data\20200710\2020-07-10-RT01-softwareupdate.csv", Time = DateTime.Now },
-            //    new TypePath { Type = "RT01ViewModel", Path = @"D:\Data\20200710\2020-07-08-RT01.csv", Time = DateTime.Now },
-            //    new TypePath { Type = "RT01ViewModel", Path = @"D:\Data\20200710\2020-07-08-RT01-2.csv", Time = DateTime.Now }
-            //};
-
-           
-
-            //////получаем поток, куда будем записывать сериализованный объект
-            //using (FileStream fs = new FileStream(pathToSave, FileMode.OpenOrCreate))
-            //{
-            //    formatter.Serialize(fs, PreviouslySelectedVM);
-            //}
-
             using (FileStream fs = new FileStream(pathToSave, FileMode.OpenOrCreate))
             {
-                PreviouslySelectedVM = (ObservableCollection<TypePath>)formatter.Deserialize(fs);
+                var dirtyList = (ObservableCollection<TypePath>)formatter.Deserialize(fs);
+                List<TypePath> distinct = dirtyList.Distinct().ToList();
+                PreviouslySelectedVM = new ObservableCollection<TypePath>(distinct);
             }
 
         }

@@ -10,7 +10,8 @@
              d:DataContext="{d:DesignInstance Type=vms:ChoosePageViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="850" d:DesignWidth="600"
-             Background="White">
+             Background="White"
+             x:Name="ChangeViewWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -29,8 +30,7 @@
         <ListView x:Name="myListView"
                   Grid.Row="1"  Grid.Column="0"
                   ItemsSource="{Binding ListViewModels}"
-                  HorizontalAlignment="Center"
-                  FontSize="32">
+                  HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding}">Type</GridViewColumn>
@@ -47,11 +47,12 @@
         <TextBlock Grid.Row="0" Grid.Column="1"
                    Text="Previously selected :" FontSize="32" 
                    HorizontalAlignment="Center"/>
+
         <ListView x:Name="PreviouslySelectedList"
                   Grid.Row="1"  Grid.Column="1"
                   ItemsSource="{Binding PreviouslySelectedVM}"
-                  HorizontalAlignment="Center"
-                  FontSize="32">
+                  HorizontalAlignment="Center"     
+                  Height="{Binding ElementName=ChangeViewWindow, Path=ActualHeight}">
             
             <ListView.View>
                 <GridView>

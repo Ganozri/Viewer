@@ -241,15 +241,21 @@ namespace Medusa.Analyze1553B.VM
 
         private void AddPreviouslySelectedViewModel(object arg)
         {
-            string pathToSave = ((TypePath)arg).Path;
-            string Type = ((TypePath)arg).Type;
-            foreach (var item in vmObject.Types)
+            if (arg!=null)
             {
-                if (Type == item.Name)
+                string pathToSave = ((TypePath)arg).Path;
+                string Type = ((TypePath)arg).Type;
+                foreach (var item in vmObject.Types)
                 {
-                    AddNewViewModelAndRemoveSelectedViewModel(CreateViewModelByType(item, syncContext, dialogService, dataService, this), pathToSave);
+                    if (Type == item.Name)
+                    {
+                        AddNewViewModelAndRemoveSelectedViewModel(CreateViewModelByType(item, syncContext, dialogService, dataService, this), pathToSave);
+                    }
                 }
             }
+
+
+
         }
 
         public IPageViewModel CreateViewModelByType(Type t, ISynchronizationContextProvider s, IDialogService dialogService, IDataService dataService, Commands c)
@@ -367,6 +373,7 @@ namespace Medusa.Analyze1553B.VM
                     vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Red;
                 }
             });// выполняется асинхронно
+
             string pathToSave = "PreviouslySelectedProducts.xml";
             ObservableCollection<TypePath> PreviouslySelectedVM;
             string type = vmObject.SelectedViewModel.GetType().Name;
