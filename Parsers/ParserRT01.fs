@@ -80,7 +80,6 @@ module ParserRT01 =
         use sr = new StreamReader (filePath)
         while not sr.EndOfStream do
             yield sr.ReadLine ()
-            
     }
 
     let GetDataByString (inputString:string) =

@@ -373,7 +373,7 @@ namespace Medusa.Analyze1553B.VM
                     vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Red;
                 }
             });// выполняется асинхронно
-
+            
             string pathToSave = "PreviouslySelectedProducts.xml";
             ObservableCollection<TypePath> PreviouslySelectedVM;
             string type = vmObject.SelectedViewModel.GetType().Name;
@@ -384,8 +384,9 @@ namespace Medusa.Analyze1553B.VM
             {
                 PreviouslySelectedVM = (ObservableCollection<TypePath>)formatter.Deserialize(fs);
             }
+
             PreviouslySelectedVM.Insert(0,  new TypePath { Type = type, Path = @path, Time = DateTime.Now });
-            ////получаем поток, куда будем записывать сериализованный объект
+
             using (FileStream fs = new FileStream(pathToSave, FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, PreviouslySelectedVM);
