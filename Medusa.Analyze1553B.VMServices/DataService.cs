@@ -55,10 +55,19 @@ namespace Medusa.Analyze1553B.VMServices
 
         public object[] GetDataByBMDLoader(string path)
         {
-            FileStream fstream = File.OpenRead(path);
 
-            var dataRecords = loader.ReadStream(fstream);
-            object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
+            FileStream fstream = File.OpenRead(path);
+            object[] DataRecordsList = new object[0];
+            try
+            {
+                var dataRecords = loader.ReadStream(fstream);
+                DataRecordsList = dataRecords.Cast<object>().ToArray();
+            }
+            catch (Exception ex)
+            {
+                dialogService.ShowMessage(ex.ToString());
+            }
+           
 
             return DataRecordsList;
         }

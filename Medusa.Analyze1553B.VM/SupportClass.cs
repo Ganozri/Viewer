@@ -6,6 +6,7 @@ using Medusa.Analyze1553B.VMServices;
 using Medusa.Analyze1553B.UIServices;
 
 
+
 namespace Medusa.Analyze1553B.VM
 {
     public class SupportClass : ReactiveObject

@@ -27,6 +27,8 @@ using System.Reflection;
 
 namespace Medusa.Analyze1553B.VM
 {
+    
+
     public partial class Commands
     {
         public readonly IScheduler scheduler;
@@ -52,6 +54,8 @@ namespace Medusa.Analyze1553B.VM
 
         public ICommand UpdateCurrentRowCommand { get; }
         public ICommand AddViewModelCommand     { get; }
+        public ICommand AddPreviouslySelectedViewModelCommand { get; }
+        
         public ICommand RemoveViewModelCommand  { get; }
 
         public ICommand ConnectAsTcpClientCommand { get; }
@@ -82,6 +86,7 @@ namespace Medusa.Analyze1553B.VM
 
             UpdateCurrentRowCommand         = CreateCommand<object>(UpdateCurrentRow);
             AddViewModelCommand             = CreateCommand<object>(AddViewModel);
+            AddPreviouslySelectedViewModelCommand = CreateCommand<object>(AddPreviouslySelectedViewModel);
             ConnectAsTcpClientCommand       = CreateCommand<object>(RunConnectAsTcpClient);
             TestCommand                     = CreateCommand<object>(Test);
             RemoveViewModelCommand          = CreateCommand(RemoveViewModel);
@@ -234,6 +239,19 @@ namespace Medusa.Analyze1553B.VM
 
         }
 
+        private void AddPreviouslySelectedViewModel(object arg)
+        {
+            string pathToSave = ((TypePath)arg).Path;
+            string Type = ((TypePath)arg).Type;
+            foreach (var item in vmObject.Types)
+            {
+                if (Type == item.Name)
+                {
+                    AddNewViewModelAndRemoveSelectedViewModel(CreateViewModelByType(item, syncContext, dialogService, dataService, this), pathToSave);
+                }
+            }
+        }
+
         public IPageViewModel CreateViewModelByType(Type t, ISynchronizationContextProvider s, IDialogService dialogService, IDataService dataService, Commands c)
         {
             ConstructorInfo ctor = t.GetConstructor(new[] { typeof(ISynchronizationContextProvider), typeof(IDialogService), typeof(IDataService), typeof(Commands) });
@@ -261,7 +279,7 @@ namespace Medusa.Analyze1553B.VM
             }   
         }
 
-        private void AddNewViewModelAndRemoveSelectedViewModel(IPageViewModel newViewModel)
+        private void AddNewViewModelAndRemoveSelectedViewModel(IPageViewModel newViewModel,string path = null)
         {
             var SelectedViewModelCount = vmObject.ViewModels.IndexOf(vmObject.SelectedViewModel);
 
@@ -269,8 +287,15 @@ namespace Medusa.Analyze1553B.VM
             vmObject.ViewModels.Insert(SelectedViewModelCount, newViewModel);
            
             vmObject.SelectedViewModel = vmObject.ViewModels[SelectedViewModelCount];
-
-            OpenFileForDataCreation();
+            if (path != null)
+            {
+                OpenFileForDataCreation(path);
+            }
+            else
+            {
+                OpenFileForDataCreation();
+            }
+           
         }
 
         private void UpdateCurrentRow(object arg)
@@ -314,13 +339,14 @@ namespace Medusa.Analyze1553B.VM
             }
         }
 
-        private void OpenXmlForTableCreation(string path)
+        private void OpenFileForDataCreation(string path)
         {
-            if (File.Exists(path))
-            {
-                _ = SelectedDataUpdateAsync(path);
-            }
+                if (File.Exists(path))
+                {
+                    _ = SelectedDataUpdateAsync(path);
+                }
         }
+
 
         private async Task SelectedDataUpdateAsync(string path)
         {
@@ -341,6 +367,23 @@ namespace Medusa.Analyze1553B.VM
                     vmObject.SelectedViewModel.CurrentState = IPageViewModel.States.Red;
                 }
             });// выполняется асинхронно
+            string pathToSave = "PreviouslySelectedProducts.xml";
+            ObservableCollection<TypePath> PreviouslySelectedVM;
+            string type = vmObject.SelectedViewModel.GetType().Name;
+
+            XmlSerializer formatter = new XmlSerializer(typeof(ObservableCollection<TypePath>));
+
+            using (FileStream fs = new FileStream(pathToSave, FileMode.OpenOrCreate))
+            {
+                PreviouslySelectedVM = (ObservableCollection<TypePath>)formatter.Deserialize(fs);
+            }
+            PreviouslySelectedVM.Insert(0,  new TypePath { Type = type, Path = @path, Time = DateTime.Now });
+            ////получаем поток, куда будем записывать сериализованный объект
+            using (FileStream fs = new FileStream(pathToSave, FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, PreviouslySelectedVM);
+            }
+
 
         }
 
