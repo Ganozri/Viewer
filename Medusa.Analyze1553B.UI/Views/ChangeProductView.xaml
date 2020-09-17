@@ -15,61 +15,72 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
-
-        <TextBlock Grid.Row="0" Grid.Column="0"
-                   Text="Add product :" FontSize="32" 
+        <StackPanel Margin="15" Orientation="Vertical" 
+                    Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                   Text="Add product :" 
                    HorizontalAlignment="Center"/>
-        <ListView x:Name="myListView"
+            <ListView x:Name="myListView"
                   Grid.Row="1"  Grid.Column="0"
                   ItemsSource="{Binding ListViewModels}"
                   HorizontalAlignment="Center">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding}">Type</GridViewColumn>
-                </GridView>
-            </ListView.View>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PreviewMouseUp">
-                    <i:InvokeCommandAction  Command="{Binding Commands.AddViewModelCommand}"
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding}">Type</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseUp">
+                        <i:InvokeCommandAction  Command="{Binding Commands.AddViewModelCommand}"
                                                               CommandParameter="{Binding ElementName=myListView, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ListView>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+        </StackPanel>
 
-        <TextBlock Grid.Row="0" Grid.Column="1"
-                   Text="Previously selected :" FontSize="32" 
+
+
+        <StackPanel Margin="15"  Orientation="Vertical"
+                    Grid.Row="2" Grid.Column="2" Grid.RowSpan="2">
+            <TextBlock Grid.Row="0" Grid.Column="1"
+                   Text="Previously selected :" 
                    HorizontalAlignment="Center"/>
 
-        <ListView x:Name="PreviouslySelectedList"
+            <ListView x:Name="PreviouslySelectedList"
                   Grid.Row="1"  Grid.Column="1"
                   ItemsSource="{Binding PreviouslySelectedVM}"
                   HorizontalAlignment="Center"     
                   Height="{Binding ElementName=ChangeViewWindow, Path=ActualHeight}">
-            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Type}">Type</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Path}">Path</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Time}">Time</GridViewColumn>
-                </GridView>
-            </ListView.View>
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PreviewMouseUp">
-                    <i:InvokeCommandAction  Command="{Binding Commands.AddPreviouslySelectedViewModelCommand}"
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Type}">Type</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Path}">Path</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Time}">Time</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseUp">
+                        <i:InvokeCommandAction  Command="{Binding Commands.AddPreviouslySelectedViewModelCommand}"
                                                               CommandParameter="{Binding ElementName=PreviouslySelectedList, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            
-        </ListView>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </ListView>
+        </StackPanel>
 
 
     </Grid>
