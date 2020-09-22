@@ -53,6 +53,24 @@ module ParserRT01 =
                             |> float
            out 
     
+    let GetCW1 (input : string[]) = 
+         let address = input.[3] |> int
+         let subaddress = input.[4] |> int
+         let direction = 
+             match  input.[11]  with 
+             | "RT->BC" -> DataDirection.R
+             | "BC->RT" -> DataDirection.T
+         let length = 
+             let x =  input.[13..input.Length-2]  
+                      |> Array.filter (fun x -> x.Length=4)
+             x.Length
+         //let status1 = (FilterByParameter input "status1:"  |> uint16)
+         //printf "\n%A\n%A\n%A\n%A\n%A" input address subaddress direction length
+         Nullable(ControlWord(address,direction,subaddress,length))
+            
+
+    
+
     let GetDataRecordRT01 (aList: string[]) =
         let builder = new DataRecordBuilder(
             Nullable(),                                                           //index
@@ -71,7 +89,7 @@ module ParserRT01 =
              | "error code: no response " -> Nullable(Error.NoResp)               //
              | _ -> Nullable()),                                                  //
 
-            Nullable(ControlWord(FilterByParameter aList "status1:"  |> uint16)), //controlWord1
+            GetCW1 aList, //controlWord1
 
             (let x = FilterByParameter aList "status2:"  |> uint16                //controlWord2
              match x with                                                         //

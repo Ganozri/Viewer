@@ -183,9 +183,9 @@ namespace Medusa.Analyze1553B.VM
                                         break;
                                     }
                                     //TODO
-                                    vmObject.ViewModels[x].DataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].DataRecordsList, response + "\n");
-                                    vmObject.ViewModels[x].CurrentRow = vmObject.ViewModels[x].RowCount;
-                                    vmObject.ViewModels[x].RowCount = vmObject.ViewModels[x].DataRecordsList.Length - 1;
+                                    //vmObject.ViewModels[x].DataRecordsList = dataService.updateDataRerordsList(vmObject.ViewModels[x].DataRecordsList, response + "\n");
+                                    //vmObject.ViewModels[x].CurrentRow = vmObject.ViewModels[x].RowCount;
+                                    //vmObject.ViewModels[x].RowCount = vmObject.ViewModels[x].DataRecordsList.Length - 1;
                                     //TODO
                                 }
 

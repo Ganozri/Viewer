@@ -44,7 +44,7 @@ namespace Medusa.Analyze1553B.Loader.BMD
                                           .Select(ParseLine)
                                           .Where(p => p != null);
         }
-
+         
         private DataRecord ParseLine(string line, int index)
         {
             var parts = line.Split(CommentDelimiter)[0].Split(TabDelimiter);

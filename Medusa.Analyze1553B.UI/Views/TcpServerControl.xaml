@@ -58,15 +58,15 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Index}"      >Index</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime}">MonitorTime</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Channel}"    >Cl</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Error}"      >Error</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Value, StringFormat={}{0:X4}}"  >CW1</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Address }"  >Address</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Direction}"  >.Cw1.Direction</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Subaddress }"  >Sub</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Length     }"  >Length</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Index          }">Index</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }">Time</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Channel        }">Cl</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Error          }">Error</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Value,StringFormat={}{0:X4}}" >CW1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Address    }">Addr</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Direction  }">Dir</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Subaddress }">Sub</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Length     }">Length</GridViewColumn>
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Cw2.Value, StringFormat={}{0:X4}}"  >CW2</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Rw1.Value, StringFormat={}{0:X4}}"  >RW1</GridViewColumn>
@@ -82,28 +82,28 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[7] , StringFormat={}{0:X4}}" >7</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[8] , StringFormat={}{0:X4}}" >8</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Data[9] , StringFormat={}{0:X4}}" >9</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[10], StringFormat={}{0:X4}}">10</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[11], StringFormat={}{0:X4}}">11</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[12], StringFormat={}{0:X4}}">12</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[13], StringFormat={}{0:X4}}">13</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[14], StringFormat={}{0:X4}}">14</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[15], StringFormat={}{0:X4}}">15</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[16], StringFormat={}{0:X4}}">16</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[17], StringFormat={}{0:X4}}">17</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[18], StringFormat={}{0:X4}}">18</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[19], StringFormat={}{0:X4}}">19</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[20], StringFormat={}{0:X4}}">20</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[21], StringFormat={}{0:X4}}">21</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[22], StringFormat={}{0:X4}}">22</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[23], StringFormat={}{0:X4}}">23</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[24], StringFormat={}{0:X4}}">24</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[25], StringFormat={}{0:X4}}">25</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[26], StringFormat={}{0:X4}}">26</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[27], StringFormat={}{0:X4}}">27</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[28], StringFormat={}{0:X4}}">28</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[29], StringFormat={}{0:X4}}">29</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[30], StringFormat={}{0:X4}}">30</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[31], StringFormat={}{0:X4}}">31</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[10], StringFormat={}{0:X4}}" >10</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[11], StringFormat={}{0:X4}}" >11</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[12], StringFormat={}{0:X4}}" >12</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[13], StringFormat={}{0:X4}}" >13</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[14], StringFormat={}{0:X4}}" >14</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[15], StringFormat={}{0:X4}}" >15</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[16], StringFormat={}{0:X4}}" >16</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[17], StringFormat={}{0:X4}}" >17</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[18], StringFormat={}{0:X4}}" >18</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[19], StringFormat={}{0:X4}}" >19</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[20], StringFormat={}{0:X4}}" >20</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[21], StringFormat={}{0:X4}}" >21</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[22], StringFormat={}{0:X4}}" >22</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[23], StringFormat={}{0:X4}}" >23</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[24], StringFormat={}{0:X4}}" >24</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[25], StringFormat={}{0:X4}}" >25</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[26], StringFormat={}{0:X4}}" >26</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[27], StringFormat={}{0:X4}}" >27</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[28], StringFormat={}{0:X4}}" >28</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[29], StringFormat={}{0:X4}}" >29</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[30], StringFormat={}{0:X4}}" >30</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Data[31], StringFormat={}{0:X4}}" >31</GridViewColumn>
 
                 </GridView>
             </ListView.View>

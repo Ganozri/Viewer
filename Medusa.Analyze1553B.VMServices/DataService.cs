@@ -13,14 +13,9 @@ namespace Medusa.Analyze1553B.VMServices
     public class DataService : IDataService
     {
         private readonly IDialogService dialogService;
-
-        private Medusa.Analyze1553B.Loader.BMD.Loader loader;
-
         public DataService(IDialogService dialogService)
         {
-            this.dialogService = dialogService;
-
-            loader = new Medusa.Analyze1553B.Loader.BMD.Loader(new TranslationRepository());
+            this.dialogService = dialogService; 
         }
 
 
@@ -61,6 +56,7 @@ namespace Medusa.Analyze1553B.VMServices
             object[] DataRecordsList = new object[0];
             try
             {
+                var loader = new Medusa.Analyze1553B.Loader.BMD.Loader(new TranslationRepository());
                 var dataRecords = loader.ReadStream(fstream);
                 DataRecordsList = dataRecords.Cast<object>().ToArray();
             }
@@ -90,39 +86,6 @@ namespace Medusa.Analyze1553B.VMServices
             }
 
             return DataRecordsList;
-        }
-
-        public object[] updateDataRerordsList(string input)
-        {
-            using (var stream = GenerateStreamFromString(input))
-            {
-                var dataRecords = loader.ReadStream(stream);
-                object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
-
-                return DataRecordsList;
-            }
-            
-        }
-
-        public object[] updateDataRerordsList(object[] currentData, string input)
-        {
-            using (var stream = GenerateStreamFromString(input))
-            {
-                IEnumerable<DataRecord> dataRecords = loader.ReadStream(stream);
-                object[] DataRecordsList = dataRecords.Cast<object>().ToArray();
-
-                int oldLength = currentData.Length;
-                int addedLength = DataRecordsList.Length;
-
-                Array.Resize<object>(ref currentData, oldLength + addedLength);
-
-                for (int i = oldLength; i < (oldLength + addedLength); i++)
-                {
-                    currentData[i] = DataRecordsList[i - oldLength];
-                }
-
-                return currentData;
-            }
         }
 
         private static Stream GenerateStreamFromString(string s)

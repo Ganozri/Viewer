@@ -43,6 +43,8 @@ namespace Medusa.Analyze1553B.Common
             length.CheckRange(1, 32, nameof(length));
             Value = BuildCommand(address, direction, subaddress, length == 32 ? 0 : 1).Value;
         }
+        //Зачем нужен тернарный?
+
 
         public ControlWord(int address, DataDirection direction, CommandCode.Raw code, CommandSubaddress subaddress = CommandSubaddress.Ones)
         {
