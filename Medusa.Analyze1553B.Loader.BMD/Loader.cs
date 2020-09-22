@@ -40,7 +40,9 @@ namespace Medusa.Analyze1553B.Loader.BMD
 
         public IEnumerable<DataRecord> ReadStream(Stream input)
         {
-            return new StreamReader(input).AsStrings().Select(ParseLine).Where(p => p != null);
+            return new StreamReader(input).AsStrings()
+                                          .Select(ParseLine)
+                                          .Where(p => p != null);
         }
 
         private DataRecord ParseLine(string line, int index)

@@ -4,7 +4,9 @@
              xmlns:local="clr-namespace:Medusa.Analyze1553B.UI"
              >
     <Application.Resources>
+        
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -32,10 +34,10 @@
                     <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent400}" />
                     <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent400Foreground}" />
                 </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
 
-      
-
         </ResourceDictionary>
+
     </Application.Resources>
 </Application>

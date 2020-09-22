@@ -23,6 +23,7 @@ namespace Medusa.Analyze1553B.VMServices
             loader = new Medusa.Analyze1553B.Loader.BMD.Loader(new TranslationRepository());
         }
 
+
         public object[] GetData(string path,string name)
         {
             return name switch
@@ -55,7 +56,7 @@ namespace Medusa.Analyze1553B.VMServices
 
         public object[] GetDataByBMDLoader(string path)
         {
-
+            
             FileStream fstream = File.OpenRead(path);
             object[] DataRecordsList = new object[0];
             try
@@ -67,7 +68,7 @@ namespace Medusa.Analyze1553B.VMServices
             {
                 dialogService.ShowMessage(ex.ToString());
             }
-           
+
 
             return DataRecordsList;
         }
@@ -78,7 +79,7 @@ namespace Medusa.Analyze1553B.VMServices
             try
             {
                 var dataRecords = ParserRT01.GetDataByPath(path);
-                DataRecordsList = dataRecords.Cast<object>().ToArray();
+                DataRecordsList = dataRecords.Cast<DataRecord>().ToArray();
             }
             catch (Exception ex)
             {

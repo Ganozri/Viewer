@@ -9,11 +9,11 @@ namespace Medusa.Analyze1553B.Common.Tests
         [TestMethod]
         public void ControlWordBuilder()
         {
-            var cw = new ControlWord(0b10101, DataDirection.RtTransmits, 0b11001, 1);
+            var cw = new ControlWord(0b10101, DataDirection.T, 0b11001, 1);
             Assert.AreEqual(0b10101_1_11001_00001, cw.Value);
 
             Assert.AreEqual(0b10101, cw.Address);
-            Assert.AreEqual(DataDirection.RtTransmits, cw.Direction);
+            Assert.AreEqual(DataDirection.T, cw.Direction);
             Assert.AreEqual(0b11001, cw.Subaddress);
             Assert.AreEqual(1, cw.Length);
         }
@@ -25,7 +25,7 @@ namespace Medusa.Analyze1553B.Common.Tests
             Assert.AreEqual(0b10101_1_11001_00001, cw.Value);
 
             Assert.AreEqual(0b10101, cw.Address);
-            Assert.AreEqual(DataDirection.RtTransmits, cw.Direction);
+            Assert.AreEqual(DataDirection.T, cw.Direction);
             Assert.AreEqual(0b11001, cw.Subaddress);
             Assert.AreEqual(1, cw.Length);
         }
@@ -33,11 +33,11 @@ namespace Medusa.Analyze1553B.Common.Tests
         [TestMethod]
         public void ControlWordBuilder32()
         {
-            var cw = new ControlWord(0b10101, DataDirection.RtReceives, 0b11001, 32);
+            var cw = new ControlWord(0b10101, DataDirection.R, 0b11001, 32);
             Assert.AreEqual(0b10101_0_11001_00000, cw.Value);
 
             Assert.AreEqual(0b10101, cw.Address);
-            Assert.AreEqual(DataDirection.RtReceives, cw.Direction);
+            Assert.AreEqual(DataDirection.R, cw.Direction);
             Assert.AreEqual(0b11001, cw.Subaddress);
             Assert.AreEqual(32, cw.Length);
         }
@@ -49,7 +49,7 @@ namespace Medusa.Analyze1553B.Common.Tests
             Assert.AreEqual(0b10101_0_11001_00000, cw.Value);
 
             Assert.AreEqual(0b10101, cw.Address);
-            Assert.AreEqual(DataDirection.RtReceives, cw.Direction);
+            Assert.AreEqual(DataDirection.R, cw.Direction);
             Assert.AreEqual(0b11001, cw.Subaddress);
             Assert.AreEqual(32, cw.Length);
         }
@@ -57,7 +57,7 @@ namespace Medusa.Analyze1553B.Common.Tests
         [TestMethod]
         public void Commands()
         {
-            var cw1 = new ControlWord(0b11111, DataDirection.RtReceives, CommandCode.Raw.SynchronizeWithDataWord, CommandSubaddress.Ones);
+            var cw1 = new ControlWord(0b11111, DataDirection.R, CommandCode.Raw.SynchronizeWithDataWord, CommandSubaddress.Ones);
             Assert.AreEqual(0b11111_0_11111_10001, cw1.Value);
             Assert.AreEqual(CommandCode.Raw.SynchronizeWithDataWord, cw1.CommandCode);
 
@@ -81,7 +81,7 @@ namespace Medusa.Analyze1553B.Common.Tests
         [TestMethod]
         public void CheckNotACommand()
         {
-            var cw = new ControlWord(1, DataDirection.RtReceives, 1, 5);
+            var cw = new ControlWord(1, DataDirection.R, 1, 5);
             Assert.ThrowsException<InvalidOperationException>(() => cw.CommandCode);
         }
     }

@@ -4,6 +4,7 @@ open System
 open System.IO
 open System.Threading.Tasks
 open FSharp.Collections.ParallelSeq
+open Medusa.Analyze1553B.Common
 
 module ParserRT01 =
 
@@ -44,6 +45,52 @@ module ParserRT01 =
         let out:uint64 = ( (x.[0]*(3600UL) + x.[1]*(60UL) + x.[2] ) * (1_000_000UL) + x.[3])
         out 
 
+    let TimeStringToFloat() (input:string) = 
+           let x = input.Split([|':'|], StringSplitOptions.RemoveEmptyEntries)
+                   |> Seq.map (fun x -> x |> float)
+                   |> Seq.toList
+           let out:float = ( (x.[0]*(3600.0) + x.[1]*(60.0) + x.[2] ) * (1_000_000.0) + x.[3])
+                            |> float
+           out 
+    
+    let GetDataRecordRT01 (aList: string[]) =
+        let builder = new DataRecordBuilder(
+            Nullable(),                                                           //index
+
+            Nullable(TimeStringToFloat() aList.[2]),                              //monitorTime
+
+            (match aList.[10].[0] with                                            //channel
+                           | 'A' -> Nullable(BusChannel.A)                        //
+                           | 'B' -> Nullable(BusChannel.B)                        //
+                           | _   -> Nullable()),                                  //
+
+            (let x = aList.[aList.Length-4..aList.Length]                         //error
+                            |> Seq.map (fun x -> x + " ")                         //
+                            |> String.Concat                                      //
+             match x with                                                         //
+             | "error code: no response " -> Nullable(Error.NoResp)               //
+             | _ -> Nullable()),                                                  //
+
+            Nullable(ControlWord(FilterByParameter aList "status1:"  |> uint16)), //controlWord1
+
+            (let x = FilterByParameter aList "status2:"  |> uint16                //controlWord2
+             match x with                                                         //
+             | 0us -> Nullable()                                                  //
+             | x -> Nullable(ControlWord(x))),                                    //
+
+            Nullable(ResponseWord(aList.[3] |> Convert.ToUInt16 )),               //responseWord1
+
+            Nullable(ResponseWord(aList.[12].[0..aList.[12].Length-3] |> uint16)),//responseWord2
+
+            aList.[13..aList.Length-2]                                            //data
+            |> Seq.filter (fun x -> x.Length=4)                                   //
+            |> Seq.map (fun x -> Convert.ToUInt16(x, 16))                         //
+            |> Seq.toArray                                                        //
+        )
+        let x = builder.GetRecord();
+
+        x
+      
     let SetElementDataRecordRT01 (aList: string[])= 
            let currentElement = 
                {
@@ -85,13 +132,15 @@ module ParserRT01 =
     let GetDataByString (inputString:string) =
             inputString 
             |> (fun x -> x.Split([|", \t";",\t";", ";",";" "|], StringSplitOptions.RemoveEmptyEntries))
-            |> (fun x -> SetElementDataRecordRT01 x) 
+            //|> (fun x -> SetElementDataRecordRT01 x) 
+            |> (fun x -> GetDataRecordRT01 x) 
             
     let GetDataByPath (path:string) = 
             readLines(path)
             |> Seq.skip 1
             |> Seq.takeWhile(fun x -> x <> "\t")
             |> PSeq.map GetDataByString
-            |> PSeq.sortBy(fun (x : RT01) -> x.Time)
+            |> PSeq.sortBy(fun (x : DataRecord) -> x.MonitorTime)
+            //|> PSeq.sortBy(fun (x : RT01) -> x.Time)
             |> PSeq.toArray
 

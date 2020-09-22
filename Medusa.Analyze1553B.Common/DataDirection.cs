@@ -2,7 +2,9 @@
 {
     public enum DataDirection
     {
-        RtReceives,
-        RtTransmits,
+        //RtReceives,
+        //RtTransmits,
+        R,
+        T
     }
 }

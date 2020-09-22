@@ -63,6 +63,11 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Channel}"    >Cl</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Error}"      >Error</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Value, StringFormat={}{0:X4}}"  >CW1</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Address }"  >Address</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Direction}"  >.Cw1.Direction</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Subaddress }"  >Sub</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Length     }"  >Length</GridViewColumn>
+
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Cw2.Value, StringFormat={}{0:X4}}"  >CW2</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Rw1.Value, StringFormat={}{0:X4}}"  >RW1</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Rw2.Value, StringFormat={}{0:X4}}"  >RW2</GridViewColumn>

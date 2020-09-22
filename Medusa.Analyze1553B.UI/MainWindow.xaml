@@ -109,7 +109,7 @@
                                         <Border Name="tabItemBorder"
                                             BorderThickness="0 0 0 2"
                                             BorderBrush="{Binding CurrentState, Converter={StaticResource IconConverter}}">
-                                            <StackPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                                                 <TextBlock Text="{Binding Name, NotifyOnTargetUpdated = True}"/>
                                                 <Button Name="tabItemCloseButton"
                                                     Style="{StaticResource MaterialDesignIconButton}"
@@ -166,9 +166,9 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" >
 
             <Menu  x:Name="MainMenu"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center" >
                 <MenuItem Name="File" Header="File" Height="30">
-                    <MenuItem Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
+                    <MenuItem Name="Open" Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
                               InputGestureText="Ctrl+N"/>
                     <MenuItem Header="Save"           Command="{Binding  Commands.SaveXmlFromTableCommand}"      
                               InputGestureText="Ctrl+S"/>
