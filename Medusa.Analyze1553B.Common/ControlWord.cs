@@ -12,7 +12,7 @@ namespace Medusa.Analyze1553B.Common
 
         public int Address => Value >> 11;
 
-        public DataDirection Direction => (DataDirection) ((Value >> 10) & 1);
+        public DataDirection Direction => (DataDirection)((Value >> 10) & 1);
 
         public int Subaddress => (Value >> 5) & 0x1F;
 
@@ -38,12 +38,28 @@ namespace Medusa.Analyze1553B.Common
             Value = value;
         }
 
+        //public ControlWord(int address, DataDirection direction, int subaddress, int length)
+        //{
+        //    length.CheckRange(1, 32, nameof(length));
+        //    Value = BuildCommand(address, direction, subaddress, length == 32 ? 0 : 1).Value;
+        //}
+        //Зачем нужен тернарный?
+
+        //TODO
         public ControlWord(int address, DataDirection direction, int subaddress, int length)
         {
-            length.CheckRange(1, 32, nameof(length));
-            Value = BuildCommand(address, direction, subaddress, length == 32 ? 0 : 1).Value;
+            //length.CheckRange(1, 32, nameof(length));
+            if (length==32)
+            {
+                Value = BuildCommand(address, direction, subaddress, 0).Value;
+            }
+            else
+            {
+                Value = BuildCommand(address, direction, subaddress, length).Value;
+            }
+           
         }
-        //Зачем нужен тернарный?
+        //TODO
 
 
         public ControlWord(int address, DataDirection direction, CommandCode.Raw code, CommandSubaddress subaddress = CommandSubaddress.Ones)

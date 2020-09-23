@@ -19,7 +19,7 @@ namespace Medusa.Analyze1553B.VMServices
         }
 
 
-        public object[] GetData(string path,string name)
+        public DataRecord[] GetData(string path,string name)
         {
             return name switch
             {
@@ -30,13 +30,13 @@ namespace Medusa.Analyze1553B.VMServices
             };
         }
 
-        public object[] GetDataByParser1553MT(string path)
+        public DataRecord[] GetDataByParser1553MT(string path)
         {
-            object[] DataRecordsList = new object[0];
+            DataRecord[] DataRecordsList = new DataRecord[0];
             try
             {
                 var dataRecords = Parser1553MT.GetDataByPath(path);
-                DataRecordsList = dataRecords.Cast<object>().ToArray();
+                DataRecordsList = dataRecords;
             }
             catch (Exception ex)
             {
@@ -49,16 +49,16 @@ namespace Medusa.Analyze1553B.VMServices
             return DataRecordsList;
         }
 
-        public object[] GetDataByBMDLoader(string path)
+        public DataRecord[] GetDataByBMDLoader(string path)
         {
             
             FileStream fstream = File.OpenRead(path);
-            object[] DataRecordsList = new object[0];
+            DataRecord[] DataRecordsList = new DataRecord[0];
             try
             {
                 var loader = new Medusa.Analyze1553B.Loader.BMD.Loader(new TranslationRepository());
                 var dataRecords = loader.ReadStream(fstream);
-                DataRecordsList = dataRecords.Cast<object>().ToArray();
+                DataRecordsList = dataRecords.ToArray();
             }
             catch (Exception ex)
             {
@@ -69,13 +69,13 @@ namespace Medusa.Analyze1553B.VMServices
             return DataRecordsList;
         }
 
-        public object[] GetDataByParserRT01(string path)
+        public DataRecord[] GetDataByParserRT01(string path)
         {
-            object[] DataRecordsList = new object[0];
+            DataRecord[] DataRecordsList = new DataRecord[0];
             try
             {
                 var dataRecords = ParserRT01.GetDataByPath(path);
-                DataRecordsList = dataRecords.Cast<DataRecord>().ToArray();
+                DataRecordsList = dataRecords.ToArray();
             }
             catch (Exception ex)
             {

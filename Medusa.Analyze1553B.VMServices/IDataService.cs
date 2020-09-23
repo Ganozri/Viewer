@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Medusa.Analyze1553B.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,9 +7,6 @@ namespace Medusa.Analyze1553B.VMServices
 {
     public interface IDataService
     {
-        object[] GetDataByBMDLoader(string path);
-        object[] GetDataByParser1553MT(string path);
-
-        object[] GetData(string path, string ViewModelName);
+        DataRecord[] GetData(string path, string ViewModelName);
     }
 }
