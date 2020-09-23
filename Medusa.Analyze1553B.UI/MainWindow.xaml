@@ -206,7 +206,7 @@
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type vms:MT1553ViewModel}">
-                    <views:_1553MTView/>
+                    <views:MTView1553/>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type vms:RT01ViewModel}">

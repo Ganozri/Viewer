@@ -3,7 +3,6 @@ using Medusa.Analyze1553B.UIServices;
 using Olympus.Translation;
 using Parsers;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 

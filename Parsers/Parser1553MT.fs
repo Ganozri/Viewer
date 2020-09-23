@@ -2,6 +2,7 @@
 open System
 open FSharp.Collections.ParallelSeq
 open Medusa.Analyze1553B.Common
+#nowarn "58"
 
 module Parser1553MT =
 

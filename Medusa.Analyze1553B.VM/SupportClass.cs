@@ -4,8 +4,7 @@ using static Medusa.Analyze1553B.VM.IPageViewModel;
 using ReactiveUI.Fody.Helpers;
 using Medusa.Analyze1553B.VMServices;
 using Medusa.Analyze1553B.UIServices;
-
-
+using Medusa.Analyze1553B.Common;
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -13,8 +12,8 @@ namespace Medusa.Analyze1553B.VM
     {
         [Reactive] public string Name { get; set; }
 
-        [Reactive] public object[] DataRecordsList { get; set; }
-        [Reactive] public object[] Data { get; set; }
+        [Reactive] public DataRecord[] DataRecordsList { get; set; }
+
         [Reactive] public int CurrentRow { get; set; }
         [Reactive] public int RowCount { get; set; }
 
@@ -27,7 +26,6 @@ namespace Medusa.Analyze1553B.VM
         public SynchronizationContext syncContext;
         public IDataService DataService;
         public IDialogService DialogService { get; set; }
-        //
 
         public SupportClass()
         {
@@ -38,7 +36,7 @@ namespace Medusa.Analyze1553B.VM
 
         public void FillData()
         {
-            DataRecordsList = new object[] { };
+            DataRecordsList = new DataRecord[] { };
             CurrentRow = 0;
             RowCount = 0;
 

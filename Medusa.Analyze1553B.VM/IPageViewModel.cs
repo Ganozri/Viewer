@@ -1,4 +1,5 @@
-﻿using Medusa.Analyze1553B.UIServices;
+﻿using Medusa.Analyze1553B.Common;
+using Medusa.Analyze1553B.UIServices;
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -6,7 +7,7 @@ namespace Medusa.Analyze1553B.VM
     {
         string Name { get; set; }
 
-        object[] DataRecordsList { get; set; }
+        DataRecord[] DataRecordsList { get; set; }
         int CurrentRow { get; set; }
         int RowCount { get; set; }
 
