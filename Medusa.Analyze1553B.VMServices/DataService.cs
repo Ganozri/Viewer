@@ -18,7 +18,6 @@ namespace Medusa.Analyze1553B.VMServices
             this.dialogService = dialogService; 
         }
 
-
         public DataRecord[] GetData(string path,string name)
         {
             return name switch
@@ -32,60 +31,33 @@ namespace Medusa.Analyze1553B.VMServices
 
         public DataRecord[] GetDataByParser1553MT(string path)
         {
-            DataRecord[] DataRecordsList = new DataRecord[0];
-            try
-            {
-                var dataRecords = Parser1553MT.GetDataByPath(path);
-                DataRecordsList = dataRecords;
-            }
-            catch (Exception ex)
-            {
-                dialogService.ShowMessage(ex.ToString());
-            }
-            finally
-            {
-            }
-
-            return DataRecordsList;
-        }
-
-        public DataRecord[] GetDataByBMDLoader(string path)
-        {
-            
-            FileStream fstream = File.OpenRead(path);
-            DataRecord[] DataRecordsList = new DataRecord[0];
-            try
-            {
-                var loader = new Medusa.Analyze1553B.Loader.BMD.Loader(new TranslationRepository());
-                var dataRecords = loader.ReadStream(fstream);
-                DataRecordsList = dataRecords.ToArray();
-            }
-            catch (Exception ex)
-            {
-                dialogService.ShowMessage(ex.ToString());
-            }
-
-
-            return DataRecordsList;
+            return BaseGetData(Parser1553MT.GetDataByPath(path));
         }
 
         public DataRecord[] GetDataByParserRT01(string path)
         {
-            DataRecord[] DataRecordsList = new DataRecord[0];
+            return BaseGetData(ParserRT01.GetDataByPath(path));
+        }
+
+        public DataRecord[] GetDataByBMDLoader(string path)
+        {
+            return BaseGetData(new Loader.BMD.Loader(new TranslationRepository())
+                               .ReadStream(File.OpenRead(path))
+                               .ToArray());
+        }
+
+        public DataRecord[] BaseGetData(DataRecord[] rawData)
+        {
+            DataRecord[] DataRecords = new DataRecord[0];
             try
             {
-                var dataRecords = ParserRT01.GetDataByPath(path);
-                DataRecordsList = dataRecords.ToArray();
+                DataRecords = rawData;
             }
             catch (Exception ex)
             {
                 dialogService.ShowMessage(ex.ToString());
             }
-            finally
-            {
-            }
-
-            return DataRecordsList;
+            return DataRecords;
         }
 
         private static Stream GenerateStreamFromString(string s)

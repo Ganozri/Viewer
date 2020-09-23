@@ -4,21 +4,6 @@ open FSharp.Collections.ParallelSeq
 open Medusa.Analyze1553B.Common
 
 module Parser1553MT =
-    type DataRecord1553MT =
-        {
-        MsgNO  : uint32
-        //Time   : string
-        BusTime: uint32
-        Bus    : char
-        Cmd1   : string
-        Cmd2   : string
-        Status1: uint16
-        Status2: uint16
-        Resp1  : uint16
-        Resp2  : uint16
-        Words  : uint16 list
-        Error  : string
-        }
 
     let Contain (contain : string) = 
          (fun x -> x.ToString().Contains(contain)) 
@@ -26,12 +11,11 @@ module Parser1553MT =
     let FilterByParameter (list : string[]) parameter  =
         let x = Array.filter (Contain parameter) list 
         if x.Length > 0 then
-        let y = x
-                |> Array.map(fun x -> x.Trim())
-                |> Array.map(fun x -> x.Split([|parameter|], StringSplitOptions.RemoveEmptyEntries) )
-                |> Array.map(fun x -> x.[0] )
-                |> Array.head
-        y
+        x
+        |> Array.map(fun x -> x.Trim())
+        |> Array.map(fun x -> x.Split([|parameter|], StringSplitOptions.RemoveEmptyEntries) )
+        |> Array.map(fun x -> x.[0] )
+        |> Array.head
         else ""
      
     let BreakIntoBlocks (blocks:string)  =
@@ -42,15 +26,11 @@ module Parser1553MT =
     let ToUint32 (x:string) = x.[0..x.Length-3] |> uint32
 
     let ToUint (x:string) = x.[0..x.Length-3] |> uint16
-    
-
-
 
     let GetTime (input : string[]) =
        let RawBusTime = FilterByParameter input "BusTime:"
        let BusTimeWithoutText = RawBusTime.[0..RawBusTime.Length-3]  |> float
        Nullable(BusTimeWithoutText)  
-
           
     let GetChannel (input : string[]) =
           let x = FilterByParameter input "Bus:" |> (fun x -> x.[0])
@@ -83,7 +63,6 @@ module Parser1553MT =
           let address = RawCmd2.[0] |> int
           let subaddress = RawCmd2.[1] |> int
           let length = RawCmd2.[2] |> Convert.ToInt32
-          //Nullable(ControlWord(address,direction,subaddress,length))
           if address = 0 && subaddress = 0 && length = 0 then Nullable()
           else Nullable(ControlWord(address,(GetCW1 input).Value.Direction,subaddress,length))  
 
@@ -106,8 +85,6 @@ module Parser1553MT =
         |> Seq.map (fun x -> Convert.ToUInt16(x, 16))
         |> Seq.toArray                                                        
 
-
-
     let GetDataRecord1553MT (inputRow: string[]) =
         let builder = new DataRecordBuilder(
             Nullable(),                //Index
@@ -128,13 +105,11 @@ module Parser1553MT =
              |> Seq.toArray 
          let Blocks = 
             listResult
-            |> PSeq.map (fun x -> "MsgNO" + x)//Add MsgNO after Split
+            |> PSeq.map (fun x -> "MsgNO" + x)
             |> PSeq.map BreakIntoBlocks
-            //|> PSeq.map SetElementDataRecord1553MT
             |> PSeq.map GetDataRecord1553MT
             |> PSeq.toArray
             |> Array.sortBy (fun (x : DataRecord) -> x.MonitorTime) 
-
          Blocks
     
     let GetDataByPath (path:string) = 
