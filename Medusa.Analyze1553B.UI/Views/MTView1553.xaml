@@ -9,13 +9,18 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
              xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
-             xmlns:ctrls="clr-namespace:Medusa.Analyze1553B.UI.Controls"
+             xmlns:ctrls="clr-namespace:Medusa.Analyze1553B.UI.Controls" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+             xmlns:geared="clr-namespace:LiveCharts.Geared;assembly=LiveCharts.Geared"
+             xmlns:converters = "clr-namespace:Medusa.Analyze1553B.UI.Converters" 
              d:DataContext="{d:DesignInstance Type=vms:MT1553ViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="1024" d:DesignWidth="1280"
              Background="White"
              x:Name="UserControl">
-
+    <UserControl.Resources>
+        <converters:DataRecordsToLengthListConverter x:Key="MyDataRecordsToLengthListConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -35,13 +40,21 @@
                   Grid.Row="1" Grid.Column="0"
                   MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"/>
 
-        <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="3"
+        <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="10"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+
+
+        <lvc:CartesianChart  Grid.Column="2" Grid.Row="1"
+                             DisableAnimations="True">
+            <lvc:CartesianChart.Series>
+                <geared:GColumnSeries Values="{Binding DataRecordsList,Converter={StaticResource MyDataRecordsToLengthListConverter}}"/>
+            </lvc:CartesianChart.Series>
+        </lvc:CartesianChart>
 
         <ctrls:RightSliderControl Grid.Row="1" Grid.Column="2" 
                                   DataContext="{Binding}" HorizontalAlignment="Right"
                                   />
-
+        
         <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="4" 
                                                 DataContext="{Binding}"/>
   

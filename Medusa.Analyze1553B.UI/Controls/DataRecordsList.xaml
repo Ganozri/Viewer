@@ -11,17 +11,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     <ListView x:Name="myListView"
-                  Grid.Row="1" Grid.Column="0"
-                  MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"
-                  ScrollViewer.HorizontalScrollBarVisibility="Visible"  
-                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+              Grid.Row="1" Grid.Column="0"
+              MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"
+              ScrollViewer.HorizontalScrollBarVisibility="Visible"  
+              ScrollViewer.VerticalScrollBarVisibility="Disabled"
 
-                  ItemsSource="{Binding DataRecordsList}"
-                  SelectedIndex="{Binding  CurrentRow, 
-                                           UpdateSourceTrigger=PropertyChanged,
-                                           NotifyOnTargetUpdated=True}"
-                  VirtualizingStackPanel.IsVirtualizing="True"
-                  SelectionChanged="myListView_SelectionChanged">
+              ItemsSource="{Binding DataRecordsList}"
+              SelectedIndex="{Binding  CurrentRow, 
+                                       UpdateSourceTrigger=PropertyChanged,
+                                       NotifyOnTargetUpdated=True}"
+              VirtualizingStackPanel.IsVirtualizing="True"
+              SelectionChanged="myListView_SelectionChanged">
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
@@ -38,7 +38,6 @@
 
         <ListView.View>
             <GridView>
-                <GridViewColumn DisplayMemberBinding="{Binding Path=Index          }">Index</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }" >Time</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Channel        }">Cl</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Error          }">Error</GridViewColumn>
