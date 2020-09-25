@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using LiveCharts.Defaults;
 using LiveCharts.Geared;
-namespace LiveChartsTest
+
+namespace Medusa.Analyze1553B.UI
 {
     public class ScrollableViewModel : INotifyPropertyChanged
     {
@@ -14,15 +15,15 @@ namespace LiveChartsTest
         {
 
             int x = 180000;
-            double[] arr = new double[] {1,1,6,5,4,32,32,32,32,32,32,1,1,6,6,6,8,12 }; 
-            
+            double[] arr = new double[] { 1, 1, 6, 5, 4, 32, 32, 32, 32, 32, 32, 1, 1, 6, 6, 6, 8, 12 };
+
             double[] d = new double[x];
 
             for (int i = 0; i < 10000; i++)
             {
-                for (int j = 0; j < arr.Length;j++)
+                for (int j = 0; j < arr.Length; j++)
                 {
-                    d[j+(i * (arr.Length-1))] = arr[j];
+                    d[j + (i * (arr.Length - 1))] = arr[j];
                 }
             }
 
@@ -31,9 +32,9 @@ namespace LiveChartsTest
             {
                 Values.Add(32);
             }
-           
+
             Values.WithQuality(Quality.Low);
-            
+
             From = 0;
             To = 100;
         }

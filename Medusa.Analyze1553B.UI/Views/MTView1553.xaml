@@ -51,7 +51,8 @@
                              Zoom="X"
                              >
             <lvc:CartesianChart.Series>
-                <geared:GColumnSeries Values="{Binding DataRecordsList,Converter={StaticResource MyDataRecordsToLengthListConverter}}"/>
+                <!--<geared:GColumnSeries Values="{Binding DataRecordsList,Converter={StaticResource MyDataRecordsToLengthListConverter}}"/>-->
+                <geared:GColumnSeries Values="{Binding Values}"/>
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis MinValue="0" MaxValue="100" />
@@ -66,7 +67,10 @@
         
         <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="3" 
                                                 DataContext="{Binding}"/>
-  
+
+        <!--<ListView Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Values }"/>-->
+        <ctrls:ScrollableChartView Grid.Row="2"  Grid.Column="2" />
+
     </Grid>
 
 </ui:CommonPageUserControl>
