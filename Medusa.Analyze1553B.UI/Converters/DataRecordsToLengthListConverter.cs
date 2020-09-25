@@ -25,12 +25,14 @@ namespace Medusa.Analyze1553B.UI.Converters
             for (int i = 0; i < x.Length - 1; i++)
             {
                 ArrayOfLength[i] = x[i].Cw1.Length;
-                //ArrayOfLength[i] = x[i].MonitorTime;
+              
             }
             var Values = ArrayOfLength.AsGearedValues();
 
             Values.WithQuality(Quality.Low);
-            
+            //
+            //MessageBox.Show("END!");
+            //
             return Values;    
             }
             else

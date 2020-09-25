@@ -34,7 +34,7 @@ namespace LiveChartsTest
 
 
 
-            int x = 10000;
+            int x = 100000;
             double[] d = new double[x];
             for (int i = 0; i < x; i++)
             {

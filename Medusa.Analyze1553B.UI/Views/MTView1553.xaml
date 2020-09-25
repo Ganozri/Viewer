@@ -26,18 +26,19 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <ctrls:DataRecordsList x:Name="myListView"
-                  Grid.Row="1" Grid.Column="0"
+                  Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"
                   MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"/>
 
         <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="10"
@@ -45,17 +46,25 @@
 
 
         <lvc:CartesianChart  Grid.Column="2" Grid.Row="1"
-                             DisableAnimations="True">
+                             DisableAnimations="True"
+                             Hoverable="False"
+                             Zoom="X"
+                             >
             <lvc:CartesianChart.Series>
                 <geared:GColumnSeries Values="{Binding DataRecordsList,Converter={StaticResource MyDataRecordsToLengthListConverter}}"/>
             </lvc:CartesianChart.Series>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis MinValue="0" MaxValue="100" />
+            </lvc:CartesianChart.AxisX>
+
         </lvc:CartesianChart>
 
-        <ctrls:RightSliderControl Grid.Row="1" Grid.Column="2" 
-                                  DataContext="{Binding}" HorizontalAlignment="Right"
-                                  />
+
+
+        <ctrls:RightSliderControl Grid.Row="1" Grid.Column="3" 
+                                  DataContext="{Binding}" HorizontalAlignment="Right"/>
         
-        <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="4" 
+        <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="3" 
                                                 DataContext="{Binding}"/>
   
     </Grid>

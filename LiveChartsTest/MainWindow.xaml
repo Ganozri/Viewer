@@ -17,12 +17,15 @@
         <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="3"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
 
+         
+        <local:ScrollableView Grid.Column="2"/>
+        <!--<local:SectionMouseMoveSample Grid.Column="2"/>-->
 
-        <lvc:CartesianChart Grid.Column="2" DisableAnimations="True">
+        <!--<lvc:CartesianChart Grid.Column="2" DisableAnimations="True" Zoom="X">
             <lvc:CartesianChart.Series>
                 <geared:GLineSeries Values="{Binding Values}"/>
             </lvc:CartesianChart.Series>
-        </lvc:CartesianChart>
+        </lvc:CartesianChart>-->
 
 
     </Grid>

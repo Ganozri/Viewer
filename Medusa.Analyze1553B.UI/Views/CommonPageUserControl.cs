@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
-
+﻿using LiveCharts;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Medusa.Analyze1553B.UI
 {
@@ -14,6 +16,14 @@ namespace Medusa.Analyze1553B.UI
             ListView listView = (ListView)sender;
             listView.ScrollIntoView(listView.SelectedItem);
         }
+
+        public void Chart_OnDataClick()
+        {
+            //MessageBox.Show("you clicked (" + point.X + "," + point.Y + ")");
+            MessageBox.Show("Chart_OnDataClick");
+            // point.Instance contains the value as object, in case you passed a class, or any other type
+        }
+
 
     }
 }

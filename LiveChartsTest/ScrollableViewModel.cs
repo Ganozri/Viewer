@@ -13,36 +13,32 @@ namespace LiveChartsTest
 
         public ScrollableViewModel()
         {
-            var now = DateTime.Now;
-            var trend = -30000d;
-            var l = new List<DateTimePoint>();
-            var r = new Random();
 
-            for (var i = 0; i < 50000; i++)
+            int x = 20000;
+            double[] arr = new double[] {1,1,6,5,4,32,32,32,32,32,32,1,1,6,6,6,8,12 }; 
+            
+            double[] d = new double[x];
+
+            for (int i = 0; i < 1000; i++)
             {
-                now = now.AddHours(1);
-                l.Add(new DateTimePoint(now.AddDays(i), trend));
-
-                if (r.NextDouble() > 0.4)
+                for (int j = 0; j < arr.Length;j++)
                 {
-                    trend += r.NextDouble() * 10;
-                }
-                else
-                {
-                    trend -= r.NextDouble() * 10;
+                    d[j+(i * (arr.Length-1))] = arr[j];
                 }
             }
+           
 
-            Formatter = x => new DateTime((long)x).ToString("yyyy");
+            Values = d.AsGearedValues();
 
-            Values = l.AsGearedValues().WithQuality(Quality.High);
+            Values.WithQuality(Quality.Low);
 
-            From = DateTime.Now.AddHours(10000).Ticks;
-            To = DateTime.Now.AddHours(90000).Ticks;
+            From = 0;
+            To = 100;
         }
 
         public object Mapper { get; set; }
-        public GearedValues<DateTimePoint> Values { get; set; }
+        public GearedValues<double> Values { get; set; }
+
         public double From
         {
             get { return _from; }
