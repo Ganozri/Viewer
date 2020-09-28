@@ -86,16 +86,6 @@
 
             </GridView>
         </ListView.View>
-
-        <!--<GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="3"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch" />-->
-
-        <!--<lvc:CartesianChart Grid.Column="2" DisableAnimations="True">
-            <lvc:CartesianChart.Series>
-                --><!--Notice we are using GLineSeries, instead of LineSeries--><!--
-                <geared:GLineSeries Values="{Binding}" />
-            </lvc:CartesianChart.Series>
-        </lvc:CartesianChart>-->
-
+        
     </ListView>
 </ui:CommonPageUserControl>
