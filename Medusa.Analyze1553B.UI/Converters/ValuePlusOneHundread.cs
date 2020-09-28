@@ -10,7 +10,7 @@ using System.Windows.Data;
 
 namespace Medusa.Analyze1553B.UI.Converters
 {
-    public class ValuePlusFifty : IValueConverter
+    public class ValuePlusOneHundread : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

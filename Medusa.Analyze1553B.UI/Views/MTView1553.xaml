@@ -21,7 +21,7 @@
     <UserControl.Resources>
         <converters:DataRecordsToLengthListConverter x:Key="MyDataRecordsToLengthListConverter"/>
         <converters:ValueMinusFifty x:Key="MyValueMinusFifty"/>
-        <converters:ValuePlusFifty x:Key="MyValuePlusFifty"/>
+        <converters:ValuePlusOneHundread x:Key="MyValuePlusOneHundread"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -62,7 +62,7 @@
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis MinValue="{Binding CurrentRow, Mode=TwoWay}"
-                          MaxValue="{Binding CurrentRow,Converter={StaticResource MyValuePlusFifty}, Mode=TwoWay}" />
+                          MaxValue="{Binding CurrentRow,Converter={StaticResource MyValuePlusOneHundread}, Mode=TwoWay}" />
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
