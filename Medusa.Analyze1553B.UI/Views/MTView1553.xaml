@@ -33,19 +33,20 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="150"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <ctrls:DataRecordsList x:Name="myListView"
-                               Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"
+                               Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"
                                MaxWidth = "{Binding ActualWidth, ElementName = UserControl,
                                                     NotifyOnTargetUpdated = True}"
                                />
 
-        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
-                      ShowsPreview="False" Width="10"
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="3"
+                      ShowsPreview="False" Width="5"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
 
 
@@ -65,10 +66,14 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
+         <GridSplitter Grid.Column="2" Grid.Row="2"
+                       ShowsPreview="False" Height="5"
+                       HorizontalAlignment="Stretch" />
+        
         <ctrls:RightSliderControl Grid.Row="1" Grid.Column="3"
                                   DataContext="{Binding}" HorizontalAlignment="Right"/>
         
-        <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="3" 
+        <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="4" 
                                                 DataContext="{Binding}"/>
 
         <!--<ListView Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Values }"/>-->
