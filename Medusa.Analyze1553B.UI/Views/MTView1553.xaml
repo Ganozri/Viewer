@@ -20,7 +20,6 @@
              x:Name="UserControl">
     <UserControl.Resources>
         <converters:DataRecordsToLengthListConverter x:Key="MyDataRecordsToLengthListConverter"/>
-        <converters:ValueMinusFifty x:Key="MyValueMinusFifty"/>
         <converters:ValuePlusOneHundread x:Key="MyValuePlusOneHundread"/>
     </UserControl.Resources>
     <Grid>
