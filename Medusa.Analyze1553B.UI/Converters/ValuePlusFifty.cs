@@ -15,7 +15,7 @@ namespace Medusa.Analyze1553B.UI.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int)value + 50;
+            return (int)value + 100;
 
         }
 
