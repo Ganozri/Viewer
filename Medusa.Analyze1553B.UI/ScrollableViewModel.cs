@@ -6,10 +6,8 @@ using LiveCharts.Geared;
 
 namespace Medusa.Analyze1553B.UI
 {
-    public class ScrollableViewModel : INotifyPropertyChanged
+    public class ScrollableViewModel //: INotifyPropertyChanged
     {
-        private int _from;
-        private int _to;
 
         public ScrollableViewModel()
         {
@@ -40,32 +38,8 @@ namespace Medusa.Analyze1553B.UI
         }
 
         public GearedValues<double> Values { get; set; }
-
-        public int From
-        {
-            get { return _from; }
-            set
-            {
-                _from = value;
-                OnPropertyChanged("From");
-            }
-        }
-        public int To
-        {
-            get { return _to; }
-            set
-            {
-                _to = value;
-                OnPropertyChanged("To");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName = null)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public int From { get; set; }
+        public int To { get; set; }
+       
     }
 }

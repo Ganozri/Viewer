@@ -18,9 +18,12 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <TextBlock Grid.Row="0"></TextBlock>
-
+        <StackPanel>
+            <!--<TextBlock Text="{Binding AxisX.Chart.ChartLegend.Mi, ElementName=MainChart}"/>
+            <TextBlock Text="{Binding ScrollHorizontalTo, ElementName=AdditionalChart}"/>-->
+            <TextBox Text="{Binding From, Mode=TwoWay}"/>
+            <TextBox Text="{Binding To, Mode=TwoWay}"/>
+        </StackPanel>
         <lvc:CartesianChart Name="MainChart"
                             Grid.Row="1"
                             Zoom="X"
@@ -39,7 +42,7 @@
             </lvc:CartesianChart.Resources>
             <lvc:CartesianChart.Series>
                 <geared:GColumnSeries Values="{Binding Values}" Fill="#2194F1"
-                                      ColumnPadding="1"  PointGeometry="{x:Null}"
+                                      ColumnPadding="0.25"  PointGeometry="{x:Null}"
                                       MaxColumnWidth="100"
                                       />
             </lvc:CartesianChart.Series>
@@ -52,7 +55,8 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-        <lvc:CartesianChart Grid.Row="2" DisableAnimations="True" 
+        <!--<lvc:CartesianChart Name="AdditionalChart"
+                            Grid.Row="2" DisableAnimations="True" 
                             ScrollMode="X" 
                             ScrollHorizontalFrom="{Binding From, Mode=TwoWay}"
                             ScrollHorizontalTo="{Binding To, Mode=TwoWay}"
@@ -81,7 +85,7 @@
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis ShowLabels="False" />
             </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+        </lvc:CartesianChart>-->
     </Grid>
 </UserControl>
 

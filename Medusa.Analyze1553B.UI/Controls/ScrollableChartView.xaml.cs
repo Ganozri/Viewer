@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveCharts.Geared;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace Medusa.Analyze1553B.UI.Controls
     /// </summary>
     public partial class ScrollableChartView : UserControl
     {
+
         public ScrollableChartView()
         {
             InitializeComponent();

@@ -11,7 +11,7 @@ using System.Windows.Data;
 
 namespace Medusa.Analyze1553B.UI.Converters
 {
-    [ValueConversion(typeof(DataRecord[]),typeof(double[]))]
+    //[ValueConversion(typeof(DataRecord[]),typeof(double[]))]
     public class DataRecordsToLengthListConverter : IValueConverter
     {
 
@@ -30,9 +30,7 @@ namespace Medusa.Analyze1553B.UI.Converters
             var Values = ArrayOfLength.AsGearedValues();
 
             Values.WithQuality(Quality.Low);
-            //
-            //MessageBox.Show("END!");
-            //
+
             return Values;    
             }
             else
