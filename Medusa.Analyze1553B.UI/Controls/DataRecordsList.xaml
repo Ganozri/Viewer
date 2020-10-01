@@ -6,11 +6,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Controls"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:converters="clr-namespace:Medusa.Analyze1553B.UI.Converters"
+    mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <ListView x:Name="myListView"
+     <UserControl.Resources>
+        <converters:CommandWordToColorConverter x:Key="MyCommandWordToColorConverter"/>
+    </UserControl.Resources>
+    <DockPanel >
+        <Button Content="Click" Click="Button_Click"/>
+        <ListView x:Name="myListView"
               Grid.Row="1" Grid.Column="0"
               MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"
               ScrollViewer.HorizontalScrollBarVisibility="Visible"  
@@ -21,12 +25,13 @@
                                        UpdateSourceTrigger=PropertyChanged,
                                        NotifyOnTargetUpdated=True}"
               VirtualizingStackPanel.IsVirtualizing="True"
-              SelectionChanged="myListView_SelectionChanged">
+              SelectionChanged="myListView_SelectionChanged"
+              VirtualizingPanel.CacheLength="100">
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                 <i:InvokeCommandAction  Command="{Binding Commands.UpdateCurrentRowCommand}"
-                                            CommandParameter="{Binding ElementName=myListView}"/>
+                                        CommandParameter="{Binding ElementName=myListView}"/>
             </i:EventTrigger>
 
             <i:EventTrigger EventName="KeyUp">
@@ -35,8 +40,8 @@
             </i:EventTrigger>
 
         </i:Interaction.Triggers>
-
-        <ListView.View>
+        
+        <ListView.View >
             <GridView>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }" >Time</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Channel        }">Cl</GridViewColumn>
@@ -83,9 +88,38 @@
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Data[29], StringFormat={}{0:X4}}" >29</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Data[30], StringFormat={}{0:X4}}" >30</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Data[31], StringFormat={}{0:X4}}" >31</GridViewColumn>
-
+                
             </GridView>
+            
+           
         </ListView.View>
         
+         <!--<ListView.Resources>
+          <Style TargetType="{x:Type ListViewItem}">
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Length}"
+                           Value="32">
+                <Setter Property="Background"
+                        Value="Red" />
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </ListView.Resources>-->
+        
+        <!--<ListView.ItemContainerStyle>
+ 
+            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}" >
+              <Setter Property="Height" Value="24" />
+              <Setter Property="Background" Value="{Binding Items, ElementName = myListView,
+                                                            NotifyOnTargetUpdated = True,
+                                                    Converter={StaticResource MyCommandWordToColorConverter}}" />
+              <Setter Property="Foreground" Value="#FF4B94EC"/>
+            </Style>
+        </ListView.ItemContainerStyle>-->
+        
     </ListView>
+        
+    
+    </DockPanel>
+    
 </ui:CommonPageUserControl>
