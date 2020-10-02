@@ -25,16 +25,11 @@ namespace Medusa.Analyze1553B.UI.Views
     /// 
 
     public partial class TcpServerControl : CommonPageUserControl
-    {
-        public List<Rule> Rules {get;set;}
+    { 
 
         public TcpServerControl()
         {
             InitializeComponent();
-            Rules = new List<Rule>
-            {
-                new Rule(31, DataDirection.R, 31, 17, "ССД", "Green")
-            };
         }
 
         private void MainChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)

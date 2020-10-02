@@ -20,6 +20,7 @@
         <converters:DataRecordsToLengthListConverter x:Key="MyDataRecordsToLengthListConverter"/>
         <converters:ValuePlusOneHundread x:Key="MyValuePlusOneHundread"/>
         <converters:CommandWordToColorConverter x:Key="MyCommandWordToColorConverter"/>
+        <converters:CommandWordToNameConverter x:Key="MyCommandWordToNameConverter"/>
     </UserControl.Resources>
       <Grid>
         <Grid.ColumnDefinitions>
@@ -66,7 +67,7 @@
         
         <ListView.View >
             <GridView>
-                <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1, Converter={StaticResource MyCommandWordToColorConverter}}">Type</GridViewColumn>
+                <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1, Converter={StaticResource MyCommandWordToNameConverter}}">Type</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }" >Time</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Channel        }">Cl</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Error          }">Error</GridViewColumn>

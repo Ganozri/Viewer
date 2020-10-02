@@ -9,13 +9,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-
 namespace Medusa.Analyze1553B.UI.Converters
 {
-
-   
-    
-    public class CommandWordToColorConverter : IValueConverter
+    public class CommandWordToNameConverter : IValueConverter
     {
          public List<Rule> Rules {get;set;}
 
@@ -38,11 +34,11 @@ namespace Medusa.Analyze1553B.UI.Converters
                     && rule.Subaddress == cw.Subaddress
                     && rule.Length     == cw.Length)
                 {
-                    return rule.Color;
+                    return rule.Name;
                 }
             }
 
-            return "White";
+            return "Null";
 
         }
 

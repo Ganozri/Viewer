@@ -24,13 +24,7 @@ namespace Medusa.Analyze1553B.UI
 
         public Rule(int Address,DataDirection Direction,int Subaddress,int Length)
         {
-            this.Address = Address;
-            this.Direction = Direction;
-            this.Subaddress = Subaddress; 
-            this.Length = Length;
-
-            Name = "";
-            Color = "White";
+            new Rule(Address,Direction,Subaddress,Length,"","White");
         }
 
         public Rule(int Address,DataDirection Direction,int Subaddress,int Length,string Name,string Color)
