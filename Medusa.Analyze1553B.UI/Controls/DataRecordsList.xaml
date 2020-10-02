@@ -6,11 +6,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Controls"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:converters="clr-namespace:Medusa.Analyze1553B.UI.Converters"
-    mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:converters="clr-namespace:Medusa.Analyze1553B.UI.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
      <UserControl.Resources>
         <converters:CommandWordToColorConverter x:Key="MyCommandWordToColorConverter"/>
+        <converters:ToIntConverter x:Key="MyToIntConverter"/>
     </UserControl.Resources>
     <DockPanel >
         <Button Content="Click" Click="Button_Click"/>
@@ -19,7 +22,7 @@
               MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"
               ScrollViewer.HorizontalScrollBarVisibility="Visible"  
               ScrollViewer.VerticalScrollBarVisibility="Disabled"
-
+              ScrollViewer.ScrollChanged="myListView_ScrollChanged"
               ItemsSource="{Binding DataRecordsList}"
               SelectedIndex="{Binding  CurrentRow, 
                                        UpdateSourceTrigger=PropertyChanged,
@@ -93,29 +96,18 @@
             
            
         </ListView.View>
-        
-         <!--<ListView.Resources>
-          <Style TargetType="{x:Type ListViewItem}">
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding Length}"
-                           Value="32">
-                <Setter Property="Background"
-                        Value="Red" />
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </ListView.Resources>-->
-        
-        <!--<ListView.ItemContainerStyle>
+
+        <ListView.ItemContainerStyle>
  
             <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}" >
-              <Setter Property="Height" Value="24" />
-              <Setter Property="Background" Value="{Binding Items, ElementName = myListView,
-                                                            NotifyOnTargetUpdated = True,
-                                                    Converter={StaticResource MyCommandWordToColorConverter}}" />
-              <Setter Property="Foreground" Value="#FF4B94EC"/>
+               <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Cw1.Length}" Value="24">
+                    <Setter Property="Background" Value="AliceBlue" />
+                </DataTrigger>
+            </Style.Triggers>
+            
             </Style>
-        </ListView.ItemContainerStyle>-->
+        </ListView.ItemContainerStyle>
         
     </ListView>
         

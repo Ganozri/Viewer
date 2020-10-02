@@ -19,34 +19,24 @@ namespace Medusa.Analyze1553B.UI.Controls
         {
             InitializeComponent();
 
-            myListView.ItemContainerGenerator.StatusChanged += new EventHandler(ContainerStatusChanged);
+           
         }
         
-        private void ContainerStatusChanged(object sender, EventArgs e)  
-        {  
-            if (myListView.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)  
-            {
 
-                //MessageBox.Show(x.ToString());
-                //if (myListView.Items.Count>101)
-                //{
-                //      ChangeColorByIndex(40, Colors.AliceBlue);
-                //}
-            }  
-        }
 
      
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            int firstItemIndex = GetIndexOfFirstVisibleListItem(myListView);
+            int firstItemIndex = GetIndexOfFirstVisibleListItem();
             for (int i = firstItemIndex; i < firstItemIndex+100; i++)
             {          
                ChangeColorByIndex(i,Colors.AliceBlue);
             }
+            //ItemCollection x = myListView;
         }
 
-        private int GetIndexOfFirstVisibleListItem(DependencyObject t)
+        private int GetIndexOfFirstVisibleListItem()
         {
             VirtualizingStackPanel panel = FindVisualChild<VirtualizingStackPanel>(myListView);
             if (myListView.Items.Count > 0 && panel != null)
@@ -89,6 +79,21 @@ namespace Medusa.Analyze1553B.UI.Controls
         {
             ListViewItem row = myListView.ItemContainerGenerator.ContainerFromIndex(index) as ListViewItem;
             row.Background = new SolidColorBrush(color);
+        }
+
+        private void myListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (myListView.IsVisible)
+            {
+
+                //int firstItemIndex = GetIndexOfFirstVisibleListItem();
+                //for (int i = firstItemIndex; i < firstItemIndex+100; i++)
+                //{          
+                //   ChangeColorByIndex(i,Colors.AliceBlue);
+                //}
+                //MessageBox.Show("asds");
+            }
+          
         }
     }
 }
