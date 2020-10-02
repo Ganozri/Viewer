@@ -12,23 +12,38 @@ using System.Windows.Data;
 
 namespace Medusa.Analyze1553B.UI.Converters
 {
+
+   
+    
     public class CommandWordToColorConverter : IValueConverter
     {
+         public List<Rule> Rules {get;set;}
+
          public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var x = (DataRecord[])value;
+            var cw = (ControlWord)value;
 
-            return "Red";
-            //if (x.Cw1.Length==32)
-            //{
-            //    return "Blue";
-            //}
-            //else
-            //{
-            //     return "Red";
-            //}
-           
-           
+
+            Rules = new List<Rule>
+            {
+                new Rule(31, DataDirection.R, 31, 17, "ССД", "Green"),
+                new Rule(31, DataDirection.R, 29, 5, "Время", "Blue"),
+                new Rule(1, DataDirection.T, 1, 32, "Время", "Blue")
+            };
+
+            foreach (var rule in Rules)
+            {
+                if (rule.Address == cw.Address
+                    && rule.Direction == cw.Direction
+                    && rule.Subaddress == cw.Subaddress
+                    && rule.Length == cw.Length)
+                {
+                    return rule.Name;
+                }
+            }
+
+            return "Null";
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

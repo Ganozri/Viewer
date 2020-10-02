@@ -27,10 +27,10 @@ namespace Medusa.Analyze1553B.UI.Views
         private void MainChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)
         {
             //
-            //var x = chartPoint.X;
+            var x = chartPoint.X;
             //TB.Text = x.ToString();
-            //IPageViewModel y = (IPageViewModel)DataContext;
-            //y.CurrentRow = (int)x;
+            IPageViewModel y = (IPageViewModel)DataContext;
+            y.CurrentRow = (int)x;
             //MessageBox.Show(x.ToString());
         }
     }

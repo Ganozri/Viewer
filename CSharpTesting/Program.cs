@@ -1,4 +1,5 @@
 ﻿using Medusa.Analyze1553B.Common;
+using Medusa.Analyze1553B.Loader.BMD;
 using Olympus.Checkers;
 using Olympus.Translation;
 using System;
@@ -7,44 +8,60 @@ using System.Linq;
 
 namespace CSharpTesting
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            var Hex = "0F82";
-            Hex = "FBF1";
-            Hex = "0F82";
-            Hex = "0B82";
-            Hex = "0FC1";
-            ushort Value = Convert.ToUInt16(Hex, 16);
-            Console.WriteLine("{0} = {1}",Hex, Value);
+            string path = @"D:\Data\20200609-123143.bmd";
+            var dataRecord = GetDataByBMDLoader(path);
 
-            var Address = Value >> 11;
-            Console.WriteLine("Address = {0}",Address);
+            for (int i = 0; i < 10; i++)
+            {
+                var cw1 = dataRecord[i].Cw1;
 
-            var Direction = (DataDirection)((Value >> 10) & 1);
-            Console.WriteLine("Direction = {0}", Direction);
+                Console.WriteLine(cw1.Address);
+                Console.WriteLine(cw1.Direction);
+                Console.WriteLine(cw1.Subaddress);
+                Console.WriteLine(cw1.Length);
 
-            var Subaddress = (Value >> 5) & 0x1F;
-            Console.WriteLine("Subaddress = {0}", Subaddress);
+                switch (cw1)
+                {
+                    case var _ when (cw1.Address == 31 
+                                     && cw1.Direction == DataDirection.R 
+                                     && cw1.Subaddress == 31 
+                                     && cw1.Length == 17) :
+                        Console.WriteLine("Green");
+                        break;
+                    default:
+                        Console.WriteLine("White");
+                        break; 
+                }
 
-            var Length = (Value & 0x1F).Replace(0, 32);
-            Console.WriteLine("Length = {0}", Length);
-
-            Console.WriteLine("----------------------");
-            var cw1 = new ControlWord(Value);
-            Console.WriteLine("Address = {0}", cw1.Address);
-            Console.WriteLine("Direction = {0}", cw1.Direction);
-            Console.WriteLine("Subaddress = {0}", cw1.Subaddress);
-            Console.WriteLine("Length = {0}", cw1.Length);
-
-            Console.WriteLine("----------------------");
-            var cw2 = new ControlWord(Address,Direction,Subaddress,Length);
-            Console.WriteLine("Address = {0}", cw2.Address);
-            Console.WriteLine("Direction = {0}", cw2.Direction);
-            Console.WriteLine("Subaddress = {0}", cw2.Subaddress);
-            Console.WriteLine("Length = {0}", cw2.Length);
-
+                Console.WriteLine();
+            }
+           
         }
+
+         public static DataRecord[] GetDataByBMDLoader(string path)
+        {
+            return BaseGetData(new Loader(new TranslationRepository())
+                               .ReadStream(File.OpenRead(path))
+                               .ToArray());
+        }
+
+         public static DataRecord[] BaseGetData(DataRecord[] rawData)
+        {
+            DataRecord[] DataRecords = new DataRecord[0];
+            try
+            {
+                DataRecords = rawData;
+            }
+            catch (Exception)
+            {
+              
+            }
+            return DataRecords;
+        }
+
     }
 }
