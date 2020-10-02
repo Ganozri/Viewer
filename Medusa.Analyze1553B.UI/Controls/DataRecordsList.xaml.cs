@@ -32,59 +32,57 @@ namespace Medusa.Analyze1553B.UI.Controls
                 //{
                 //      ChangeColorByIndex(40, Colors.AliceBlue);
                 //}
-
-
-              
-
-                
-                    
-             
-                   
-                
             }  
         }
 
-        private List<object> GetVisibleItemsFromListbox(ListView listBox)
-        {
-            var items = new List<object>();
-        
-            foreach (var item in listBox.Items)
-            {
-                if (IsUserVisible((ListViewItem)listBox.ItemContainerGenerator.ContainerFromItem(item), listBox))
-                {
-                    items.Add(item);
-                }
-                else if (items.Any())
-                {
-                    break;
-                }
-            }
-        
-            return items;
-        }
-
-        private static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
-        {
-            if (!element.IsVisible)
-                return false;
-        
-            Rect bounds =
-                element.TransformToAncestor(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
-            var rect = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
-            return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
-        }
+     
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-           //var index = 100;
-           //var x = (DataRecord)myListView.Items[25];
-           //ListViewItem row = myListView.ItemContainerGenerator.ContainerFromIndex(index) as ListViewItem;
-          
-     
+            int firstItemIndex = GetIndexOfFirstVisibleListItem(myListView);
+            for (int i = firstItemIndex; i < firstItemIndex+100; i++)
+            {          
+               ChangeColorByIndex(i,Colors.AliceBlue);
+            }
+        }
+
+        private int GetIndexOfFirstVisibleListItem(DependencyObject t)
+        {
+            VirtualizingStackPanel panel = FindVisualChild<VirtualizingStackPanel>(myListView);
+            if (myListView.Items.Count > 0 && panel != null)
+            {
+              int offset = (panel.Orientation == Orientation.Horizontal) 
+                            ? (int)panel.HorizontalOffset 
+                            : (int)panel.VerticalOffset;
+              return offset;
+            }
+            else
+            {
+              return -1;
+            }
            
-             var x = GetVisibleItemsFromListbox(myListView);
-           MessageBox.Show(x.Count.ToString());
-            
+        }
+
+        private static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        {
+          for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+          {
+            DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+         
+            if (child is T)
+            {
+              return (T)child;
+            }
+            else
+            {
+              child = FindVisualChild<T>(child);
+              if (child != null)
+              {
+                return (T)child;
+              }
+            }
+          }
+          return null;
         }
 
         private void ChangeColorByIndex(int index, System.Windows.Media.Color color)
