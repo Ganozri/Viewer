@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Medusa.Analyze1553B.VM;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,16 @@ namespace Medusa.Analyze1553B.UI.Views
         public MTView1553()
         {
             InitializeComponent();
+        }
+
+        private void MainChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)
+        {
+            //
+            //var x = chartPoint.X;
+            //TB.Text = x.ToString();
+            //IPageViewModel y = (IPageViewModel)DataContext;
+            //y.CurrentRow = (int)x;
+            //MessageBox.Show(x.ToString());
         }
     }
 }

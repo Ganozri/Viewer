@@ -15,21 +15,17 @@
         <converters:CommandWordToColorConverter x:Key="MyCommandWordToColorConverter"/>
         <converters:ToIntConverter x:Key="MyToIntConverter"/>
     </UserControl.Resources>
-    <DockPanel >
-        <Button Content="Click" Click="Button_Click"/>
+    <DockPanel>
+        <Button Content="{Binding Number}" Click="Button_Click"/>
         <ListView x:Name="myListView"
-              Grid.Row="1" Grid.Column="0"
-              MaxWidth = "{Binding ActualWidth, ElementName = UserControl, NotifyOnTargetUpdated = True}"
               ScrollViewer.HorizontalScrollBarVisibility="Visible"  
               ScrollViewer.VerticalScrollBarVisibility="Disabled"
-              ScrollViewer.ScrollChanged="myListView_ScrollChanged"
               ItemsSource="{Binding DataRecordsList}"
               SelectedIndex="{Binding  CurrentRow, 
                                        UpdateSourceTrigger=PropertyChanged,
                                        NotifyOnTargetUpdated=True}"
-              VirtualizingStackPanel.IsVirtualizing="True"
               SelectionChanged="myListView_SelectionChanged"
-              VirtualizingPanel.CacheLength="100">
+              VirtualizingStackPanel.IsVirtualizing="True">
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
@@ -101,9 +97,17 @@
  
             <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}" >
                <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Cw1.Length}" Value="24">
-                    <Setter Property="Background" Value="AliceBlue" />
+                <DataTrigger Binding="{Binding Path=Error}" Value="NoResp">
+                    <Setter Property="Background" Value="WhiteSmoke" />
                 </DataTrigger>
+                   <Trigger Property="IsMouseOver" Value="true">
+                     <Setter Property="Background" Value="#FFA8D5E1" />
+                     <Setter Property="Cursor" Value="Hand"/>
+                   </Trigger>
+                   <Trigger Property="IsSelected" Value="true">
+                     <Setter Property="Background" Value="#FFA8D5E1" />
+                     <Setter Property="Cursor" Value="Hand"/>
+                   </Trigger>
             </Style.Triggers>
             
             </Style>
