@@ -1,4 +1,5 @@
 ﻿using Medusa.Analyze1553B.Common;
+using Medusa.Analyze1553B.UI.Converters;
 using Medusa.Analyze1553B.VM;
 using System;
 using System.Collections.Generic;
@@ -21,38 +22,6 @@ using System.Windows.Shapes;
 namespace Medusa.Analyze1553B.UI.Views
 {
 
-     public class CommandWordToColorConverter : IValueConverter
-    {
-        public List<Rule>  Rules = new List<Rule>
-            {
-                new Rule(31, DataDirection.R, 31, 17, "ССД",   "Green"),
-                new Rule(31, DataDirection.R, 29, 5,  "Время", "Blue"),
-                new Rule(1,  DataDirection.T, 1,  32, "Исправность устройства", "Blue")
-            };
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var cw = (ControlWord)value;
-
-            foreach (var rule in Rules)
-            {
-                if (rule.Address == cw.Address
-                    && rule.Direction == cw.Direction
-                    && rule.Subaddress == cw.Subaddress
-                    && rule.Length == cw.Length)
-                {
-                    return rule.Color;
-                }
-            }
-            return "White";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return DependencyProperty.UnsetValue;
-        }
-    }
-
     public partial class TcpServerControl : CommonPageUserControl
     { 
        
@@ -66,13 +35,20 @@ namespace Medusa.Analyze1553B.UI.Views
                 BasedOn = myListView.ItemContainerStyle
             };
 
-            CommandWordToColorConverter commandWordToColorConverter = new CommandWordToColorConverter();
+            List<Rule>  Rules = new List<Rule>
+            {
+                new Rule(31, DataDirection.R, 31, 17, "ССД", "Green"),
+                new Rule(31, DataDirection.R, 29, 5,  "Время", "Blue"),
+                new Rule(1,  DataDirection.T, 1, 32,  "Исправность устройства", "Blue")
+            };
+            CommandWordToColorOrNameConverter commandWordToColorConverter = new CommandWordToColorOrNameConverter(Rules);
+
             Binding binding = new Binding("Cw1")
             {
-                Converter = commandWordToColorConverter
+                Converter = commandWordToColorConverter,
+                ConverterParameter = "Color"
             };
             style.Setters.Add(new Setter(BackgroundProperty, binding));
-
             myListView.ItemContainerStyle = style;
 
         }
