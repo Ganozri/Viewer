@@ -19,8 +19,7 @@
      <UserControl.Resources>
         <converters:DataRecordsToLengthListConverter x:Key="MyDataRecordsToLengthListConverter"/>
         <converters:ValuePlusOneHundread x:Key="MyValuePlusOneHundread"/>
-        <converters:CommandWordToColorConverter x:Key="MyCommandWordToColorConverter"/>
-        <converters:CommandWordToNameConverter x:Key="MyCommandWordToNameConverter"/>
+        <converters:FFFFtoNullConverter x:Key="MyFFFFtoNullConverter"/>
     </UserControl.Resources>
       <Grid>
         <Grid.ColumnDefinitions>
@@ -39,7 +38,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-          <TextBlock x:Name="tb" Text=""/>
+         <TextBlock x:Name="tb" Text=""/>
           
          <ListView x:Name="myListView"
               Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"
@@ -70,7 +69,7 @@
         <ListView.View>
             <GridView>
                 <GridViewColumn x:Name="TypeName">Type</GridViewColumn>
-                <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }" >Time</GridViewColumn>
+                <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }">Time</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Channel        }">Cl</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Error          }">Error</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Value,StringFormat={}{0:X4}}" >CW1</GridViewColumn>
@@ -79,9 +78,9 @@
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Subaddress }">Sub</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1.Length     }">Length</GridViewColumn>
 
-                <GridViewColumn DisplayMemberBinding="{Binding Path=Cw2.Value, StringFormat={}{0:X4}}"  >CW2</GridViewColumn>
-                <GridViewColumn DisplayMemberBinding="{Binding Path=Rw1.Value, StringFormat={}{0:X4}}"  >RW1</GridViewColumn>
-                <GridViewColumn DisplayMemberBinding="{Binding Path=Rw2.Value, StringFormat={}{0:X4}}"  >RW2</GridViewColumn>
+                <GridViewColumn DisplayMemberBinding="{Binding Path=Cw2.Value,Converter={StaticResource MyFFFFtoNullConverter}, StringFormat={}{0:X4}}"  >CW2</GridViewColumn>
+                <GridViewColumn DisplayMemberBinding="{Binding Path=Rw1.Value,Converter={StaticResource MyFFFFtoNullConverter}, StringFormat={}{0:X4}}"  >RW1</GridViewColumn>
+                <GridViewColumn DisplayMemberBinding="{Binding Path=Rw2.Value,Converter={StaticResource MyFFFFtoNullConverter}, StringFormat={}{0:X4}}"  >RW2</GridViewColumn>
 
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Data[0] , StringFormat={}{0:X4}}" >0</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Data[1] , StringFormat={}{0:X4}}" >1</GridViewColumn>
