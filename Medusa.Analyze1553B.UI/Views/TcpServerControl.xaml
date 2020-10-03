@@ -67,9 +67,9 @@
 
         </i:Interaction.Triggers>
         
-        <ListView.View >
+        <ListView.View>
             <GridView>
-                <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1, Converter={StaticResource MyCommandWordToNameConverter}}">Type</GridViewColumn>
+                <GridViewColumn x:Name="TypeName">Type</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }" >Time</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Channel        }">Cl</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Error          }">Error</GridViewColumn>
