@@ -93,8 +93,8 @@ namespace Medusa.Analyze1553B.UI.Views
 
         private void MainChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)
         {
-            int pointX = (int)chartPoint.X;
-            ((IPageViewModel)DataContext).CurrentRow = pointX;
+            //int pointX = (int)chartPoint.X;
+            //((IPageViewModel)DataContext).CurrentRow = pointX;
         }
 
     }

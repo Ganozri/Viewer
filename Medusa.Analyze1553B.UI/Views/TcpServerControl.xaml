@@ -10,8 +10,9 @@
              xmlns:vms="clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
              xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM" 
              xmlns:ctrls="clr-namespace:Medusa.Analyze1553B.UI.Controls" 
-             xmlns:converters="clr-namespace:Medusa.Analyze1553B.UI.Converters" xmlns:geared="clr-namespace:LiveCharts.Geared;assembly=LiveCharts.Geared" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-    d:DataContext="{d:DesignInstance Type=vms:TcpServerViewModel}"
+             xmlns:converters="clr-namespace:Medusa.Analyze1553B.UI.Converters" 
+             xmlns:geared="clr-namespace:LiveCharts.Geared;assembly=LiveCharts.Geared" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             d:DataContext="{d:DesignInstance Type=vms:TcpServerViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="1024" d:DesignWidth="1280"
              Background="White"
@@ -120,24 +121,6 @@
            
         </ListView.View>
 
-        <!--<ListView.ItemContainerStyle>
-            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}" >
-            <Setter Property="Background" Value="{Binding Path=Cw1, Converter={StaticResource MyCommandWordToColorConverter}}"/>
-             <Style.Triggers>
-                --><!--<DataTrigger Binding="{Binding Path=Error}" Value="NoResp">
-                    <Setter Property="Background" Value="WhiteSmoke" />
-                </DataTrigger>--><!--
-                   <Trigger Property="IsMouseOver" Value="true">
-                     <Setter Property="Background" Value="#FFA8D5E1" />
-                     <Setter Property="Cursor" Value="Hand"/>
-                   </Trigger>
-                   <Trigger Property="IsSelected" Value="true">
-                     <Setter Property="Background" Value="#FFA8D5E1" />
-                     <Setter Property="Cursor" Value="Hand"/>
-                   </Trigger>
-            </Style.Triggers>
-            </Style>
-        </ListView.ItemContainerStyle>-->
              <ListView.ItemContainerStyle>
             <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}" >
              <Style.Triggers>
@@ -159,7 +142,7 @@
                       ShowsPreview="False" Width="5"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
 
-        <lvc:CartesianChart  Name="MainChart" 
+        <!--<lvc:CartesianChart  Name="MainChart" 
                              Grid.Column="2" Grid.Row="1"
                              DisableAnimations="True"
                              Hoverable="False"
@@ -169,13 +152,26 @@
                 <geared:GColumnSeries Values="{Binding DataRecordsList,
                                                Converter={StaticResource MyDataRecordsToLengthListConverter}}"
                                       ColumnPadding="0.25"/>
+                <geared:GColumnSeries Values="{Binding DataRecordsList,
+                                               Converter={StaticResource MyDataRecordsToLengthListConverter}}"
+                                      ColumnPadding="0.25"/>
+                 <geared:GColumnSeries Values="{Binding DataRecordsList,
+                                               Converter={StaticResource MyDataRecordsToLengthListConverter}}"
+                                      ColumnPadding="0.25"/>
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis MinValue="{Binding CurrentRow, Mode = TwoWay}"
                           MaxValue="{Binding CurrentRow,Converter = {StaticResource MyValuePlusOneHundread}, Mode = TwoWay}" />
             </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>
-
+        </lvc:CartesianChart>-->
+         <lvc:CartesianChart  Grid.Column="2" Grid.Row="1"
+                            DisableAnimations="True"
+                            Series="{Binding DataRecordsList,
+                                             Converter={StaticResource MyDataRecordsToLengthListConverter}}"
+                            Zoom="X"
+                            Hoverable="False"
+                            >
+          </lvc:CartesianChart>
          <GridSplitter Grid.Column="2" Grid.Row="2"
                        ShowsPreview="False" Height="5"
                        HorizontalAlignment="Stretch" />
