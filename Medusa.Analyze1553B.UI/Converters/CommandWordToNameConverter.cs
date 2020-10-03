@@ -13,24 +13,21 @@ namespace Medusa.Analyze1553B.UI.Converters
 {
     public class CommandWordToNameConverter : IValueConverter
     {
-         public List<Rule> Rules {get;set;}
-
-         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var cw = (ControlWord)value;
-
-
-            Rules = new List<Rule>
+         public List<Rule> Rules = new List<Rule>
             {
                 new Rule(31, DataDirection.R, 31, 17, "ССД",   "Green"),
                 new Rule(31, DataDirection.R, 29, 5,  "Время", "Blue"),
                 new Rule(1,  DataDirection.T, 1,  32, "Исправность устройства", "Blue")
             };
 
+         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var cw = (ControlWord)value;
+
             foreach (var rule in Rules)
             {
                 if (rule.Address       == cw.Address
-                    && rule.Direction  == cw.Direction
+                    && rule.Direction  == cw.Direction 
                     && rule.Subaddress == cw.Subaddress
                     && rule.Length     == cw.Length)
                 {

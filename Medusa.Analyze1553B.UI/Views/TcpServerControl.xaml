@@ -119,13 +119,13 @@
            
         </ListView.View>
 
-        <ListView.ItemContainerStyle>
- 
+        <!--<ListView.ItemContainerStyle>
             <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}" >
-               <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Error}" Value="NoResp">
+            <Setter Property="Background" Value="{Binding Path=Cw1, Converter={StaticResource MyCommandWordToColorConverter}}"/>
+             <Style.Triggers>
+                --><!--<DataTrigger Binding="{Binding Path=Error}" Value="NoResp">
                     <Setter Property="Background" Value="WhiteSmoke" />
-                </DataTrigger>
+                </DataTrigger>--><!--
                    <Trigger Property="IsMouseOver" Value="true">
                      <Setter Property="Background" Value="#FFA8D5E1" />
                      <Setter Property="Cursor" Value="Hand"/>
@@ -135,7 +135,20 @@
                      <Setter Property="Cursor" Value="Hand"/>
                    </Trigger>
             </Style.Triggers>
-            
+            </Style>
+        </ListView.ItemContainerStyle>-->
+             <ListView.ItemContainerStyle>
+            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}" >
+             <Style.Triggers>
+                   <Trigger Property="IsMouseOver" Value="true">
+                     <Setter Property="Background" Value="#FFA8D5E1" />
+                     <Setter Property="Cursor" Value="Hand"/>
+                   </Trigger>
+                   <Trigger Property="IsSelected" Value="true">
+                     <Setter Property="Background" Value="#FFA8D5E1" />
+                     <Setter Property="Cursor" Value="Hand"/>
+                   </Trigger>
+            </Style.Triggers>
             </Style>
         </ListView.ItemContainerStyle>
         
