@@ -38,8 +38,6 @@
             <RowDefinition Height="150"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-
-         <TextBlock x:Name="tb" Text="52"/>
           
          <ListView x:Name="myListView"
               Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"
@@ -148,7 +146,7 @@
                               DisableAnimations="True"
                               Hoverable="True"
                               DataClick="MainChart_DataClick"
-                              >
+                              Background="WhiteSmoke">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis >
                     <lvc:Axis.Separator>
@@ -163,7 +161,7 @@
                        ShowsPreview="False" Height="5"
                        HorizontalAlignment="Stretch" />
         
-        <ctrls:RightSliderControl Grid.Row="1" Grid.Column="3"
+        <ctrls:RightSliderControl Grid.Row="1" Grid.RowSpan="10" Grid.Column="3"
                                   DataContext="{Binding}" HorizontalAlignment="Right"/>
         
         <ctrls:ExpanderWithBottomControlButtons Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="4" 

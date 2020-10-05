@@ -19,9 +19,7 @@
              Background="White"
              x:Name="UserControl">
     <UserControl.Resources>
-        <converters:DataRecordsToLengthListConverter x:Key="MyDataRecordsToLengthListConverter"/>
         <converters:ValuePlusOneHundread x:Key="MyValuePlusOneHundread"/>
-        <converters:CommandWordToColorConverter x:Key="MyCommandWordToColorConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -68,7 +66,7 @@
         
         <ListView.View >
             <GridView>
-                <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1, Converter={StaticResource MyCommandWordToColorConverter}}">Type</GridViewColumn>
+                <GridViewColumn DisplayMemberBinding="{Binding Path=Cw1}">Type</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=MonitorTime    }" >Time</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Channel        }">Cl</GridViewColumn>
                 <GridViewColumn DisplayMemberBinding="{Binding Path=Error          }">Error</GridViewColumn>
@@ -146,22 +144,7 @@
                       ShowsPreview="False" Width="5"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
 
-        <lvc:CartesianChart  Name="MainChart" 
-                             Grid.Column="2" Grid.Row="1"
-                             DisableAnimations="True"
-                             Hoverable="False"
-                             Zoom="X"
-                             DataClick="MainChart_DataClick">
-            <lvc:CartesianChart.Series>
-                <geared:GColumnSeries Values="{Binding DataRecordsList,
-                                               Converter={StaticResource MyDataRecordsToLengthListConverter}}"
-                                      ColumnPadding="0.25"/>
-            </lvc:CartesianChart.Series>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis MinValue="{Binding CurrentRow, Mode = TwoWay}"
-                          MaxValue="{Binding CurrentRow,Converter = {StaticResource MyValuePlusOneHundread}, Mode = TwoWay}" />
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>
+       
 
          <GridSplitter Grid.Column="2" Grid.Row="2"
                        ShowsPreview="False" Height="5"

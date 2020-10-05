@@ -104,9 +104,8 @@ namespace Medusa.Analyze1553B.UI.Views
             ((IPageViewModel)DataContext).CurrentRow = pointX;
         }
 
-        private string GetColorByCommandWord(ControlWord cw)
+        private string GetColorByCommandWord(ControlWord cw,string parameter)
         {   
-            var parameter = "Color";
             foreach (var rule in Rules)
             {
                 if (rule.Address == cw.Address
@@ -114,10 +113,10 @@ namespace Medusa.Analyze1553B.UI.Views
                     && rule.Subaddress == cw.Subaddress
                     && rule.Length == cw.Length)
                 {
-                     return ((string)parameter=="Color") ? rule.Color : rule.Name;
+                     return (parameter=="Color") ? rule.Color : rule.Name;
                 }
             }
-            return ((string)parameter=="Color") ? "Black" : "Unknown";    
+            return (parameter=="Color") ? "Black" : "Unknown";    
         }
 
         private void myListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -126,48 +125,44 @@ namespace Medusa.Analyze1553B.UI.Views
             listView.ScrollIntoView(listView.SelectedItem);
 
             IPageViewModel x = (IPageViewModel)DataContext;
-            //
-            var cw = (ControlWord)x.DataRecordsList[x.CurrentRow].Cw1;
-            string resultColor = GetColorByCommandWord(cw);
-            
-            //
-            
-            //MessageBox.Show(cw.Address.ToString()+"   "+cw.Direction.ToString()+"   "+cw.Subaddress.ToString()+"   "+cw.Length.ToString()+"   "+resultColor);
-
-
-
-            var Series = new SeriesCollection();
-
-            int count = 150;
-            var ArrayOfLength = new int[count];
-            var CurrentRow = x.CurrentRow;
-
-            CartesianMapper<int> mapper = Mappers.Xy<int>()
-                .X((value, index) => index + CurrentRow)
-                .Y(value => value)
-                .Fill((value, index) => (Brush)(new BrushConverter().ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index+CurrentRow].Cw1))) );
-
-
-
-            Random rnd = new Random();
-            for (int i = 0; i < (count - 1); i++)
+            try
             {
-                ArrayOfLength[i] = x.DataRecordsList[i + CurrentRow].Cw1.Length;
+                var cw = x.DataRecordsList[x.CurrentRow].Cw1;
+
+                var Series = new SeriesCollection();
+
+                int count = 200;
+                var ArrayOfLength = new int[count];
+                var CurrentRow = x.CurrentRow;
+
+                CartesianMapper<int> mapper = Mappers.Xy<int>()
+                    .X((value, index) => index + CurrentRow)
+                    .Y(value => value)
+                    .Fill((value, index) => (Brush)(new BrushConverter()
+                                                    .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
+
+                for (int i = 0; i < (count - 1); i++)
+                {
+                    ArrayOfLength[i] = x.DataRecordsList[i + CurrentRow].Cw1.Length;
+                }
+
+                var values = ArrayOfLength.AsChartValues();
+                var series = new ColumnSeries
+                {
+                    Values = values,
+                    Configuration = mapper,
+                    ColumnPadding = 0.25,
+                    Fill = Brushes.Blue
+                };
+
+                Series.Add(series);
+                MainChart.Series = Series;
             }
-
-            var values = ArrayOfLength.AsChartValues();
-            var series = new ColumnSeries
-            {
-                //Title = x.Name,
-                Values = values,
-                Configuration = mapper,
-                ColumnPadding = 0.25,
-                Fill = Brushes.Blue
-            };
-
-            Series.Add(series);
-
-            MainChart.Series = Series;
+            catch (Exception ex)
+            {    
+                System.IO.File.WriteAllText(@"D:\WriteLines.txt", ex.Message);
+            }
+            
         }
     }
 }

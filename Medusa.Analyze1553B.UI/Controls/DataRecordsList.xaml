@@ -16,7 +16,6 @@
         <converters:ToIntConverter x:Key="MyToIntConverter"/>
     </UserControl.Resources>
     <DockPanel>
-        <Button Content="{Binding Number}" Click="Button_Click"/>
         <ListView x:Name="myListView"
               ScrollViewer.HorizontalScrollBarVisibility="Visible"  
               ScrollViewer.VerticalScrollBarVisibility="Disabled"

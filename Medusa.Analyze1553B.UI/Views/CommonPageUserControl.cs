@@ -61,8 +61,8 @@ namespace Medusa.Analyze1553B.UI
 
         public void myListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListView listView = (ListView)sender;
-            listView.ScrollIntoView(listView.SelectedItem);
+            //ListView listView = (ListView)sender;
+            //listView.ScrollIntoView(listView.SelectedItem);
          
         }
 
