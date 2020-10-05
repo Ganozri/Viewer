@@ -4,6 +4,7 @@ using Medusa.Analyze1553B.Common;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Medusa.Analyze1553B.UI
 {
@@ -36,6 +37,17 @@ namespace Medusa.Analyze1553B.UI
 
             this.Name = Name;
             this.Color = Color;
+        }
+
+        public Rule(int Address,DataDirection Direction,int Subaddress,int Length,string Name,Color Color)
+        {
+            this.Address = Address;
+            this.Direction = Direction;
+            this.Subaddress = Subaddress; 
+            this.Length = Length;
+
+            this.Name = Name;
+            this.Color = Color.ToString();
         }
 
     }

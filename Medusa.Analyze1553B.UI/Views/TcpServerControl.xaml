@@ -39,7 +39,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-         <TextBlock x:Name="tb" Text=""/>
+         <TextBlock x:Name="tb" Text="52"/>
           
          <ListView x:Name="myListView"
               Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"
@@ -52,7 +52,8 @@
                                        UpdateSourceTrigger=PropertyChanged,
                                        NotifyOnTargetUpdated=True}"
               SelectionChanged="myListView_SelectionChanged"
-              VirtualizingStackPanel.IsVirtualizing="True">
+              VirtualizingStackPanel.IsVirtualizing="True"
+              >
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
@@ -142,36 +143,23 @@
                       ShowsPreview="False" Width="5"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
 
-        <!--<lvc:CartesianChart  Name="MainChart" 
-                             Grid.Column="2" Grid.Row="1"
-                             DisableAnimations="True"
-                             Hoverable="False"
-                             Zoom="X"
-                             DataClick="MainChart_DataClick">
-            <lvc:CartesianChart.Series>
-                <geared:GColumnSeries Values="{Binding DataRecordsList,
-                                               Converter={StaticResource MyDataRecordsToLengthListConverter}}"
-                                      ColumnPadding="0.25"/>
-                <geared:GColumnSeries Values="{Binding DataRecordsList,
-                                               Converter={StaticResource MyDataRecordsToLengthListConverter}}"
-                                      ColumnPadding="0.25"/>
-                 <geared:GColumnSeries Values="{Binding DataRecordsList,
-                                               Converter={StaticResource MyDataRecordsToLengthListConverter}}"
-                                      ColumnPadding="0.25"/>
-            </lvc:CartesianChart.Series>
+          <lvc:CartesianChart Grid.Column="2" Grid.Row="1"
+                              Name="MainChart"
+                              DisableAnimations="True"
+                              Hoverable="True"
+                              DataClick="MainChart_DataClick">
+                              <!--DataClick="MainChart_DataClick">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis MinValue="{Binding CurrentRow, Mode = TwoWay}"
-                          MaxValue="{Binding CurrentRow,Converter = {StaticResource MyValuePlusOneHundread}, Mode = TwoWay}" />
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>-->
-         <lvc:CartesianChart  Grid.Column="2" Grid.Row="1"
-                            DisableAnimations="True"
-                            Series="{Binding DataRecordsList,
-                                             Converter={StaticResource MyDataRecordsToLengthListConverter}}"
-                            Zoom="X"
-                            Hoverable="False"
-                            >
-          </lvc:CartesianChart>
+                          MaxValue="{Binding CurrentRow,Converter = {StaticResource MyValuePlusOneHundread}, Mode = TwoWay}">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="3" Stroke="{x:Null}"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>-->
+        </lvc:CartesianChart>
+          
+          
          <GridSplitter Grid.Column="2" Grid.Row="2"
                        ShowsPreview="False" Height="5"
                        HorizontalAlignment="Stretch" />

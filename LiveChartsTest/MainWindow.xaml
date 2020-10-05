@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LiveChartsTest" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:geared="clr-namespace:LiveCharts.Geared;assembly=LiveCharts.Geared"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:LiveChartsTest" 
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Title="MainWindow" Height="800" Width="1280">
+    <Window.DataContext>
+    <local:DataModel />
+  </Window.DataContext>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -13,20 +16,45 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
+        <Button Content="Click me!" Click="Button_Click"/>
         <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="3"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+<lvc:CartesianChart x:Name="CartesianChart" 
+                  Grid.Column="2" Grid.Row="1"
+                  Series="{Binding SeriesCollection}" 
+                  Height="500" 
+                  Zoom="None"  
+                  Hoverable="False" 
+                  DataTooltip="{x:Null}" 
+                  DisableAnimations="True">
+    <lvc:CartesianChart.CacheMode>
+      <BitmapCache EnableClearType="False" 
+                   RenderAtScale="1"
+                   SnapsToDevicePixels="False" />
+    </lvc:CartesianChart.CacheMode>
 
-         
-        <local:ScrollableView Grid.Column="2"/>
-        <!--<local:SectionMouseMoveSample Grid.Column="2"/>-->
+    <lvc:CartesianChart.AxisY>
+      <lvc:Axis Title="Sin(X)"
+            FontSize="14" 
+            Unit="1"
+            MaxValue="1.1"
+            MinValue="-1.1" 
+            DisableAnimations="True"
+            LabelFormatter="{Binding LabelFormatter}"
+            Foreground="PaleVioletRed" />
+    </lvc:CartesianChart.AxisY>
 
-        <!--<lvc:CartesianChart Grid.Column="2" DisableAnimations="True" Zoom="X">
-            <lvc:CartesianChart.Series>
-                <geared:GLineSeries Values="{Binding Values}"/>
-            </lvc:CartesianChart.Series>
-        </lvc:CartesianChart>-->
-
+    <lvc:CartesianChart.AxisX>
+      <lvc:Axis Title="X" 
+            DisableAnimations="True" 
+            FontSize="14" 
+            Unit="1"
+            MaxValue="{Binding XMax}"
+            MinValue="{Binding XMin}"
+            Foreground="PaleVioletRed" />
+    </lvc:CartesianChart.AxisX>
+  </lvc:CartesianChart>
+     
 
     </Grid>
 </Window>
