@@ -5,24 +5,14 @@ using LiveCharts.Wpf;
 using Medusa.Analyze1553B.Common;
 using Medusa.Analyze1553B.UI.Converters;
 using Medusa.Analyze1553B.VM;
-using Medusa.Analyze1553B.VM.ProductViewModels;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Medusa.Analyze1553B.UI.Views
 {
@@ -160,7 +150,7 @@ namespace Medusa.Analyze1553B.UI.Views
             }
             catch (Exception ex)
             {    
-                System.IO.File.WriteAllText(@"D:\WriteLines.txt", ex.Message);
+                System.IO.File.WriteAllText("Errors.txt", ex.Message);
             }
             
         }
