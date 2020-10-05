@@ -29,7 +29,8 @@ namespace Medusa.Analyze1553B.UI.Views
 
     public partial class TcpServerControl : CommonPageUserControl
     { 
-       
+        public List<Rule>  Rules {get;set;}
+
         public TcpServerControl()
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace Medusa.Analyze1553B.UI.Views
                 BasedOn = myListView.ItemContainerStyle
             };
 
-            List<Rule>  Rules = new List<Rule>
+            Rules = new List<Rule>
             {
                 new Rule(31, DataDirection.R, 31, 17, "ССД",                    "Green"),//Change by string
                 new Rule(31, DataDirection.R, 29, 5,  "Время",                  Colors.BlueViolet.ToString()),//Change by Colors
@@ -79,28 +80,22 @@ namespace Medusa.Analyze1553B.UI.Views
                 new Rule(1,  DataDirection.T, 11, 9,  "ADB",                    Colors.Chocolate)
             };
             
-            CommandWordToColorOrNameConverter commandWordToColorConverter = new CommandWordToColorOrNameConverter(Rules);
+            CommandWordToColorOrNameConverter CommandWordToColorOrNameConverter = new CommandWordToColorOrNameConverter(Rules);
 
             Binding bindingName = new Binding("Cw1")
             {
-                Converter = commandWordToColorConverter,
+                Converter = CommandWordToColorOrNameConverter,
                 ConverterParameter = "Name"
             };
             TypeName.DisplayMemberBinding = bindingName;
 
             Binding binding = new Binding("Cw1")
             {
-                Converter = commandWordToColorConverter,
+                Converter = CommandWordToColorOrNameConverter,
                 ConverterParameter = "Color"
             };
             style.Setters.Add(new Setter(BackgroundProperty, binding));
             myListView.ItemContainerStyle = style;
-
-           
-            //<!--Series="{Binding DataRecordsList,
-            //                                   Converter={StaticResource MyDataRecordsToLengthListConverter} }"-->
-            //
-           
         }
 
         private void MainChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)
@@ -109,14 +104,38 @@ namespace Medusa.Analyze1553B.UI.Views
             ((IPageViewModel)DataContext).CurrentRow = pointX;
         }
 
+        private string GetColorByCommandWord(ControlWord cw)
+        {   
+            var parameter = "Color";
+            foreach (var rule in Rules)
+            {
+                if (rule.Address == cw.Address
+                    && rule.Direction == cw.Direction
+                    && rule.Subaddress == cw.Subaddress
+                    && rule.Length == cw.Length)
+                {
+                     return ((string)parameter=="Color") ? rule.Color : rule.Name;
+                }
+            }
+            return ((string)parameter=="Color") ? "Black" : "Unknown";    
+        }
+
         private void myListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //
             ListView listView = (ListView)sender;
             listView.ScrollIntoView(listView.SelectedItem);
-            //
+
             IPageViewModel x = (IPageViewModel)DataContext;
-            //MessageBox.Show(x.CurrentRow.ToString());
+            //
+            var cw = (ControlWord)x.DataRecordsList[x.CurrentRow].Cw1;
+            string resultColor = GetColorByCommandWord(cw);
+            
+            //
+            
+            //MessageBox.Show(cw.Address.ToString()+"   "+cw.Direction.ToString()+"   "+cw.Subaddress.ToString()+"   "+cw.Length.ToString()+"   "+resultColor);
+
+
+
             var Series = new SeriesCollection();
 
             int count = 150;
@@ -126,21 +145,20 @@ namespace Medusa.Analyze1553B.UI.Views
             CartesianMapper<int> mapper = Mappers.Xy<int>()
                 .X((value, index) => index + CurrentRow)
                 .Y(value => value)
-                .Fill((value, index) => value > 5 ? Brushes.Red : Brushes.Blue);
+                .Fill((value, index) => (Brush)(new BrushConverter().ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index+CurrentRow].Cw1))) );
+
 
 
             Random rnd = new Random();
             for (int i = 0; i < (count - 1); i++)
             {
-                //ArrayOfLength[i] = rnd.Next(0, 10);
-                ArrayOfLength[i] = x.DataRecordsList[i+CurrentRow].Cw1.Length;
+                ArrayOfLength[i] = x.DataRecordsList[i + CurrentRow].Cw1.Length;
             }
 
             var values = ArrayOfLength.AsChartValues();
             var series = new ColumnSeries
             {
-                //Title = "Data",
-                Title = x.Name,
+                //Title = x.Name,
                 Values = values,
                 Configuration = mapper,
                 ColumnPadding = 0.25,
@@ -150,7 +168,6 @@ namespace Medusa.Analyze1553B.UI.Views
             Series.Add(series);
 
             MainChart.Series = Series;
-
         }
     }
 }

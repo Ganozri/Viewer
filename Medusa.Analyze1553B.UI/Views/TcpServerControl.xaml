@@ -147,16 +147,15 @@
                               Name="MainChart"
                               DisableAnimations="True"
                               Hoverable="True"
-                              DataClick="MainChart_DataClick">
-                              <!--DataClick="MainChart_DataClick">
+                              DataClick="MainChart_DataClick"
+                              >
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis MinValue="{Binding CurrentRow, Mode = TwoWay}"
-                          MaxValue="{Binding CurrentRow,Converter = {StaticResource MyValuePlusOneHundread}, Mode = TwoWay}">
+                <lvc:Axis >
                     <lvc:Axis.Separator>
-                        <lvc:Separator Step="3" Stroke="{x:Null}"/>
+                        <lvc:Separator Step="5" Stroke="{x:Null}"/>
                     </lvc:Axis.Separator>
                 </lvc:Axis>
-            </lvc:CartesianChart.AxisX>-->
+            </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
           
           
