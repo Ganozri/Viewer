@@ -20,6 +20,8 @@ namespace Medusa.Analyze1553B.UI.Views
     public partial class TcpServerControl : CommonPageUserControl
     { 
         public List<Rule>  Rules {get;set;}
+        public SeriesCollection Series = new SeriesCollection();
+        public int PreviousCurrentRowIndex = 0;
 
         public TcpServerControl()
         {
@@ -118,34 +120,75 @@ namespace Medusa.Analyze1553B.UI.Views
             try
             {
                 var cw = x.DataRecordsList[x.CurrentRow].Cw1;
-
-                var Series = new SeriesCollection();
-
-                int count = 200;
-                var ArrayOfLength = new int[count];
+                
+                int count = 100;
+                
                 var CurrentRow = x.CurrentRow;
-
-                CartesianMapper<int> mapper = Mappers.Xy<int>()
-                    .X((value, index) => index + CurrentRow)
-                    .Y(value => value)
-                    .Fill((value, index) => (Brush)(new BrushConverter()
-                                                    .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
-
-                for (int i = 0; i < (count - 1); i++)
+    
+                if (Math.Abs(PreviousCurrentRowIndex - CurrentRow) < 50 && Series.Count>0)
                 {
-                    ArrayOfLength[i] = x.DataRecordsList[i + CurrentRow].Cw1.Length;
+                   
+                    if (CurrentRow > PreviousCurrentRowIndex)
+                    {
+                        int difBetweenRow = CurrentRow - PreviousCurrentRowIndex;
+                        for (int i = 0; i < difBetweenRow; i++)
+                        {
+                            Series[0].Values.RemoveAt(0);
+                            Series[0].Values.Add(x.DataRecordsList[i+count+PreviousCurrentRowIndex].Cw1.Length);
+                        }
+                        CartesianMapper<int> mapper = Mappers.Xy<int>()
+                                                     .X((value, index) => index + CurrentRow)
+                                                     .Y(value => value)
+                                                     .Fill((value, index) => (Brush)(new BrushConverter()
+                                                                             .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
+                        Series[0].Configuration = mapper;
+                        PreviousCurrentRowIndex = CurrentRow;
+                    }
+                    else
+                    {
+                        int difBetweenRow = PreviousCurrentRowIndex-CurrentRow;
+                        for (int i = 0; i < difBetweenRow; i++)
+                        {
+                            Series[0].Values.RemoveAt(Series[0].Values.Count-1);
+                            Series[0].Values.Insert(0,x.DataRecordsList[PreviousCurrentRowIndex-i].Cw1.Length);
+                        }
+                        CartesianMapper<int> mapper = Mappers.Xy<int>()
+                                                     .X((value, index) => index + CurrentRow)
+                                                     .Y(value => value)
+                                                     .Fill((value, index) => (Brush)(new BrushConverter()
+                                                                             .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
+                        Series[0].Configuration = mapper;
+                        PreviousCurrentRowIndex = CurrentRow;
+                        
+                    }
                 }
-
-                var values = ArrayOfLength.AsChartValues();
-                var series = new ColumnSeries
+                else
                 {
-                    Values = values,
-                    Configuration = mapper,
-                    ColumnPadding = 0.25,
-                    Fill = Brushes.Blue
-                };
+                    var ArrayOfLength = new int[count];
+                    Series.Clear();
 
-                Series.Add(series);
+                    CartesianMapper<int> mapper = Mappers.Xy<int>()
+                        .X((value, index) => index + CurrentRow)
+                        .Y(value => value)
+                        .Fill((value, index) => (Brush)(new BrushConverter()
+                                                        .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        ArrayOfLength[i] = x.DataRecordsList[i + CurrentRow].Cw1.Length;
+                    }
+
+                    var values = ArrayOfLength.AsChartValues();
+                    var series = new ColumnSeries
+                    {
+                        Values = values,
+                        Configuration = mapper,
+                        ColumnPadding = 0.25,
+                        Fill = Brushes.Blue
+                    };
+
+                    Series.Add(series);
+                }
                 MainChart.Series = Series;
             }
             catch (Exception ex)
@@ -154,5 +197,7 @@ namespace Medusa.Analyze1553B.UI.Views
             }
             
         }
+
+       
     }
 }

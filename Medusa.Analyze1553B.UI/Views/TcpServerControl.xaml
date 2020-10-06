@@ -38,7 +38,7 @@
             <RowDefinition Height="150"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-          
+         
          <ListView x:Name="myListView"
               Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"
               MaxWidth = "{Binding ActualWidth, ElementName = UserControl,
