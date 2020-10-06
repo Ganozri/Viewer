@@ -126,7 +126,11 @@ namespace Medusa.Analyze1553B.UI.Views
                 
                 var CurrentRow = x.CurrentRow;
                 //
-                
+                CartesianMapper<int> mapper = Mappers.Xy<int>()
+                                                     .X((value, index) => index + CurrentRow)
+                                                     .Y(value => value) 
+                                                     .Fill((value, index) => (Brush)(new BrushConverter()
+                                                                             .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
                 //
                 if (Math.Abs(PreviousCurrentRowIndex - CurrentRow) < count/2 && Series.Count>0)
                 {
@@ -139,13 +143,6 @@ namespace Medusa.Analyze1553B.UI.Views
                             Series[0].Values.RemoveAt(0);
                             Series[0].Values.Add(x.DataRecordsList[i+count+PreviousCurrentRowIndex].Cw1.Length);
                         }
-                        CartesianMapper<int> mapper = Mappers.Xy<int>()
-                                                    .X((value, index) => index + CurrentRow)
-                                                    .Y(value => value)
-                                                    .Fill((value, index) => (Brush)(new BrushConverter()
-                                                                            .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
-                        Series[0].Configuration = mapper;
-                        PreviousCurrentRowIndex = CurrentRow;
                     }
                     else
                     {
@@ -155,26 +152,12 @@ namespace Medusa.Analyze1553B.UI.Views
                             Series[0].Values.RemoveAt(Series[0].Values.Count-1);
                             Series[0].Values.Insert(0,x.DataRecordsList[PreviousCurrentRowIndex-i-1].Cw1.Length);
                         }
-                        CartesianMapper<int> mapper = Mappers.Xy<int>()
-                                                     .X((value, index) => index + CurrentRow)
-                                                     .Y(value => value)
-                                                     .Fill((value, index) => (Brush)(new BrushConverter()
-                                                                             .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
-                        Series[0].Configuration = mapper;
-                        PreviousCurrentRowIndex = CurrentRow;
-                        
                     }
                 }
                 else
                 {
                     var ArrayOfLength = new int[count];
                     Series.Clear();
-
-                    CartesianMapper<int> mapper = Mappers.Xy<int>()
-                        .X((value, index) => index + CurrentRow)
-                        .Y(value => value)
-                        .Fill((value, index) => (Brush)(new BrushConverter()
-                                                        .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
 
                     for (int i = 0; i < count; i++)
                     {
@@ -192,6 +175,8 @@ namespace Medusa.Analyze1553B.UI.Views
 
                     Series.Add(series);
                 }
+                Series[0].Configuration = mapper;
+                PreviousCurrentRowIndex = CurrentRow;
                 MainChart.Series = Series;
             }
             catch (Exception ex)
