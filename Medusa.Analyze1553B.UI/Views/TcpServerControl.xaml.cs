@@ -22,6 +22,7 @@ namespace Medusa.Analyze1553B.UI.Views
         public List<Rule>  Rules {get;set;}
         public SeriesCollection Series = new SeriesCollection();
         public int PreviousCurrentRowIndex = 0;
+        
 
         public TcpServerControl()
         {
@@ -124,8 +125,10 @@ namespace Medusa.Analyze1553B.UI.Views
                 int count = 100;
                 
                 var CurrentRow = x.CurrentRow;
-    
-                if (Math.Abs(PreviousCurrentRowIndex - CurrentRow) < 50 && Series.Count>0)
+                //
+                
+                //
+                if (Math.Abs(PreviousCurrentRowIndex - CurrentRow) < count/2 && Series.Count>0)
                 {
                    
                     if (CurrentRow > PreviousCurrentRowIndex)
@@ -137,10 +140,10 @@ namespace Medusa.Analyze1553B.UI.Views
                             Series[0].Values.Add(x.DataRecordsList[i+count+PreviousCurrentRowIndex].Cw1.Length);
                         }
                         CartesianMapper<int> mapper = Mappers.Xy<int>()
-                                                     .X((value, index) => index + CurrentRow)
-                                                     .Y(value => value)
-                                                     .Fill((value, index) => (Brush)(new BrushConverter()
-                                                                             .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
+                                                    .X((value, index) => index + CurrentRow)
+                                                    .Y(value => value)
+                                                    .Fill((value, index) => (Brush)(new BrushConverter()
+                                                                            .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
                         Series[0].Configuration = mapper;
                         PreviousCurrentRowIndex = CurrentRow;
                     }
@@ -150,7 +153,7 @@ namespace Medusa.Analyze1553B.UI.Views
                         for (int i = 0; i < difBetweenRow; i++)
                         {
                             Series[0].Values.RemoveAt(Series[0].Values.Count-1);
-                            Series[0].Values.Insert(0,x.DataRecordsList[PreviousCurrentRowIndex-i].Cw1.Length);
+                            Series[0].Values.Insert(0,x.DataRecordsList[PreviousCurrentRowIndex-i-1].Cw1.Length);
                         }
                         CartesianMapper<int> mapper = Mappers.Xy<int>()
                                                      .X((value, index) => index + CurrentRow)
