@@ -22,7 +22,7 @@ namespace Medusa.Analyze1553B.UI.Views
         public List<Rule>  Rules {get;set;}
         public SeriesCollection Series = new SeriesCollection();
         public int PreviousCurrentRowIndex = 0;
-        
+        public int count = 100;
 
         public TcpServerControl()
         {
@@ -88,7 +88,7 @@ namespace Medusa.Analyze1553B.UI.Views
                 ConverterParameter = "Color"
             };
             style.Setters.Add(new Setter(BackgroundProperty, binding));
-            myListView.ItemContainerStyle = style;
+            //myListView.ItemContainerStyle = style;
         }
 
         private void MainChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)
@@ -121,20 +121,15 @@ namespace Medusa.Analyze1553B.UI.Views
             try
             {
                 var cw = x.DataRecordsList[x.CurrentRow].Cw1;
-                
-                int count = 100;
-                
+
                 var CurrentRow = x.CurrentRow;
-                //
                 CartesianMapper<int> mapper = Mappers.Xy<int>()
                                                      .X((value, index) => index + CurrentRow)
                                                      .Y(value => value) 
                                                      .Fill((value, index) => (Brush)(new BrushConverter()
                                                                              .ConvertFrom(GetColorByCommandWord(x.DataRecordsList[index + CurrentRow].Cw1, "Color"))));
-                //
-                if (Math.Abs(PreviousCurrentRowIndex - CurrentRow) < count/2 && Series.Count>0)
+                if (Math.Abs(PreviousCurrentRowIndex - CurrentRow) < count/2 && Series.Count > 0)
                 {
-                   
                     if (CurrentRow > PreviousCurrentRowIndex)
                     {
                         int difBetweenRow = CurrentRow - PreviousCurrentRowIndex;
@@ -158,12 +153,10 @@ namespace Medusa.Analyze1553B.UI.Views
                 {
                     var ArrayOfLength = new int[count];
                     Series.Clear();
-
                     for (int i = 0; i < count; i++)
                     {
                         ArrayOfLength[i] = x.DataRecordsList[i + CurrentRow].Cw1.Length;
                     }
-
                     var values = ArrayOfLength.AsChartValues();
                     var series = new ColumnSeries
                     {
