@@ -2,11 +2,11 @@
 using System.IO;
 using System.Windows;
 using Medusa.Analyze1553B.DI;
+using Medusa.Analyze1553B.UI;
 using Medusa.Analyze1553B.UI.Views;
 using Medusa.Analyze1553B.UIServices;
 using Medusa.Analyze1553B.VM;
 using Medusa.Analyze1553B.VMServices;
-//using Microsoft.Extensions.DependencyInjection;
 using Olympus.Translation;
 
 namespace Medusa.Analyze1553B.UI
@@ -28,6 +28,7 @@ namespace Medusa.Analyze1553B.UI
                     r.For<IDialogService>().Use(x => x.GetInstance<MainWindow>());
                     r.For<IDataService>().Use(x => x.GetInstance<DataService>());
                     r.For<ISynchronizationContextProvider>().Use(x => x.GetInstance<MainWindow>());
+                  
                 });
             
             var wnd = TypeResolver.Resolve<MainWindow>();

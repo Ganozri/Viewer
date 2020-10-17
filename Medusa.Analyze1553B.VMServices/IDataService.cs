@@ -7,6 +7,7 @@ namespace Medusa.Analyze1553B.VMServices
 {
     public interface IDataService
     {
-        DataRecord[] GetData(string path, string ViewModelName);
+        DataRecord[] GetData(string path, object ViewModel);
+        object GetData(string path);
     }
 }

@@ -9,9 +9,11 @@ namespace Medusa.Analyze1553B.VM
         object VmObject { get; }
 
         public Commands Commands { get; }
+
+        public ObservableCollection<IPageViewModel> ViewModels { get; set; }
+        public IPageViewModel SelectedViewModel { get; set; }
+
         public ObservableCollection<Type> Types { get; set; }
 
-        ObservableCollection<IPageViewModel> ViewModels { get; set; }
-        IPageViewModel SelectedViewModel { get; set; }
     }
 }

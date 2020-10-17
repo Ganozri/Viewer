@@ -1,219 +1,255 @@
-<Window x:Class="Medusa.Analyze1553B.UI.MainWindow"
+﻿<mah:MetroWindow  
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+        x:Class="Medusa.Analyze1553B.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Medusa.Analyze1553B.UI"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:views="clr-namespace:Medusa.Analyze1553B.UI.Views"
-        xmlns:vms = "clr-namespace:Medusa.Analyze1553B.VM.ProductViewModels;assembly=Medusa.Analyze1553B.VM"
-        xmlns:vm = "clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM"
-        xmlns:converters = "clr-namespace:Medusa.Analyze1553B.UI.Converters" 
-        d:DataContext="{d:DesignInstance d:Type=vm:StartVmObject}"
+        xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM" 
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+        xmlns:converters="clr-namespace:Medusa.Analyze1553B.UI.Converters"
         mc:Ignorable="d"
+        x:Name="MainWindowName"
         Title="{Binding Title}" 
         Width="1280" Height="1024" 
         MinWidth="1280" MinHeight="1024" 
         WindowState="Maximized">
+    <mah:MetroWindow.Resources>
 
-    <Window.InputBindings>
-        
-        <KeyBinding Command="{Binding Commands.OpenXmlForTableCreationCommand}" Key="N" Modifiers="Ctrl"/>
-        <KeyBinding Command="{Binding Commands.SaveXmlFromTableCommand}" Key="S" Modifiers="Ctrl"/>
-        <KeyBinding Command="{Binding Commands.AddViewModelCommand}" CommandParameter="ChoosePageViewModel" Key="T" Modifiers="Ctrl"/>
-      
-    </Window.InputBindings>
+        <converters:FromDateRecordToDataTableWithIstructionsFromNode x:Key="MyFromDateRecordToDataTableWithIstructionsFromNode"/>
 
-    <Window.Resources>
-        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
-        <SolidColorBrush x:Key="SolidBorderBrush" Color="#FFF" />
-        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
-        <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
-        <Style  TargetType="{x:Type TabControl}">
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Style TargetType="{x:Type local:TabControlEx}" BasedOn="{StaticResource MahApps.Styles.TabControl}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabControl}">
-                        <Grid KeyboardNavigation.TabNavigation="Local">
+                        <Grid Background="{TemplateBinding Background}" ClipToBounds="True" 
+                              KeyboardNavigation.TabNavigation="Local" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0" />
+                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0" />
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition x:Name="RowDefinition0" Height="Auto" />
+                                <RowDefinition x:Name="RowDefinition1" Height="*" />
                             </Grid.RowDefinitions>
-                            <!-- This inserts the button -> -->
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TabPanel Name="HeaderPanel"
-                                          Grid.Column="0"
-                                          IsItemsHost="True"
-                                          KeyboardNavigation.TabIndex="1"
-                                          Background="Transparent"
-                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <Button x:Name="TabPanelButton"  
-                                        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                                        Background="{StaticResource PrimaryHueDarkBrush}"
-                                        Grid.Column="1"
-                                        Command="{Binding Commands.AddViewModelCommand}"
-                                        CommandParameter="ChoosePageViewModel"
-                                        Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                        Margin="5,0,0,0"/>
-                                
-                            </Grid>
-                            <!-- <- This inserts the button -->
-                            <Border Name="Border" 
-                                Grid.Row="1" 
-                                Background="{StaticResource WindowBackgroundBrush}" 
-                                BorderBrush="{StaticResource SolidBorderBrush}" 
-                                BorderThickness="1" 
-                                CornerRadius="2" 
-                                KeyboardNavigation.TabNavigation="Local"
-                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                KeyboardNavigation.TabIndex="2" >
-                                <ContentPresenter Name="PART_SelectedContentHost"
-                                                  Margin="4"
-                                                  ContentSource="SelectedContent" />
+                            <DockPanel Margin="2,2,0,0" LastChildFill="False">
+                                <TabPanel x:Name="HeaderPanel" Margin="0,0,0,-1" 
+                                          VerticalAlignment="Bottom" Panel.ZIndex="1" 
+                                          DockPanel.Dock="Left" IsItemsHost="True"
+                                          KeyboardNavigation.TabIndex="1" />
+                            </DockPanel>
+                            <Border x:Name="ContentPanel" Grid.Row="1" Grid.Column="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            KeyboardNavigation.DirectionalNavigation="Contained" 
+                            KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                                <Grid x:Name="PART_ItemsHolder" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Border>
                         </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
-                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        <converters:AcceptationStatusGlobalFlagToIconFilenameConverter x:Key="IconConverter"/>
-        
-        <Style TargetType="TabItem">
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Grid Name="Panel">
-
-                            <ContentPresenter x:Name="ContentSite"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ContentSource="Header"
-                                    >
-                                <ContentPresenter.Content>
-                                    <Border  BorderThickness="1"
-                                             BorderBrush="White">
-                                        <Border Name="tabItemBorder"
-                                            BorderThickness="0 0 0 2"
-                                            BorderBrush="{Binding CurrentState, Converter={StaticResource IconConverter}}">
-                                            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
-                                                <TextBlock Text="{Binding Name, NotifyOnTargetUpdated = True}"/>
-                                                <Button Name="tabItemCloseButton"
-                                                    Style="{StaticResource MaterialDesignIconButton}"
-                                                    Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                    Foreground="{StaticResource PrimaryHueDarkBrush}"
-                                                    Content="X"
-                                                    Visibility="Hidden"
-                                                    Margin="3,0,0,0"
-                                                    Command="{Binding Commands.RemoveViewModelCommand}"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </Border>
-                                    
-            
-                                </ContentPresenter.Content>
-                            </ContentPresenter>
-                        </Grid>
-                        
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Panel" Property="Background" Value="#FFDADADA" />
-                                <Setter TargetName="tabItemCloseButton" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="Panel" Property="Background" Value="{Binding ElementName=MainMenu,Path=Background}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Panel" Property="Background" Value="#FFDADADA" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
+        <Style x:Key="CloseButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
+           
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="5,0,5,0"/>
+            <Setter Property="FontSize" Value="16"/>
         </Style>
-        <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
-    </Window.Resources>
-
-
-    <Grid>
-
-        <Grid.LayoutTransform>
-            <ScaleTransform ScaleX="{Binding WindowScale,Mode=OneWay}" ScaleY="{Binding WindowScale,Mode=OneWay}" />
-        </Grid.LayoutTransform>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" >
-
-            <Menu  x:Name="MainMenu"
-                    VerticalAlignment="Center" >
-                <MenuItem Name="File" Header="File" Height="30">
-                    <MenuItem Name="Open" Header="Open"           Command="{Binding  Commands.OpenXmlForTableCreationCommand}"      
-                              InputGestureText="Ctrl+N"/>
-                    <MenuItem Header="Save"           Command="{Binding  Commands.SaveXmlFromTableCommand}"      
-                              InputGestureText="Ctrl+S"/>
+    </mah:MetroWindow.Resources>
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button Click="LaunchGitHubSite" ToolTip="Open up the GitHub site">
+                <iconPacks:PackIconModern Width="22"
+                                  Height="22"
+                                  Kind="Book" />
+            </Button>
+            <Menu Margin="10,0,10,0">
+                <MenuItem Header="File">
+                    <MenuItem Header="New project" Command="{Binding Commands.CreateManagerOfViewModelsCommand}"/>
+                    <MenuItem Header="Open" Command="{Binding Commands.GetDataFromFileCommand}"/>
+                    <MenuItem Header="Save"/>
+                    <MenuItem Header="Save All"/>
                 </MenuItem>
-                <MenuItem Header="Edit" Height="30" />
-                <MenuItem Header="View" Height="30"/>
-                <MenuItem Header="Help"  Command="{Binding  Commands.ShowHelpInformationCommand}" 
-                          InputGestureText="Ctrl+H"
-                          Height="30"/>
+                <MenuItem Header="Edit"/>
+                <MenuItem Header="View"/>
+                <MenuItem Header="Test"/>
             </Menu>
 
-            <StackPanel Orientation="Horizontal" Height="30" Background="{Binding ElementName=MainMenu,Path=Background}" Visibility="Hidden">
-                <TextBlock Text="ScaleUI " FontSize="{Binding FontSize, ElementName=MainMenu}"
-                           VerticalAlignment="Center"
-                           Padding="{Binding ElementName=File, Path=Padding}"/>
-                <Slider Name="ScaleUI" 
-                        MinWidth="100" Minimum="0.5" Maximum="3"  VerticalAlignment="Center"
-                        Value="{Binding WindowScale,Mode=TwoWay}" />
-            </StackPanel>
-        </StackPanel>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Click="GetHelpClick" Content="Get help">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Width="22"
+                                        Height="22"
+                                        VerticalAlignment="Center"
+                                        Kind="BookPerspectiveHelp" />
+                            <TextBlock Margin="4 0 0 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="0.15*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto" />
+
+            </Grid.ColumnDefinitions>
+            <ToolBarTray IsLocked="True">
+                <ToolBar>
+                    <Button>
+                        <iconPacks:PackIconModern
+                                  Kind="Undo"/>
+                    </Button>
+                    <Button>
+                        <iconPacks:PackIconModern
+                                  Kind="Redo"/>
+                    </Button>
+                    <Button>
+                        <iconPacks:PackIconModern
+                                  Kind="ControlPlay"/>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+
+        </Grid>
         
-        <TabControl Grid.Row="1" Grid.Column="0"
-                    x:Name="products"
-                    ItemsSource="{Binding ViewModels}"
-                    SelectedItem="{Binding SelectedViewModel}"
-                    FontSize="15">
-            <TabControl.Resources>
-                
-                <DataTemplate DataType="{x:Type vms:TcpServerViewModel}">
-                    <views:TcpServerControl/>
-                </DataTemplate>
-                
-                <DataTemplate DataType="{x:Type vms:ChoosePageViewModel}">
-                    <views:ChangeProductView/>
-                </DataTemplate>
+        <local:TabControlEx x:Name="ViewModelTabControl"
+                            Grid.Row="1" Grid.ColumnSpan="3"
+                            Margin="0,0,-3,-3"
+                            ItemsSource="{Binding ViewModels}"
+                            SelectedItem="{Binding SelectedViewModel}">
 
-                <DataTemplate DataType="{x:Type vms:MT1553ViewModel}">
-                    <views:MTView1553/>
-                </DataTemplate>
 
-                <DataTemplate DataType="{x:Type vms:RT01ViewModel}">
-                    <views:RT01View/>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name, NotifyOnTargetUpdated = True}" />
+                        <Button Style="{StaticResource CloseButtonStyle}"
+                                Content="X"
+                                Command="{Binding Commands.CloseSomethingCommand}" 
+                                CommandParameter="{Binding}"/>
+                    </StackPanel>
                 </DataTemplate>
+            </TabControl.ItemTemplate>
 
-            </TabControl.Resources>
-        </TabControl>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="0.15*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <local:TabControlEx x:Name="ItemsCurrentViewModelTabControl"
+                                            ItemsSource="{Binding Items}"
+                                            SelectedItem="{Binding SelectedItem}">
+                            
+                            <TabControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <TextBlock Text="{Binding Name}"/>
+                                        <Button Style="{StaticResource CloseButtonStyle}"
+                                                Content="X"
+                                                Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                  AncestorType={x:Type mah:MetroWindow}},
+                                                                  Path=DataContext.Commands.CloseSomethingCommand}"
+                                                CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </TabControl.ItemTemplate>
+                            
+                            <TabControl.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="GridForItems" >
+                                        <DataGrid x:Name="DataRecordsDataGrid" Loaded="DataRecordsDataGrid_Loaded"
+                                                  ItemsSource="{Binding ReadableDataRecords}">
+                                        </DataGrid>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </TabControl.ContentTemplate>
+                        </local:TabControlEx>
+                        
+                        <GridSplitter Grid.Row="1" Grid.Column="1"
+                                      Width="5"
+                                      Background="Gray"/>
+                        <TreeView x:Name="ViewModelTreeView"
+                                  ItemsSource="{Binding Nodes}"
+                                  Grid.Column="2">
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                    <i:InvokeCommandAction  Command="{Binding Commands.AddItemCommand}"
+                                            CommandParameter="{Binding SelectedItem,
+                                                                       ElementName = ViewModelTreeView}"/>
+                                </i:EventTrigger>
+
+                            </i:Interaction.Triggers>
+
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                            
+                        </TreeView>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+
+        </local:TabControlEx>
+
+        <GridSplitter Grid.Row="2" Grid.ColumnSpan="3"
+                      Height="5"
+                      Background="Gray"/>
+
+        <Border Grid.Row="3" Grid.Column="0">
+            <TextBlock Text="Панель навигации" FontSize="30"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       TextWrapping="Wrap"/>
+        </Border>
+
+        <GridSplitter Grid.Row="4" Grid.ColumnSpan="3"
+                      Height="5"
+                      Background="Gray"/>
+
+        <Border Grid.Row="5" Grid.Column="0">
+            <TextBlock Text="Окно ошибок" FontSize="30"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       TextWrapping="Wrap"/>
+        </Border>
+
     </Grid>
-</Window>
+</mah:MetroWindow>

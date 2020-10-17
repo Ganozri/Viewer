@@ -8,21 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icons\close.png" />
-    <None Remove="Icons\close96.png" />
-    <None Remove="Icons\green.png" />
-    <None Remove="Icons\red.png" />
-    <None Remove="Icons\yellow.png" />
+    <Compile Remove="Icons\**" />
+    <Compile Remove="Styles\**" />
+    <EmbeddedResource Remove="Icons\**" />
+    <EmbeddedResource Remove="Styles\**" />
+    <None Remove="Icons\**" />
+    <None Remove="Styles\**" />
+    <Page Remove="Icons\**" />
+    <Page Remove="Styles\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LiveCharts.Geared" Version="1.2.9" />
-    <PackageReference Include="MaterialDesignColors" Version="1.2.6" />
-    <PackageReference Include="MaterialDesignExtensions" Version="3.2.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
+    <PackageReference Include="MahApps.Metro" Version="2.2.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.6.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="olympus-translation" Version="1.1.74" />
     <PackageReference Include="olympus-translation-wpfbridge" Version="1.1.74" />
+    <PackageReference Include="ReactiveUI.Fody" Version="11.5.35" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,11 +33,6 @@
     <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Medusa.Analyze1553B.UIServices.csproj" />
     <ProjectReference Include="..\Medusa.Analyze1553B.VMServices\Medusa.Analyze1553B.VMServices.csproj" />
     <ProjectReference Include="..\Medusa.Analyze1553B.VM\Medusa.Analyze1553B.VM.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Icons\" />
-    <Folder Include="Styles\" />
   </ItemGroup>
 
   <ItemGroup>

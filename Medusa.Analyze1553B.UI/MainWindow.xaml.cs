@@ -1,9 +1,17 @@
-﻿using Medusa.Analyze1553B.UIServices;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Medusa.Analyze1553B.Common;
+using Medusa.Analyze1553B.UIServices;
+using Medusa.Analyze1553B.VM;
 using System;
+using System.Collections;
+using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using SynchronizationContext = System.Threading.SynchronizationContext;
 
@@ -12,11 +20,10 @@ namespace Medusa.Analyze1553B.UI
     /// <summary> 
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : ISynchronizationContextProvider, IDialogService
+    public partial class MainWindow : MetroWindow, ISynchronizationContextProvider, IDialogService
     {
         readonly Microsoft.Win32.OpenFileDialog openFileDlg;
         readonly Microsoft.Win32.SaveFileDialog saveFileDialog;
-
         public string Filter { get; set; }
 
         public SynchronizationContext SynchronizationContext { get; }
@@ -24,8 +31,7 @@ namespace Medusa.Analyze1553B.UI
         public MainWindow()
         {
             InitializeComponent();
-            PreviewMouseWheel += Window_PreviewMouseWheel;
-
+          
             SynchronizationContext = SynchronizationContext.Current;
 
             if (Filter==null)
@@ -47,126 +53,58 @@ namespace Medusa.Analyze1553B.UI
             };
         }
 
-        private void Window_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void DataRecordsDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Keyboard.Modifiers != ModifierKeys.Control)
-                return;
+            var selectedItem = ((StartVmObject)this.DataContext).SelectedViewModel.SelectedItem;
+            var dataGrid = (DataGrid)sender;
+            dataGrid.Columns.Clear();
+            // Get the type handle of a specified class.
+            // Get the properties of 'Type' class object.
+            // Get the fields of the specified class.
+            PropertyInfo[] myPropertyInfo = GetPropertiesFromType(selectedItem.type);
 
-            if (e.Delta > 0)
-                ScaleUI.Value += 0.05;
-
-            else if (e.Delta < 0)
-                ScaleUI.Value -= 0.05;
-        }
-
-        public MemoryStream ShowOpenFileDialog()
-        {
-            var openFileDlg = new Microsoft.Win32.OpenFileDialog
+            foreach (var item in myPropertyInfo)
             {
-                Filter = this.Filter
-            };
-            if (openFileDlg.ShowDialog() == true)
-            {
-                byte[] byteArray = Encoding.ASCII.GetBytes(openFileDlg.FileName);
-                MemoryStream stream = new MemoryStream(byteArray);
-                return stream;
-            }
-            else
-            {
-                return new MemoryStream();
-            }
-
-        }
-
-        public MemoryStream ShowSaveFileDialog()
-        {
-            var saveFileDialog = new Microsoft.Win32.SaveFileDialog()
-            {
-                Filter = this.Filter
-            };
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                byte[] byteArray = Encoding.ASCII.GetBytes(openFileDlg.FileName);
-                MemoryStream stream = new MemoryStream(byteArray);
-                return stream;
-            }
-            else
-            {
-                return new MemoryStream();
-            }
-        }
-
-        public void AddText(object arg, string text)
-        {
-            TextBlock textBlock = new TextBlock();
-            if (arg!=null)
-            {
-                if (Object.ReferenceEquals(arg.GetType(), textBlock.GetType()))
+                if (item.PropertyType.IsPrimitive)
                 {
-                    textBlock = (TextBlock)arg;
-                    textBlock.Text += text + "\n";
+                    SetAndAddColumnToDataGrid(item.Name, item.Name, dataGrid);
                 }
-            }
-            
+                else
+                {
+                    PropertyInfo[] nestedProperty = GetPropertiesFromType(item.PropertyType);
+                    if (nestedProperty.Length == 0)
+                    {
+                        SetAndAddColumnToDataGrid(item.Name, item.Name, dataGrid);
+                    }
+                    else
+                    {
+                        foreach (var property in nestedProperty)
+                        {
+                            SetAndAddColumnToDataGrid((item.Name + "." + property.Name), (item.Name + "." + property.Name), dataGrid);
+                        }
+                    }
+                }
+            } 
         }
-
-        public void CreateCustomWindow()
+        static PropertyInfo[] GetPropertiesFromType(Type type)
         {
-            MessageBox.Show("Здесь будет кастомное окно!");
+            PropertyInfo[] nestedProperty = type.GetProperties();
+            return nestedProperty;
         }
-
-        public void ShowMessage(string message, string title = null)
+        static void SetAndAddColumnToDataGrid(string stringToHeader, string stringToBinding,DataGrid dataGrid)
         {
-            MessageBox.Show(this, message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+            DataGridTextColumn col = SetColumn(stringToHeader, stringToBinding);
+            dataGrid.Columns.Add(col);
         }
-
-        public void ScrollIntoView(object arg, int position)
+        static DataGridTextColumn SetColumn(string stringToHeader, string stringToBinding)
         {
-            ListView myListView = new ListView();
-            if (Object.ReferenceEquals(arg.GetType(), myListView.GetType()))
+            DataGridTextColumn col = new DataGridTextColumn
             {
-                myListView = (ListView)arg;
-                myListView.SelectedItem = myListView.Items.GetItemAt(position);
-                myListView.ScrollIntoView(myListView.SelectedItem);
-                ListViewItem item = myListView.ItemContainerGenerator.ContainerFromItem(myListView.SelectedItem) as ListViewItem;
-                item.Focus();
-            }
-            else
-            {
-                
-            }
-            
+                Header = stringToHeader,
+                Binding = new Binding(stringToBinding)
+            };
+            return col;
         }
-
-        public void UpdateView(object arg)
-        {
-            ListView myListView = new ListView();
-            if (Object.ReferenceEquals(arg.GetType(), myListView.GetType()))
-            {
-                myListView = (ListView)arg;
-            }
-        }
-
-        public int CurrentPosition(object arg)
-        {
-            ListView myListView = (ListView)arg;
-            if (Object.ReferenceEquals(arg.GetType(), myListView.GetType()))
-            {
-                int position = myListView.SelectedIndex;
-                return position;
-            }
-            else
-            {
-                return 0;
-            }
-            
-        }
-
-        public int IndexSelectedViewModel()
-        {
-            return products.SelectedIndex;
-        }
-
-    
     }
+
 }

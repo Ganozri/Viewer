@@ -17,15 +17,22 @@ namespace Medusa.Analyze1553B.VMServices
             this.dialogService = dialogService; 
         }
 
-        public DataRecord[] GetData(string path,string name)
+        public DataRecord[] GetData(string path,object viewModel)
         {
+            var words = viewModel.ToString().Split('.');
+            var name = words[words.Length - 1];
+
             return name switch
             {
-                "TcpServerViewModel" => GetDataByBMDLoader(path),
-                "MT1553ViewModel" => GetDataByParser1553MT(path),
-                "RT01ViewModel" => GetDataByParserRT01(path),
+                "FirstViewModel" => GetDataByBMDLoader(path),
+                "SecondViewModel" => GetDataByParser1553MT(path),
                 _ => null,
             };
+        }
+
+        public object GetData(string path)
+        {
+            return this;
         }
 
         public DataRecord[] GetDataByParser1553MT(string path)

@@ -17,9 +17,8 @@ module ParserRT01 =
 
     [<EntryPoint>]
     let main argv =
-        let x = (+) 1 2 
-        let list = [1..10]
-        let len = len list
-        printf "%A" len
+        let list = ["first";"second";"third"]
+                   |> List.mapi (fun i x -> (i+1).ToString()+ ". "+x)
+        printf "%A" list
         0 
     
