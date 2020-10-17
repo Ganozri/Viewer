@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:vm="clr-namespace:Medusa.Analyze1553B.VM;assembly=Medusa.Analyze1553B.VM" 
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
-        xmlns:converters="clr-namespace:Medusa.Analyze1553B.UI.Converters"
+        
         mc:Ignorable="d"
         x:Name="MainWindowName"
         Title="{Binding Title}" 
@@ -18,7 +18,7 @@
         WindowState="Maximized">
     <mah:MetroWindow.Resources>
 
-        <converters:FromDateRecordToDataTableWithIstructionsFromNode x:Key="MyFromDateRecordToDataTableWithIstructionsFromNode"/>
+        
 
         <Style TargetType="{x:Type local:TabControlEx}" BasedOn="{StaticResource MahApps.Styles.TabControl}">
             <Setter Property="Template">
@@ -194,6 +194,7 @@
                                 <DataTemplate>
                                     <Grid x:Name="GridForItems" >
                                         <DataGrid x:Name="DataRecordsDataGrid" Loaded="DataRecordsDataGrid_Loaded"
+                                                  IsReadOnly="True"
                                                   ItemsSource="{Binding ReadableDataRecords}">
                                         </DataGrid>
                                     </Grid>

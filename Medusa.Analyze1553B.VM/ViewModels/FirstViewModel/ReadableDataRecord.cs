@@ -11,8 +11,6 @@ namespace Medusa.Analyze1553B.VM.ViewModels
 
         public double MonitorTime => dataRecord.MonitorTime;
 
-        //public BusChannel Channel => dataRecord.Channel;
-
         public Error Error => dataRecord.Error;
         public int Value => dataRecord.Cw1.Value;
         public int Address => dataRecord.Cw1.Address;
@@ -36,7 +34,7 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public ushort D7 => dataRecord.Data[7];
         public ushort D8 => dataRecord.Data[8];
         public ushort D9 => dataRecord.Data[9];
-
+                     
         public ushort D10 => dataRecord.Data[10];
         public ushort D11 => dataRecord.Data[11];
         public ushort D12 => dataRecord.Data[12];
@@ -47,7 +45,7 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public ushort D17 => dataRecord.Data[17];
         public ushort D18 => dataRecord.Data[18];
         public ushort D19 => dataRecord.Data[19];
-
+                     
         public ushort D20 => dataRecord.Data[20];
         public ushort D21 => dataRecord.Data[21];
         public ushort D22 => dataRecord.Data[22];
@@ -58,7 +56,7 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public ushort D27 => dataRecord.Data[27];
         public ushort D28 => dataRecord.Data[28];
         public ushort D29 => dataRecord.Data[29];
-
+                     
         public ushort D30 => dataRecord.Data[30];
         public ushort D31 => dataRecord.Data[31];
 
