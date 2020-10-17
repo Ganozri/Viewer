@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Medusa.Analyze1553B.VM
 {
@@ -20,9 +22,11 @@ namespace Medusa.Analyze1553B.VM
                     if (File.Exists(path))
                     {
                         vmObject.SelectedViewModel.DataRecords.Clear();
+
                         var rawData = dataService.GetData(path, vmObject.SelectedViewModel);
 
-                        vmObject.SelectedViewModel.DataRecords.AddRange(rawData);
+                        //vmObject.SelectedViewModel.DataRecords.AddRange(rawData);
+                        _ = FactorialAsync(vmObject,rawData);
                     }
                 }
             }
@@ -32,6 +36,30 @@ namespace Medusa.Analyze1553B.VM
             }
            
         }
+
+        //TODO
+        // определение асинхронного метода
+        static async Task FactorialAsync(IVmObject vmObject,DataRecord[] rawData)
+        {
+            if (rawData.Length > 1000)
+            {
+                int offset = 20;
+                int count = 15;
+                for (int i = 0; i < count; i++)
+                {
+                    ArraySegment<DataRecord> firstRecords = new ArraySegment<DataRecord>(rawData, i * offset, offset);
+                    vmObject.SelectedViewModel.DataRecords.AddRange(firstRecords);
+                    await Task.Delay(1);
+                }
+                ArraySegment<DataRecord> lastRecords = new ArraySegment<DataRecord>(rawData, offset*count, rawData.Length-offset*count);
+                vmObject.SelectedViewModel.DataRecords.AddRange(lastRecords);
+            }
+            else
+            {
+                vmObject.SelectedViewModel.DataRecords.AddRange(rawData);
+            }
+        }
+        //TODO
         private void AddViewModel(IPageViewModel pageViewModel)
         {
             vmObject.ViewModels.Add(pageViewModel);

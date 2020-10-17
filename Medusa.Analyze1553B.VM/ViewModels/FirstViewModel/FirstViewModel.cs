@@ -111,7 +111,11 @@ namespace Medusa.Analyze1553B.VM.ViewModels
             CreateNodes();
             CreateItems();
 
-            //Items.Add(new Item(DataRecords, Nodes[0]));
+            if (Nodes.Count>0)
+            {
+                Items.Add(new Item(DataRecords, Nodes[0]));
+            }
+           
             //Items.Add(new Item(DataRecords, Nodes[0].Nodes[1]));
 
             //var Rules = new List<Rule>

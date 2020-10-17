@@ -45,19 +45,18 @@
         <ListBox Grid.Row="4" Grid.Column="0"
                  Grid.RowSpan="1" Grid.ColumnSpan="1" 
                  HorizontalAlignment="Center">
-            <ListBoxItem >LG Nexus 5X</ListBoxItem>
-            <ListBoxItem>Huawei Nexus 6P</ListBoxItem>
-            <ListBoxItem >iPhone 6S</ListBoxItem>
-            <ListBoxItem>iPhone 6S Plus</ListBoxItem>
-            <ListBoxItem >Аsus Zenphone 2</ListBoxItem>
-            <ListBoxItem>Microsoft Lumia 950</ListBoxItem>
+            <ListBoxItem >Example 1</ListBoxItem>
+            <ListBoxItem >Example 2</ListBoxItem>
+            <ListBoxItem >Example 3</ListBoxItem>
+            <ListBoxItem>iExample 4</ListBoxItem>
+            <ListBoxItem >Example 5</ListBoxItem>
+            <ListBoxItem >Example 6</ListBoxItem>
         </ListBox>
 
         <ListBox Name="ListOfViewModels"
                  Grid.Row="3" Grid.Column="1"
                  Grid.RowSpan="2" Grid.ColumnSpan="3"
                  ItemsSource="{Binding ViewModels}">
-
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                     <i:InvokeCommandAction  Command="{Binding Commands.AddViewModelCommand}"
