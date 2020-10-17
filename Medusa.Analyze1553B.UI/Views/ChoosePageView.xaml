@@ -11,6 +11,11 @@
              Height="650" Width="900"
              MinHeight="650" MinWidth="900"
              Title="{Binding Name}" >
+    <mah:MetroWindow.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </mah:MetroWindow.Resources>
     <Grid Margin="20">
         
         <Grid.RowDefinitions>
