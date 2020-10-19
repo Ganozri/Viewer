@@ -13,7 +13,7 @@ using DynamicData.Binding;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
-    public class ChoosePageViewModel : CommonViewModelClass, IPageViewModel
+    public class ChoosePageViewModel : IPageViewModel
     {
         public ObservableCollection<Node> Nodes { get; set; }
         public ObservableCollection<Item> Items { get; set; }
@@ -24,6 +24,9 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public ObservableCollection<Type> Types { get; set; }
         public ObservableCollection<IPageViewModel> ViewModels { get; set; }
 
+        public Commands Commands { get; set; }
+        public SynchronizationContext SyncContext;
+        public IDialogService DialogService { get; set; }
         public ChoosePageViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands commands)
         {
             Name = "";

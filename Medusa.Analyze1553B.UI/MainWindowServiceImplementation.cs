@@ -5,18 +5,110 @@ using Medusa.Analyze1553B.UIServices;
 using Medusa.Analyze1553B.VM;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using SynchronizationContext = System.Threading.SynchronizationContext;
+using System.Windows.Data;
 
 namespace Medusa.Analyze1553B.UI
 {
+    //Расширение для удобного добавления элементов в DataGrid
+    //Grid grid = new Grid();
+    //grid.SetGridChildren(UIElement,0,0);
+    public static class GridExtension
+    {
+        public static void SetGridChildren(this Grid grid, UIElement element, int Row = 0, int Column = 0)
+        {
+            var Children = grid.Children;
+            
+            Grid.SetColumn(element, Column);
+            Grid.SetRow(element,Row);
+            Children.Add(element);
+        }
+    }
     public partial class MainWindow : MetroWindow, ISynchronizationContextProvider, IDialogService
     {
-      
+        private void DataRecordsDataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = ((StartVmObject)this.DataContext).SelectedViewModel.SelectedItem;
+
+            var grid = (Grid)sender;
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.1, GridUnitType.Star) });
+
+            DataGrid dataGrid = new DataGrid();
+
+
+            dataGrid.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
+            dataGrid.ItemsSource = selectedItem.ReadableDataRecords;
+            dataGrid.IsReadOnly = true;
+            dataGrid.CanUserSortColumns = false;
+            dataGrid.Columns.Clear();
+
+            Binding mySelectedIndexbinding = new Binding("SelectedDataRecordIndex");
+            Binding mySelectedDataRecord = new Binding("SelectedDataRecord");
+
+            dataGrid.SetBinding(DataGrid.SelectedItemProperty, mySelectedDataRecord);
+            dataGrid.SetBinding(DataGrid.SelectedIndexProperty, mySelectedIndexbinding);
+
+            TreeView treeView = new TreeView();
+            // Get the type handle of a specified class.
+            // Get the properties of 'Type' class object.
+            // Get the fields of the specified class.
+            PropertyInfo[] myPropertyInfo = GetPropertiesFromType(selectedItem.type);
+
+            foreach (var item in myPropertyInfo)
+            {
+                if (item.PropertyType.IsPrimitive)
+                {
+                    SetAndAddColumnToDataGrid(item.Name, item.Name, dataGrid);
+                }
+                else
+                {
+                    TreeViewItem treeItem = new TreeViewItem();
+                    treeItem.Header = item.Name;
+                    treeItem.IsExpanded = true;
+                    if (!item.PropertyType.IsEnum)
+                    {
+                        PropertyInfo[] nestedProperty = GetPropertiesFromType(item.PropertyType);
+                        foreach (var property in nestedProperty)
+                        {
+                            TreeViewItem treeViewItem = new TreeViewItem();
+                            Binding myBind = new Binding("SelectedDataRecord" + "." + item.Name + "." + property.Name);
+                            
+                            treeViewItem.SetBinding(TreeViewItem.HeaderProperty, myBind);
+                            treeViewItem.HeaderStringFormat = property.Name + " = {0}";
+                            treeItem.Items.Add(treeViewItem);
+                        }
+                        treeView.Items.Add(treeItem);   
+                    }
+                }
+            }
+            
+            grid.SetGridChildren(dataGrid, 0, 0);
+            grid.SetGridChildren(treeView, 0, 1);
+        }
+
+        static PropertyInfo[] GetPropertiesFromType(Type type)
+        {
+            PropertyInfo[] nestedProperty = type.GetProperties();
+            return nestedProperty;
+        }
+        static void SetAndAddColumnToDataGrid(string stringToHeader, string stringToBinding, DataGrid dataGrid)
+        {
+            DataGridTextColumn col = SetColumn(stringToHeader, stringToBinding);
+            dataGrid.Columns.Add(col);
+        }
+        static DataGridTextColumn SetColumn(string stringToHeader, string stringToBinding)
+        {
+            DataGridTextColumn col = new DataGridTextColumn
+            {
+                Header = stringToHeader,
+                Binding = new Binding(stringToBinding)
+            };
+            return col;
+        }
         public void CreateChoosePageViewModelControl(object pageViewModel)
         {
             ChoosePageView choosePageView = new ChoosePageView();
@@ -52,7 +144,6 @@ namespace Medusa.Analyze1553B.UI
             {
                 return new MemoryStream();
             }
-
         }
 
         public MemoryStream ShowSaveFileDialog()

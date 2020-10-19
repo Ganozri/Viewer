@@ -80,7 +80,8 @@ namespace Medusa.Analyze1553B.VM.ViewModels
                                 new Node 
                                 {
                                     Name= "Выгрузка данных сервиса управления памятью",
-                                    type = typeof(ReadableDataRecord)},
+                                    type = typeof(ReadableDataRecord)
+                                },
                                 new Node 
                                 {
                                     Name= "Пакеты команд и телеметрии",

@@ -60,7 +60,10 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public ushort D30 => dataRecord.Data[30];
         public ushort D31 => dataRecord.Data[31];
 
-
+        //
+        public ControlWord Cw1 => dataRecord.Cw1;
+        //public int[] Arrayy { get;set;}
+        //
 
         private readonly DataRecord dataRecord;
         public ReadableDataRecord(DataRecord dataRecord) : base(dataRecord)

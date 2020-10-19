@@ -192,11 +192,13 @@
                             
                             <TabControl.ContentTemplate>
                                 <DataTemplate>
-                                    <Grid x:Name="GridForItems" >
-                                        <DataGrid x:Name="DataRecordsDataGrid" Loaded="DataRecordsDataGrid_Loaded"
-                                                  IsReadOnly="True"
-                                                  ItemsSource="{Binding ReadableDataRecords}">
-                                        </DataGrid>
+                                    
+                                    <Grid x:Name="GridForItems" Loaded="DataRecordsDataGrid_Loaded">
+                                        <!--<DataGrid x:Name="DataRecordsDataGrid" 
+                                                  Loaded="DataRecordsDataGrid_Loaded"
+  
+                                                  IsReadOnly="True">
+                                        </DataGrid>-->
                                     </Grid>
 
                                 </DataTemplate>
@@ -209,7 +211,6 @@
                         <TreeView x:Name="ViewModelTreeView"
                                   ItemsSource="{Binding Nodes}"
                                   Grid.Column="2">
-
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                     <i:InvokeCommandAction  Command="{Binding Commands.AddItemCommand}"

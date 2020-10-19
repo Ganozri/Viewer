@@ -53,58 +53,6 @@ namespace Medusa.Analyze1553B.UI
             };
         }
 
-        private void DataRecordsDataGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            var selectedItem = ((StartVmObject)this.DataContext).SelectedViewModel.SelectedItem;
-            var dataGrid = (DataGrid)sender;
-            dataGrid.Columns.Clear();
-            // Get the type handle of a specified class.
-            // Get the properties of 'Type' class object.
-            // Get the fields of the specified class.
-            PropertyInfo[] myPropertyInfo = GetPropertiesFromType(selectedItem.type);
-
-            foreach (var item in myPropertyInfo)
-            {
-                if (item.PropertyType.IsPrimitive)
-                {
-                    SetAndAddColumnToDataGrid(item.Name, item.Name, dataGrid);
-                }
-                else
-                {
-                    PropertyInfo[] nestedProperty = GetPropertiesFromType(item.PropertyType);
-                    if (nestedProperty.Length == 0)
-                    {
-                        SetAndAddColumnToDataGrid(item.Name, item.Name, dataGrid);
-                    }
-                    else
-                    {
-                        foreach (var property in nestedProperty)
-                        {
-                            SetAndAddColumnToDataGrid((item.Name + "." + property.Name), (item.Name + "." + property.Name), dataGrid);
-                        }
-                    }
-                }
-            } 
-        }
-        static PropertyInfo[] GetPropertiesFromType(Type type)
-        {
-            PropertyInfo[] nestedProperty = type.GetProperties();
-            return nestedProperty;
-        }
-        static void SetAndAddColumnToDataGrid(string stringToHeader, string stringToBinding,DataGrid dataGrid)
-        {
-            DataGridTextColumn col = SetColumn(stringToHeader, stringToBinding);
-            dataGrid.Columns.Add(col);
-        }
-        static DataGridTextColumn SetColumn(string stringToHeader, string stringToBinding)
-        {
-            DataGridTextColumn col = new DataGridTextColumn
-            {
-                Header = stringToHeader,
-                Binding = new Binding(stringToBinding)
-            };
-            return col;
-        }
     }
 
 }

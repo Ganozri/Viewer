@@ -2,6 +2,7 @@
 using DynamicData.Binding;
 using Medusa.Analyze1553B.Common;
 using Medusa.Analyze1553B.VM.ViewModels;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,8 @@ namespace Medusa.Analyze1553B.VM
         //
         public readonly ReadOnlyObservableCollection<BaseDataRecords> _ReadableDataRecords;
         public ReadOnlyObservableCollection<BaseDataRecords> ReadableDataRecords => _ReadableDataRecords;
+        [Reactive] public int SelectedDataRecordIndex { get;set;}
+        [Reactive] public BaseDataRecords SelectedDataRecord { get; set; }
         //
         public Item(ObservableCollectionExtended<DataRecord> Source,Node node)
         {
@@ -43,10 +46,12 @@ namespace Medusa.Analyze1553B.VM
                 Source.ToObservableChangeSet()
                   .Filter(t => node.FiltrationCondition(t))
                   .Transform(dataRecord => СreateSuccessorOfBaseDataRecords(dataRecord,node))
-                  // No need to use the .ObserveOn() operator here, as
-                  // ObservableCollectionExtended is single-threaded.
                   .Bind(out _ReadableDataRecords)
                   .Subscribe();
+
+                //
+                
+                //
             }
             else
             {
@@ -55,14 +60,9 @@ namespace Medusa.Analyze1553B.VM
                 Source.ToObservableChangeSet()
                .Filter(t => node.FiltrationCondition(t))
                .Transform(dataRecord => Create(dataRecord))
-               // No need to use the .ObserveOn() operator here, as
-               // ObservableCollectionExtended is single-threaded.
                .Bind(out _ReadableDataRecords)
                .Subscribe();
             }
-            
-
-            
             //
 
         }

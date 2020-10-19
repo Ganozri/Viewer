@@ -5,12 +5,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Views" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    mc:Ignorable="d" 
+             xmlns:local="clr-namespace:Medusa.Analyze1553B.UI.Views" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="900"
              Height="650" Width="900"
              MinHeight="650" MinWidth="900"
-             Title="{Binding Name}" >
+             Title="{Binding Name}">
     <mah:MetroWindow.Resources>
         <Style TargetType="TextBlock" BasedOn="{StaticResource MahApps.Styles.TextBlock}">
             <Setter Property="FontSize" Value="20"/>
@@ -19,27 +20,32 @@
     <Grid Margin="20">
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.1*"/>
             <RowDefinition/>
             <RowDefinition Height="0.1*"/>
-
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Create a new project" 
-                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+        <TextBlock Text="Create a new" 
+                   FontSize="45"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBlock Text="project" 
+                   FontSize="45"
+                   Grid.Row="1"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <TextBlock Grid.Row="3"
                    Text="Recent project templates" 
+                   FontSize="25"
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         <ListBox Grid.Row="4" Grid.Column="0"
@@ -53,10 +59,13 @@
             <ListBoxItem >Example 6</ListBoxItem>
         </ListBox>
 
+        
+
         <ListBox Name="ListOfViewModels"
-                 Grid.Row="3" Grid.Column="1"
+                 Grid.Row="3" Grid.Column="2"
                  Grid.RowSpan="2" Grid.ColumnSpan="3"
-                 ItemsSource="{Binding ViewModels}">
+                 ItemsSource="{Binding ViewModels}"
+                 FontSize="20">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                     <i:InvokeCommandAction  Command="{Binding Commands.AddViewModelCommand}"
