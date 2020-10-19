@@ -35,15 +35,16 @@ namespace Medusa.Analyze1553B.UI
 
             var grid = (Grid)sender;
             grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0, GridUnitType.Auto) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.1, GridUnitType.Star) });
 
-            DataGrid dataGrid = new DataGrid();
-
-
-            dataGrid.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
-            dataGrid.ItemsSource = selectedItem.ReadableDataRecords;
-            dataGrid.IsReadOnly = true;
-            dataGrid.CanUserSortColumns = false;
+            DataGrid dataGrid = new DataGrid
+            {
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Visible,
+                ItemsSource = selectedItem.ReadableDataRecords,
+                IsReadOnly = true,
+                CanUserSortColumns = false
+            };
             dataGrid.Columns.Clear();
 
             Binding mySelectedIndexbinding = new Binding("SelectedDataRecordIndex");
@@ -74,20 +75,25 @@ namespace Medusa.Analyze1553B.UI
                         PropertyInfo[] nestedProperty = GetPropertiesFromType(item.PropertyType);
                         foreach (var property in nestedProperty)
                         {
-                            TreeViewItem treeViewItem = new TreeViewItem();
                             Binding myBind = new Binding("SelectedDataRecord" + "." + item.Name + "." + property.Name);
-                            
+                            TreeViewItem treeViewItem = new TreeViewItem();
                             treeViewItem.SetBinding(TreeViewItem.HeaderProperty, myBind);
                             treeViewItem.HeaderStringFormat = property.Name + " = {0}";
+                            
                             treeItem.Items.Add(treeViewItem);
                         }
                         treeView.Items.Add(treeItem);   
                     }
                 }
             }
-            
+
             grid.SetGridChildren(dataGrid, 0, 0);
-            grid.SetGridChildren(treeView, 0, 1);
+
+            GridSplitter gridSplitter = new GridSplitter();
+            gridSplitter.Width = 3;
+            grid.SetGridChildren(gridSplitter, 0, 1);
+
+            grid.SetGridChildren(treeView, 0, 2);
         }
 
         static PropertyInfo[] GetPropertiesFromType(Type type)

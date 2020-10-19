@@ -68,8 +68,7 @@ namespace Medusa.Analyze1553B.VM.ViewModels
                         },
                         new Node 
                         {
-                            Name ="DDB",
-                            type = typeof(ReadableDataRecord),                  
+                            Name ="DDB",        
                         },
                         new Node
                         {

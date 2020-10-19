@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
-    class CommandAndTelemetryPackagesDataRecord : BaseDataRecords
+    class CommandAndTelemetryPackagesDataRecord : BaseDataRecord
     {
         //public long Index => dataRecord.Index;
         public long Index => (long)dataRecord.MonitorTime;

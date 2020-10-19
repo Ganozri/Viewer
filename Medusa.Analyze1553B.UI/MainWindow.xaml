@@ -192,15 +192,7 @@
                             
                             <TabControl.ContentTemplate>
                                 <DataTemplate>
-                                    
-                                    <Grid x:Name="GridForItems" Loaded="DataRecordsDataGrid_Loaded">
-                                        <!--<DataGrid x:Name="DataRecordsDataGrid" 
-                                                  Loaded="DataRecordsDataGrid_Loaded"
-  
-                                                  IsReadOnly="True">
-                                        </DataGrid>-->
-                                    </Grid>
-
+                                    <Grid x:Name="GridForItems" Loaded="DataRecordsDataGrid_Loaded"/>
                                 </DataTemplate>
                             </TabControl.ContentTemplate>
                         </local:TabControlEx>
@@ -217,7 +209,6 @@
                                             CommandParameter="{Binding SelectedItem,
                                                                        ElementName = ViewModelTreeView}"/>
                                 </i:EventTrigger>
-
                             </i:Interaction.Triggers>
 
                             <TreeView.ItemTemplate>

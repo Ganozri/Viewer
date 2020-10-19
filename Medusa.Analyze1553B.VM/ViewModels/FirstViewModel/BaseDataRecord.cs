@@ -6,10 +6,10 @@ using System.Text;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
-    public abstract class BaseDataRecords 
+    public abstract class BaseDataRecord 
     {
         private readonly DataRecord dataRecord;
-        public BaseDataRecords(DataRecord dataRecord)
+        public BaseDataRecord(DataRecord dataRecord)
         {
             this.dataRecord = dataRecord;
         }

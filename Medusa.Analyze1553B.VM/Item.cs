@@ -18,24 +18,13 @@ namespace Medusa.Analyze1553B.VM
         public string Content { get; set; }
         public Type type { get;set;}
 
-        //public readonly ReadOnlyObservableCollection<DataRecord> _DataRecords;
-        //public ReadOnlyObservableCollection<DataRecord> DataRecords => _DataRecords;
-        //
-        public readonly ReadOnlyObservableCollection<BaseDataRecords> _ReadableDataRecords;
-        public ReadOnlyObservableCollection<BaseDataRecords> ReadableDataRecords => _ReadableDataRecords;
+        public readonly ReadOnlyObservableCollection<BaseDataRecord> _ReadableDataRecords;
+        public ReadOnlyObservableCollection<BaseDataRecord> ReadableDataRecords => _ReadableDataRecords;
         [Reactive] public int SelectedDataRecordIndex { get;set;}
-        [Reactive] public BaseDataRecords SelectedDataRecord { get; set; }
-        //
+        [Reactive] public BaseDataRecord SelectedDataRecord { get; set; }
+
         public Item(ObservableCollectionExtended<DataRecord> Source,Node node)
         {
-            //Source.ToObservableChangeSet()
-            //   .Filter(t => node.FiltrationCondition(t))
-            //   //.Transform(value => !value)
-            //   // No need to use the .ObserveOn() operator here, as
-            //   // ObservableCollectionExtended is single-threaded.
-            //   .Bind(out _DataRecords)
-            //   .Subscribe();
-
             this.Name = node.Name;
             this.type = node.type;
             //
@@ -48,10 +37,6 @@ namespace Medusa.Analyze1553B.VM
                   .Transform(dataRecord => СreateSuccessorOfBaseDataRecords(dataRecord,node))
                   .Bind(out _ReadableDataRecords)
                   .Subscribe();
-
-                //
-                
-                //
             }
             else
             {
@@ -63,22 +48,20 @@ namespace Medusa.Analyze1553B.VM
                .Bind(out _ReadableDataRecords)
                .Subscribe();
             }
-            //
-
         }
-        static BaseDataRecords Create(DataRecord dataRecord)
+        static BaseDataRecord Create(DataRecord dataRecord)
         {
-            BaseDataRecords baseDataRecords = new ReadableDataRecord(dataRecord);
+            BaseDataRecord baseDataRecords = new ReadableDataRecord(dataRecord);
             
             return baseDataRecords;
         }
-        static BaseDataRecords СreateSuccessorOfBaseDataRecords(DataRecord dataRecord,Node node)
+        static BaseDataRecord СreateSuccessorOfBaseDataRecords(DataRecord dataRecord,Node node)
         {
             Type[] parameters = new Type[] { typeof(DataRecord) };
             object[] values = new object[] { dataRecord };
             object obj = CreateMyObject(node.type, parameters, values);
 
-            return (BaseDataRecords)obj;
+            return (BaseDataRecord)obj;
         }
             
 
@@ -91,6 +74,6 @@ namespace Medusa.Analyze1553B.VM
 
             return myObj;
         }
-        //
+
     }
 }

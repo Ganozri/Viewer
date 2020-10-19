@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
-    public class ReadableDataRecord : BaseDataRecords
+    public class ReadableDataRecord : BaseDataRecord
     {
         public long Index => dataRecord.Index;
 
@@ -19,9 +19,7 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public int Length => dataRecord.Cw1.Length;
 
         public int Cw2 => dataRecord.Cw2.Value.Value;
-
         public int Rw1 => dataRecord.Rw1.Value.Value;
-
         public int Rw2 => dataRecord.Rw2.Value.Value;
 
         public ushort D0 => dataRecord.Data[0];
@@ -60,9 +58,8 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public ushort D30 => dataRecord.Data[30];
         public ushort D31 => dataRecord.Data[31];
 
-        //
+        //Не-примитив для проверки
         public ControlWord Cw1 => dataRecord.Cw1;
-        //public int[] Arrayy { get;set;}
         //
 
         private readonly DataRecord dataRecord;

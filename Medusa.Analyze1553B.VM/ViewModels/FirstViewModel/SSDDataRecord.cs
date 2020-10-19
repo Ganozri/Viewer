@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
-    public class SSDDataRecord : BaseDataRecords
+    public class SSDDataRecord : BaseDataRecord
     {
         public long Index => dataRecord.Index;
 
