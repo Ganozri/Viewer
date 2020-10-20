@@ -1,7 +1,8 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
-using Medusa.Analyze1553B.Common;
+
 using Medusa.Analyze1553B.VM.ViewModels;
+using Model;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,12 @@ namespace Medusa.Analyze1553B.VM
         public string Content { get; set; }
         public Type type { get;set;}
 
-        public readonly ReadOnlyObservableCollection<BaseDataRecord> _ReadableDataRecords;
-        public ReadOnlyObservableCollection<BaseDataRecord> ReadableDataRecords => _ReadableDataRecords;
-        [Reactive] public int SelectedDataRecordIndex { get;set;}
-        [Reactive] public BaseDataRecord SelectedDataRecord { get; set; }
+        public readonly ReadOnlyObservableCollection<BaseMainModel> _ReadableMainModels;
+        public ReadOnlyObservableCollection<BaseMainModel> ReadableMainModels => _ReadableMainModels;
+        [Reactive] public int SelectedMainModelIndex { get;set;}
+        [Reactive] public BaseMainModel SelectedMainModel { get; set; }
 
-        public Item(ObservableCollectionExtended<DataRecord> Source,Node node)
+        public Item(ObservableCollectionExtended<MainModel> Source,Node node)
         {
             this.Name = node.Name;
             this.type = node.type;
@@ -34,34 +35,34 @@ namespace Medusa.Analyze1553B.VM
 
                 Source.ToObservableChangeSet()
                   .Filter(t => node.FiltrationCondition(t))
-                  .Transform(dataRecord => СreateSuccessorOfBaseDataRecords(dataRecord,node))
-                  .Bind(out _ReadableDataRecords)
+                  .Transform(dataRecord => СreateSuccessorOfBaseMainModels(dataRecord,node))
+                  .Bind(out _ReadableMainModels)
                   .Subscribe();
             }
             else
             {
-                this.type = typeof(DataRecord);
+                this.type = typeof(MainModel);
 
                 Source.ToObservableChangeSet()
                .Filter(t => node.FiltrationCondition(t))
                .Transform(dataRecord => Create(dataRecord))
-               .Bind(out _ReadableDataRecords)
+               .Bind(out _ReadableMainModels)
                .Subscribe();
             }
         }
-        static BaseDataRecord Create(DataRecord dataRecord)
+        static BaseMainModel Create(MainModel dataRecord)
         {
-            BaseDataRecord baseDataRecords = new ReadableDataRecord(dataRecord);
+            BaseMainModel baseMainModels = new ReadableMainModel(dataRecord);
             
-            return baseDataRecords;
+            return baseMainModels;
         }
-        static BaseDataRecord СreateSuccessorOfBaseDataRecords(DataRecord dataRecord,Node node)
+        static BaseMainModel СreateSuccessorOfBaseMainModels(MainModel dataRecord,Node node)
         {
-            Type[] parameters = new Type[] { typeof(DataRecord) };
+            Type[] parameters = new Type[] { typeof(MainModel) };
             object[] values = new object[] { dataRecord };
             object obj = CreateMyObject(node.type, parameters, values);
 
-            return (BaseDataRecord)obj;
+            return (BaseMainModel)obj;
         }
             
 

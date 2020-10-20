@@ -22,17 +22,14 @@
     <PackageReference Include="MahApps.Metro" Version="2.2.0" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.6.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
-    <PackageReference Include="olympus-translation" Version="1.1.74" />
-    <PackageReference Include="olympus-translation-wpfbridge" Version="1.1.74" />
     <PackageReference Include="ReactiveUI.Fody" Version="11.5.35" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Medusa.Analyze1553B.DI\Medusa.Analyze1553B.DI.csproj" />
-    <ProjectReference Include="..\Medusa.Analyze1553B.Loader.BMD\Medusa.Analyze1553B.Loader.BMD.csproj" />
-    <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Medusa.Analyze1553B.UIServices.csproj" />
-    <ProjectReference Include="..\Medusa.Analyze1553B.VMServices\Medusa.Analyze1553B.VMServices.csproj" />
-    <ProjectReference Include="..\Medusa.Analyze1553B.VM\Medusa.Analyze1553B.VM.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.DI\Viewer.DI.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Viewer.UIServices.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.VMServices\Viewer.VMServices.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.VM\Viewer.VM.csproj" />
   </ItemGroup>
 
   <ItemGroup>

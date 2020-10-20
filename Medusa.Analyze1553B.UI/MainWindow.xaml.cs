@@ -1,6 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Medusa.Analyze1553B.Common;
+
 using Medusa.Analyze1553B.UIServices;
 using Medusa.Analyze1553B.VM;
 using System;

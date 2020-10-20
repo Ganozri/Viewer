@@ -1,21 +1,24 @@
 ﻿
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 using Medusa.Analyze1553B.UIServices;
 using Medusa.Analyze1553B.VMServices;
-using ReactiveUI.Fody.Helpers;
+using System.Data;
 using DynamicData.Binding;
 using Model;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
-    public class FirstViewModel : CommonViewModelClass, IPageViewModel
+    public class SecondViewModel : CommonViewModelClass, IPageViewModel
     {
-        [Reactive] public string Name { get;set;}
-        [Reactive] public ObservableCollection<Node> Nodes { get;set; }
-        [Reactive] public ObservableCollection<Item> Items { get;set; }
-        [Reactive] public Item SelectedItem { get; set; }
-        [Reactive] public ObservableCollectionExtended<MainModel> MainModels { get;}
-        
+        public ObservableCollection<Node> Nodes { get; set; }
+        public ObservableCollection<Item> Items { get; set; }
+        public Item SelectedItem { get; set; }
+        public ObservableCollectionExtended<MainModel> MainModels { get;  }
+        public string Name {get;set;}
+
         private bool MoreThenFive(MainModel dataRecord)
         {
             return dataRecord.FirstNumber > 5;
@@ -30,19 +33,19 @@ namespace Medusa.Analyze1553B.VM.ViewModels
             {
                 new Node
                 {
-                    Name = "Общее",
+                    Name = "ОбщееДругое",
                     type = typeof(ReadableMainModel),
                     Nodes = new ObservableCollection<Node>
                     {
                         new Node
                         {
-                            Name ="Больше пяти",
+                            Name ="Больше пятиДругое",
                             type = typeof(FirstRecord),
                             FiltrationCondition = MoreThenFive,
                         },
-                        new Node 
+                        new Node
                         {
-                            Name ="Меньше пяти",
+                            Name ="Меньше пятиДругое",
                             FiltrationCondition = LessThenFive,
                             type = typeof(SecondRecord),
                         }
@@ -54,25 +57,24 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         {
             Items = new ObservableCollection<Item>();
         }
-
-        public FirstViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
+        public SecondViewModel(ISynchronizationContextProvider syncContext, IDialogService dialogService, IDataService dataService, Commands Commands)
         {
             DialogService = dialogService;
-            //DialogService.Filter = "BMD files (*.bmd)|*.bmd";
+            
             this.SyncContext = syncContext.SynchronizationContext;
             this.Commands = Commands;
 
-            Name = "Первая бизнес-модель";
-
+            Name = "Вторая бизнес-модель";
             MainModels = new ObservableCollectionExtended<MainModel>();
             CreateNodes();
             CreateItems();
 
-            if (Nodes.Count>0)
+            if (Nodes.Count > 0)
             {
                 Items.Add(new Item(MainModels, Nodes[0]));
             }
-           
-        }
-    }
+
+        } 
+    } 
 }
+

@@ -1,4 +1,4 @@
-﻿using Medusa.Analyze1553B.Common;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +12,7 @@ namespace Medusa.Analyze1553B.VM
         public string Name { get; set; }
         public ObservableCollection<Node> Nodes { get; set; }
 
-        public Func<DataRecord, bool> FiltrationCondition = (x) => true;
+        public Func<MainModel, bool> FiltrationCondition = (x) => true;
         public Type type { get;set;}
     }
 }

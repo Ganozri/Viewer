@@ -1,7 +1,7 @@
 ﻿using DynamicData.Binding;
-using Medusa.Analyze1553B.Common;
 using Medusa.Analyze1553B.UIServices;
 using Medusa.Analyze1553B.VMServices;
+using Model;
 using System.Collections.ObjectModel;
 
 namespace Medusa.Analyze1553B.VM
@@ -12,7 +12,7 @@ namespace Medusa.Analyze1553B.VM
         ObservableCollection<Node> Nodes { get; set; }
         ObservableCollection<Item> Items { get;set;}
         Item SelectedItem { get;set;}
-        ObservableCollectionExtended<DataRecord> DataRecords { get;}
+        ObservableCollectionExtended<MainModel> MainModels { get;}
 
         IDialogService DialogService { get; set; }
         

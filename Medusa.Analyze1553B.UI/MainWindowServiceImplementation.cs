@@ -3,6 +3,7 @@ using MahApps.Metro.Controls.Dialogs;
 using Medusa.Analyze1553B.UI.Views;
 using Medusa.Analyze1553B.UIServices;
 using Medusa.Analyze1553B.VM;
+using StructureMap.TypeRules;
 using System;
 using System.IO;
 using System.Reflection;
@@ -27,9 +28,38 @@ namespace Medusa.Analyze1553B.UI
             Children.Add(element);
         }
     }
+    public static class TreeViewExtension
+    {
+        public static void CreateNestedViewItem(this TreeView treeView,PropertyInfo item)
+        {
+            TreeViewItem treeItem = new TreeViewItem();
+            treeItem.Header = item.Name;
+            treeItem.IsExpanded = true;
+            if (!item.PropertyType.IsEnum)
+            {
+                PropertyInfo[] nestedProperty = GetPropertiesFromType(item.PropertyType);
+                foreach (var property in nestedProperty)
+                {
+                    Binding myBind = new Binding("SelectedMainModel" + "." + item.Name + "." + property.Name);
+                    TreeViewItem treeViewItem = new TreeViewItem();
+                    treeViewItem.SetBinding(TreeViewItem.HeaderProperty, myBind);
+                    treeViewItem.HeaderStringFormat = property.Name + " = {0}";
+
+                    treeItem.Items.Add(treeViewItem);
+                }
+                treeView.Items.Add(treeItem);
+            }
+        }
+        static PropertyInfo[] GetPropertiesFromType(Type type)
+        {
+            PropertyInfo[] nestedProperty = type.GetProperties();
+            return nestedProperty;
+        }
+    }
+
     public partial class MainWindow : MetroWindow, ISynchronizationContextProvider, IDialogService
     {
-        private void DataRecordsDataGrid_Loaded(object sender, RoutedEventArgs e)
+        private void MainModelsDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             var selectedItem = ((StartVmObject)this.DataContext).SelectedViewModel.SelectedItem;
 
@@ -41,16 +71,16 @@ namespace Medusa.Analyze1553B.UI
             DataGrid dataGrid = new DataGrid
             {
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Visible,
-                ItemsSource = selectedItem.ReadableDataRecords,
+                ItemsSource = selectedItem.ReadableMainModels,
                 IsReadOnly = true,
                 CanUserSortColumns = false
             };
             dataGrid.Columns.Clear();
 
-            Binding mySelectedIndexbinding = new Binding("SelectedDataRecordIndex");
-            Binding mySelectedDataRecord = new Binding("SelectedDataRecord");
+            Binding mySelectedIndexbinding = new Binding("SelectedMainModelIndex");
+            Binding mySelectedMainModel = new Binding("SelectedMainModel");
 
-            dataGrid.SetBinding(DataGrid.SelectedItemProperty, mySelectedDataRecord);
+            dataGrid.SetBinding(DataGrid.SelectedItemProperty, mySelectedMainModel);
             dataGrid.SetBinding(DataGrid.SelectedIndexProperty, mySelectedIndexbinding);
 
             TreeView treeView = new TreeView();
@@ -67,22 +97,34 @@ namespace Medusa.Analyze1553B.UI
                 }
                 else
                 {
-                    TreeViewItem treeItem = new TreeViewItem();
-                    treeItem.Header = item.Name;
-                    treeItem.IsExpanded = true;
                     if (!item.PropertyType.IsEnum)
                     {
+                        //var t = CreateNestedViewItem(item);
+                        //PropertyInfo[] nestedProperty = GetPropertiesFromType(item.PropertyType);
+                        //if (nestedProperty.Length > 0)
+                        //{
+                        //    foreach (var prop in nestedProperty)
+                        //    {
+                        //        MessageBox.Show("prop = " + prop);
+                        //    }
+
+                        //}
+
+                        TreeViewItem treeItem = new TreeViewItem();
+                        treeItem.Header = item.Name;
+                        treeItem.IsExpanded = true;
+
                         PropertyInfo[] nestedProperty = GetPropertiesFromType(item.PropertyType);
                         foreach (var property in nestedProperty)
                         {
-                            Binding myBind = new Binding("SelectedDataRecord" + "." + item.Name + "." + property.Name);
+                            Binding myBind = new Binding("SelectedMainModel" + "." + item.Name + "." + property.Name);
                             TreeViewItem treeViewItem = new TreeViewItem();
                             treeViewItem.SetBinding(TreeViewItem.HeaderProperty, myBind);
                             treeViewItem.HeaderStringFormat = property.Name + " = {0}";
-                            
+
                             treeItem.Items.Add(treeViewItem);
                         }
-                        treeView.Items.Add(treeItem);   
+                        treeView.Items.Add(treeItem);
                     }
                 }
             }
@@ -96,6 +138,29 @@ namespace Medusa.Analyze1553B.UI
             grid.SetGridChildren(treeView, 0, 2);
         }
 
+        static TreeViewItem CreateNestedViewItem(PropertyInfo item)
+        {
+            MessageBox.Show("Item = " + item.Name);
+            var ps = (GetPropertiesFromType(item.PropertyType));
+            if (ps.Length > 0)
+            {
+                foreach (var p in ps)
+                {
+                    CreateNestedViewItem(p);
+                }
+                return null;
+            }
+            else
+            {
+                foreach (var p in ps)
+                {
+                    MessageBox.Show("p = " + p.Name);
+                }
+                return null;
+            }
+            return null;
+
+        }
         static PropertyInfo[] GetPropertiesFromType(Type type)
         {
             PropertyInfo[] nestedProperty = type.GetProperties();

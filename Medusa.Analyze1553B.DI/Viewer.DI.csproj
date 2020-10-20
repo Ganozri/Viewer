@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Medusa.Analyze1553B.VM\Medusa.Analyze1553B.VM.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.VM\Viewer.VM.csproj" />
   </ItemGroup>
 
 </Project>

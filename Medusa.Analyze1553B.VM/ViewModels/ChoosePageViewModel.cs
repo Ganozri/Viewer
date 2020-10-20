@@ -1,4 +1,4 @@
-﻿using Medusa.Analyze1553B.Common;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +10,7 @@ using System.Threading;
 using ReactiveUI.Fody.Helpers;
 using System.Reflection;
 using DynamicData.Binding;
+using Model;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
@@ -18,7 +19,7 @@ namespace Medusa.Analyze1553B.VM.ViewModels
         public ObservableCollection<Node> Nodes { get; set; }
         public ObservableCollection<Item> Items { get; set; }
         public Item SelectedItem { get; set; }
-        public ObservableCollectionExtended<DataRecord> DataRecords { get; set; }
+        public ObservableCollectionExtended<MainModel> MainModels { get; set; }
         [Reactive] public string Name { get; set; }
 
         public ObservableCollection<Type> Types { get; set; }

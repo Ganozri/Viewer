@@ -1,4 +1,5 @@
-﻿using Medusa.Analyze1553B.Common;
+﻿
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,12 +7,14 @@ using System.Text;
 
 namespace Medusa.Analyze1553B.VM.ViewModels
 {
-    public abstract class BaseDataRecord 
+    public abstract class BaseMainModel 
     {
-        private readonly DataRecord dataRecord;
-        public BaseDataRecord(DataRecord dataRecord)
+        private readonly MainModel dataRecord;
+
+        public BaseMainModel(MainModel dataRecord)
         {
             this.dataRecord = dataRecord;
         }
+
     }
 }

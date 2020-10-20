@@ -7,7 +7,6 @@ using Medusa.Analyze1553B.UI.Views;
 using Medusa.Analyze1553B.UIServices;
 using Medusa.Analyze1553B.VM;
 using Medusa.Analyze1553B.VMServices;
-using Olympus.Translation;
 
 namespace Medusa.Analyze1553B.UI
 {

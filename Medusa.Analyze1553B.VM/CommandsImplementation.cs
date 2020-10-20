@@ -1,5 +1,6 @@
-﻿using Medusa.Analyze1553B.Common;
+﻿using DynamicData;
 using Medusa.Analyze1553B.VM.ViewModels;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,11 +22,11 @@ namespace Medusa.Analyze1553B.VM
                     string path = reader.ReadToEnd();
                     if (File.Exists(path))
                     {
-                        vmObject.SelectedViewModel.DataRecords.Clear();
+                        vmObject.SelectedViewModel.MainModels.Clear();
 
                         var rawData = dataService.GetData(path, vmObject.SelectedViewModel);
 
-                        //vmObject.SelectedViewModel.DataRecords.AddRange(rawData);
+                        //vmObject.SelectedViewModel.MainModels.AddRange(rawData);
                         _ = FactorialAsync(vmObject,rawData);
                     }
                 }
@@ -39,7 +40,7 @@ namespace Medusa.Analyze1553B.VM
 
         //TODO
         // определение асинхронного метода
-        static async Task FactorialAsync(IVmObject vmObject,DataRecord[] rawData)
+        static async Task FactorialAsync(IVmObject vmObject, MainModel[] rawData)
         {
             if (rawData.Length > 1000)
             {
@@ -47,16 +48,16 @@ namespace Medusa.Analyze1553B.VM
                 int count = 15;
                 for (int i = 0; i < count; i++)
                 {
-                    ArraySegment<DataRecord> firstRecords = new ArraySegment<DataRecord>(rawData, i * offset, offset);
-                    vmObject.SelectedViewModel.DataRecords.AddRange(firstRecords);
+                    ArraySegment<MainModel> firstRecords = new ArraySegment<MainModel>(rawData, i * offset, offset);
+                    vmObject.SelectedViewModel.MainModels.AddRange(firstRecords);
                     await Task.Delay(1);
                 }
-                ArraySegment<DataRecord> lastRecords = new ArraySegment<DataRecord>(rawData, offset*count, rawData.Length-offset*count);
-                vmObject.SelectedViewModel.DataRecords.AddRange(lastRecords);
+                ArraySegment<MainModel> lastRecords = new ArraySegment<MainModel>(rawData, offset*count, rawData.Length-offset*count);
+                vmObject.SelectedViewModel.MainModels.AddRange(lastRecords);
             }
             else
             {
-                vmObject.SelectedViewModel.DataRecords.AddRange(rawData);
+                vmObject.SelectedViewModel.MainModels.AddRange(rawData);
             }
         }
         //TODO
@@ -94,7 +95,7 @@ namespace Medusa.Analyze1553B.VM
                     }
                     if (!IsRepeat)
                     {
-                        vmObject.SelectedViewModel.Items.Add(new Item(vmObject.SelectedViewModel.DataRecords,node));
+                        vmObject.SelectedViewModel.Items.Add(new Item(vmObject.SelectedViewModel.MainModels,node));
                     }
                 }
 

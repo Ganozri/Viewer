@@ -16,10 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Medusa.Analyze1553B.Loader.BMD\Medusa.Analyze1553B.Loader.BMD.csproj" />
-    <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Medusa.Analyze1553B.UIServices.csproj" />
-    <ProjectReference Include="..\Medusa.Analyze1553B.VMServices\Medusa.Analyze1553B.VMServices.csproj" />
-    <ProjectReference Include="..\Parsers\Parsers.fsproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.UIServices\Viewer.UIServices.csproj" />
+    <ProjectReference Include="..\Medusa.Analyze1553B.VMServices\Viewer.VMServices.csproj" />
+    <ProjectReference Include="..\Model\ViewerModel.csproj" />
   </ItemGroup>
 
 </Project>

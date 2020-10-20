@@ -1,12 +1,12 @@
-﻿using Medusa.Analyze1553B.Common;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Medusa.Analyze1553B.VM
 {
-    public interface IDataRecord
+    public interface IMainModel
     {
-        DataRecord DataRecord { get; set; }
+        MainModel MainModel { get; set; }
     }
 }

@@ -19,7 +19,6 @@ using System.Net.Sockets;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using Medusa.Analyze1553B.Common;
 using System.Threading;
 using System.Diagnostics;
 using System.Reflection;

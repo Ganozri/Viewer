@@ -1,7 +1,5 @@
-﻿using Medusa.Analyze1553B.Common;
-using Medusa.Analyze1553B.UIServices;
-using Olympus.Translation;
-using Parsers;
+﻿using Medusa.Analyze1553B.UIServices;
+using Model;
 using System;
 using System.IO;
 using System.Linq;
@@ -16,54 +14,64 @@ namespace Medusa.Analyze1553B.VMServices
         {
             this.dialogService = dialogService; 
         }
-
-        public DataRecord[] GetData(string path,object viewModel)
+        
+        public MainModel[] GetData(string path,object viewModel)
         {
             var words = viewModel.ToString().Split('.');
             var name = words[words.Length - 1];
 
             return name switch
             {
-                "FirstViewModel" => GetDataByBMDLoader(path),
-                "SecondViewModel" => GetDataByParser1553MT(path),
+                "FirstViewModel" => GetDataByFirstParser(path),
+                "SecondViewModel" => GetDataBySecondParser(path),
                 _ => null,
             };
         }
+        static MainModel[] GetRandomMainModelsForTest()
+        {
+            MainModel[] mainModels = new MainModel[100];
+            Random rnd = new Random();
 
+            for (int i = 0; i < 100; i++)
+            {
+                mainModels[i] = new MainModel();
+            }
+
+            return mainModels;
+        }
+        public MainModel[] GetDataByFirstParser(string path)
+        {
+            return BaseGetData(GetRandomMainModelsForTest());
+        }
+        //public MainModel[] GetDataByParser1553MT(string path)
+        //{
+        //    return BaseGetData(FirstParser.GetDataByPath(path));
+        //}
+        public MainModel[] GetDataBySecondParser(string path)
+        {
+            return BaseGetData(GetRandomMainModelsForTest());
+        }
+        //public MainModel[] GetDataByParser1553MT(string path)
+        //{
+        //    return BaseGetData(SecondParser.GetDataByPath(path));
+        //}
         public object GetData(string path)
         {
             return this;
         }
 
-        public DataRecord[] GetDataByParser1553MT(string path)
+        public MainModel[] BaseGetData(MainModel[] rawData)
         {
-            return BaseGetData(Parser1553MT.GetDataByPath(path));
-        }
-
-        public DataRecord[] GetDataByParserRT01(string path)
-        {
-            return BaseGetData(ParserRT01.GetDataByPath(path));
-        }
-
-        public DataRecord[] GetDataByBMDLoader(string path)
-        {
-            return BaseGetData(new Loader.BMD.Loader(new TranslationRepository())
-                               .ReadStream(File.OpenRead(path))
-                               .ToArray());
-        }
-
-        public DataRecord[] BaseGetData(DataRecord[] rawData)
-        {
-            DataRecord[] DataRecords = new DataRecord[0];
+            MainModel[] MainModels = new MainModel[0];
             try
             {
-                DataRecords = rawData;
+                MainModels = rawData;
             }
             catch (Exception ex)
             {
                 dialogService.ShowMessage(ex.ToString());
             }
-            return DataRecords;
+            return MainModels;
         }
 
         private static Stream GenerateStreamFromString(string s)
