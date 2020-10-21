@@ -1,12 +1,12 @@
 ﻿
 using System.Collections.ObjectModel;
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VMServices;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VMServices;
 using ReactiveUI.Fody.Helpers;
 using DynamicData.Binding;
 using Model;
 
-namespace Medusa.Analyze1553B.VM.ViewModels
+namespace Program.ByteSumCountingProgram.VM.ViewModels
 {
     public class FirstViewModel : CommonViewModelClass, IPageViewModel
     {

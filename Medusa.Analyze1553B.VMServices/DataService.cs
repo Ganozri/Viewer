@@ -1,11 +1,11 @@
-﻿using Medusa.Analyze1553B.UIServices;
+﻿using Program.ByteSumCountingProgram.UIServices;
 using Model;
 using System;
 using System.IO;
 using System.Linq;
 
 
-namespace Medusa.Analyze1553B.VMServices
+namespace Program.ByteSumCountingProgram.VMServices
 {
     public class DataService : IDataService
     {

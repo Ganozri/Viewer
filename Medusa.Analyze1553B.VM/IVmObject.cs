@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 
 
-namespace Medusa.Analyze1553B.VM
+namespace Program.ByteSumCountingProgram.VM
 {
     public interface IVmObject
     {

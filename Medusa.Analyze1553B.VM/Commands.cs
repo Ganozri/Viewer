@@ -9,12 +9,12 @@ using System.Xml.Schema;
 using System.Xml.Linq;
 using System.IO;
 using ReactiveUI;
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VMServices;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VMServices;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using Medusa.Analyze1553B.VM;
+using Program.ByteSumCountingProgram.VM;
 using System.Net.Sockets;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
@@ -23,7 +23,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Medusa.Analyze1553B.VM
+namespace Program.ByteSumCountingProgram.VM
 {
     public partial class Commands
     {

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using Medusa.Analyze1553B.DI;
-using Medusa.Analyze1553B.UI;
-using Medusa.Analyze1553B.UI.Views;
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VM;
-using Medusa.Analyze1553B.VMServices;
+using Program.ByteSumCountingProgram.DI;
+using Program.ByteSumCountingProgram.UI;
+using Program.ByteSumCountingProgram.UI.Views;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VM;
+using Program.ByteSumCountingProgram.VMServices;
 
-namespace Medusa.Analyze1553B.UI
+namespace Program.ByteSumCountingProgram.UI
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

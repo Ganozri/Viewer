@@ -1,10 +1,10 @@
 ﻿using DynamicData.Binding;
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VMServices;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VMServices;
 using Model;
 using System.Collections.ObjectModel;
 
-namespace Medusa.Analyze1553B.VM
+namespace Program.ByteSumCountingProgram.VM
 {
     public interface IPageViewModel 
     {

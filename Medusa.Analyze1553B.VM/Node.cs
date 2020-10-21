@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
 
-namespace Medusa.Analyze1553B.VM
+namespace Program.ByteSumCountingProgram.VM
 {
     public class Node
     {

@@ -1,8 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VM;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VM;
 using System;
 using System.Collections;
 using System.Globalization;
@@ -15,7 +15,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using SynchronizationContext = System.Threading.SynchronizationContext;
 
-namespace Medusa.Analyze1553B.UI
+namespace Program.ByteSumCountingProgram.UI
 {
     /// <summary> 
     /// Логика взаимодействия для MainWindow.xaml

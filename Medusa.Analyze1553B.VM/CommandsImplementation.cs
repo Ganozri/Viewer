@@ -1,5 +1,5 @@
 ﻿using DynamicData;
-using Medusa.Analyze1553B.VM.ViewModels;
+using Program.ByteSumCountingProgram.VM.ViewModels;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Medusa.Analyze1553B.VM
+namespace Program.ByteSumCountingProgram.VM
 {
     public partial class Commands
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using StructureMap;
 
-namespace Medusa.Analyze1553B.DI
+namespace Program.ByteSumCountingProgram.DI
 {
     public class TypeResolver
     {

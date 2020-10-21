@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Medusa.Analyze1553B.UIServices
+namespace Program.ByteSumCountingProgram.UIServices
 {
     public interface IDialogService
     {

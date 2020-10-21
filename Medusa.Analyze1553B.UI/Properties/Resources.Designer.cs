@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Medusa.Analyze1553B.UI.Properties {
+namespace Program.ByteSumCountingProgram.UI.Properties {
     using System;
     
     

@@ -2,17 +2,17 @@
 using System.Threading;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VMServices;
-using Medusa.Analyze1553B.VM;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VMServices;
+using Program.ByteSumCountingProgram.VM;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Medusa.Analyze1553B.VM.ViewModels;
+using Program.ByteSumCountingProgram.VM.ViewModels;
 using StructureMap.Graph.Scanning;
 using System.Reflection;
 
-namespace Medusa.Analyze1553B.VM
+namespace Program.ByteSumCountingProgram.VM
 {
     public class StartVmObject : ReactiveObject, IVmObject
     {

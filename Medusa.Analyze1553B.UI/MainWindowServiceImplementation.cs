@@ -1,8 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Medusa.Analyze1553B.UI.Views;
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VM;
+using Program.ByteSumCountingProgram.UI.Views;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VM;
 using StructureMap.TypeRules;
 using System;
 using System.IO;
@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Medusa.Analyze1553B.UI
+namespace Program.ByteSumCountingProgram.UI
 {
     //Расширение для удобного добавления элементов в DataGrid
     //Grid grid = new Grid();

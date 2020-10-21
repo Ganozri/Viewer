@@ -2,7 +2,7 @@
 using System.Threading;
 
 
-namespace Medusa.Analyze1553B.UIServices
+namespace Program.ByteSumCountingProgram.UIServices
 {
     public interface ISynchronizationContextProvider
     {

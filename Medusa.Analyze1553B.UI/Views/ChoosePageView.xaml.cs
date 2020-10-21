@@ -1,10 +1,10 @@
 ﻿using MahApps.Metro.Controls;
-using Medusa.Analyze1553B.UIServices;
-using Medusa.Analyze1553B.VMServices;
-using Medusa.Analyze1553B.VM;
+using Program.ByteSumCountingProgram.UIServices;
+using Program.ByteSumCountingProgram.VMServices;
+using Program.ByteSumCountingProgram.VM;
 using SynchronizationContext = System.Threading.SynchronizationContext;
 
-namespace Medusa.Analyze1553B.UI.Views
+namespace Program.ByteSumCountingProgram.UI.Views
 {
     /// <summary>
     /// Interaction logic for ChoosePageView.xaml

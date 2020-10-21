@@ -1,7 +1,7 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
 
-using Medusa.Analyze1553B.VM.ViewModels;
+using Program.ByteSumCountingProgram.VM.ViewModels;
 using Model;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -11,7 +11,7 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 
-namespace Medusa.Analyze1553B.VM
+namespace Program.ByteSumCountingProgram.VM
 {
     public sealed class Item
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Medusa.Analyze1553B.VMServices
+namespace Program.ByteSumCountingProgram.VMServices
 {
     public interface IDataService
     {
